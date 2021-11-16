@@ -1,0 +1,160 @@
+---
+title: "Biological control of important fungal diseases of potato and raspberry by two *Bacillus velezensis* strains"
+author: "Lourdes Arellano, Antonia Fernandes, Juliana Cajiao and Rosario Heribia"
+date: "2/11/2021"
+output: html_document
+---
+## Objectives
+
+Demonstrate the potential effect of *B. velezensis* strains  against *R. solani* as a biological control, and a potential increasement in the plant growth of potato. 
+
+## Hypothesis
+
+*B. velezensis* strains can be used as biological control agents against *R. solani*, and increase significantly the plant growth of potato. 
+
+## Analysis 
+
+Comparation between ANOVA and Duncan test in this three data sets: 
+
+&nbsp;
+
+**1) Antifungal activity of B. velezensis against *R solani* in vitro.** 
+
+
+Strains:
+
+1. *Bacillus velezensis* strain BZR 336 g
+
+2. *Bacillus velezensis* strain BZR 517
+
+3. Control 
+
+
+Treatments:
+ 
+1. 10^4 CFU/mL
+  
+2. 10^5 CFU/mL
+  
+3. 10^6 CFU/mL
+  
+4. Control.
+
+###### CFU: Colony-Forming Unit
+
+
+Days:
+
+* 3
+
+* 5
+
+* 7 
+
+Variables: 
+
+* Colony Diameter (cm)
+
+
+&nbsp;
+
+**2) Effect of *B. velezensis* strains on disease incidence and severity and morphometric parameters caused by *R. solani* on two potato cultivars differed by disease resistance during 2015 and 2016 growing seasons in Western Siberia**
+
+
+Cultivars:
+
+1. Svitanok kievskiy 
+
+2. Yuna
+
+
+Years:
+
+* 2015
+
+* 2016
+
+
+Treatments:
+
+1. Control
+
+2. BZR 336g 
+
+3. BZR 517
+
+
+Weeks after planting:
+
+* 4
+
+* 6
+
+* 10
+
+
+Variables: (5 rep/treatment)
+
+1. Disease incidence % 
+
+2. Disease severity
+
+3. Plant height (cm) 
+
+4. Number of stems per plant
+
+
+&nbsp;
+
+**3) Effect of *B. velezens* strains on the biomass distribution of daughter tubers of two potato cultivars differed by disease resistance to *R. solani* and total yield during 2015 and 2016 growing seasons in Western Siberia.**
+
+
+Cultivars:
+
+1. Svitanok kievskiy 
+
+2. Yuna
+
+
+Years: 
+
+* 2015
+
+* 2016
+
+
+Treatments:
+
+1. Control 
+
+2. BZR 336g
+
+3. BZR 517
+
+
+Fractions:
+
+* Small
+
+* Medium
+
+* Large 
+
+
+Variables: (5 rep/treatment)
+
+1. Biomass distribution 
+
+2. Yield (t/ha)
+
+
+**Article:**  <https://peerj.com/articles/11578/#>
+
+**Data:**
+<https://dfzljdn9uc3pi.cloudfront.net/2021/11578/1/peerj-55829-Raw_data.xls>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
