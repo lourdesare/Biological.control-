@@ -5,6 +5,7 @@ dir("data")
 library(readxl)
 #AntagonisticActivity <- read_excel("data/peerj-55829-Raw_data.xls")
 
+#Open sheets with ranges 
 AntagonisticActivity <-
   read_excel("data/peerj-55829-Raw_data.xls",
              sheet = "Antagonistic activity",
@@ -18,4 +19,13 @@ BiomassDistribution <- read_excel("data/peerj-55829-Raw_data.xls",sheet = "bioma
 YieldOfPotato <- read_excel("data/peerj-55829-Raw_data.xls",
                             sheet = "yield of potato",
                             range = "B3:I15")
+#Fill 
+library(tidyr)
+library(dplyr)
+AntagonisticActivity <- AntagonisticActivity %>% fill(everything(), .direction = "down")
+BiomassDistribution <- BiomassDistribution %>% fill(everything(), .direction = "down")
+DiseaseIncidenceAndSeverity <- DiseaseIncidenceAndSeverity %>% fill(everything(), .direction = "down")
+MorphometricCharactOfPotato <- MorphometricCharactOfPotato %>% fill(everything(), .direction = "down")
+YieldOfPotato <- YieldOfPotato %>% fill(everything(), .direction = "down")
+
 
