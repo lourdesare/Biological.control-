@@ -35,3 +35,56 @@ names(AntagonisticActivity)[names(AntagonisticActivity) == 'CFU/ml'] <- "Concent
 
 #Pivot longer 
 AntagonisticActivity <- pivot_longer(AntagonisticActivity,cols= c("3d", "5d", "7d"), names_to="Days", values_to="Colony.Diameter")
+
+#change potencia
+AntagonisticActivity$Concentration
+a <- as.numeric(substr(AntagonisticActivity$Concentration, 1, 2))
+b <- as.numeric(substr(AntagonisticActivity$Concentration, 3, 3))
+a^b
+AntagonisticActivity$Concentration <- a^b
+rm(a,b)
+
+#Join data frame 
+library(dplyr)
+Data.Cultivars <- full_join(MorphometricCharactOfPotato, DiseaseIncidenceAndSeverity, by = c("Cultivar","Year", "Treatment","Weeks after planting"))
+
+#Rename 
+library(dplyr)
+names(Data.Cultivars)[names(Data.Cultivars) == 'Plant height, cm'] <- "1"
+names(Data.Cultivars)[names(Data.Cultivars) == '...6.x'] <- "2"
+names(Data.Cultivars)[names(Data.Cultivars) == '...7.x'] <- "3"
+names(Data.Cultivars)[names(Data.Cultivars) == '...8.x'] <- "4"
+names(Data.Cultivars)[names(Data.Cultivars) == '...9.x'] <- "5"
+#Pivot longer 
+Data.Cultivars <- pivot_longer(Data.Cultivars,cols= c("1", "2", "3","4","5"), names_to="Rep", values_to="Plant.Height")
+
+#Create empty new columns 
+Data.Cultivars$Disease.Incidence <- NA
+Data.Cultivars$Disease.Severity <- NA
+Data.Cultivars$Stems <- NA
+
+#Add data to the columns 
+variables <- c("Disease incidence, %","...6.y","...7.y","...8.y","...9.y")
+for (i in 1:5) {
+  A <- Data.Cultivars$Rep==i
+  Data.Cultivars$Disease.Incidence[A] <- Data.Cultivars[[variables[i]]][A]
+}
+
+Data.Cultivars$Stems <- NA
+variables1 <- c("The number of stems per plant","...11.x","...12.x","...13.x","...14.x")
+for (i in 1:5) {
+  A1 <- Data.Cultivars$Rep==i
+  Data.Cultivars$Stems[A1] <- Data.Cultivars[[variables1[i]]][A1]
+}
+
+Data.Cultivars$Disease.Severity <- NA
+variables1 <- c("Disease severity, %","...11.y","...12.y","...13.y","...14.y")
+for (i in 1:5) {
+  A2 <- Data.Cultivars$Rep==i
+  Data.Cultivars$Disease.Severity[A2] <- Data.Cultivars[[variables1[i]]][A2]
+}
+
+
+#dataframe with variables that I need 
+namesdatacultivar <- c("Cultivar","Treatment","Year","Weeks after planting", "Rep","Plant.Height","Disease.Incidence","Disease.Severity","Stems")           
+Data.Cultivars.Final <- Data.Cultivars [which(names(Data.Cultivars) %in% namesdatacultivar)]
