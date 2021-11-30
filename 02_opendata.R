@@ -28,4 +28,10 @@ DiseaseIncidenceAndSeverity <- DiseaseIncidenceAndSeverity %>% fill(everything()
 MorphometricCharactOfPotato <- MorphometricCharactOfPotato %>% fill(everything(), .direction = "down")
 YieldOfPotato <- YieldOfPotato %>% fill(everything(), .direction = "down")
 
+#Rename 
+library(dplyr)
+names(AntagonisticActivity)[names(AntagonisticActivity) == 'strain'] <- "Strain"
+names(AntagonisticActivity)[names(AntagonisticActivity) == 'CFU/ml'] <- "Concentration"
 
+#Pivot longer 
+AntagonisticActivity <- pivot_longer(AntagonisticActivity,cols= c("3d", "5d", "7d"), names_to="Days", values_to="Colony.Diameter")
