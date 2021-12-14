@@ -54,7 +54,13 @@ ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Stems, fill=Treatme
 
 ########### DUNCAN TEST
 
+d1 <- Data.Cultivars.Final[Data.Cultivars.Final$Year==year & Data.Cultivars.Final$`Weeks after planting`==week, ]
+
 ## Plant Height
+
+model <- aov(Plant.Height~Treatment, data=d1)
+summary(model)
+DT <- duncan.test(model, "Treatment", console = TRUE)
 
 for (i in 2015:2016) { 
   for(j in levels(Data.Cultivars.Final$`Weeks after planting`)) {
@@ -63,6 +69,33 @@ for (i in 2015:2016) {
   source("duncan.R")}
 }
 
+
+## Disease Incidence
+
+for (i in 2015:2016) { 
+  for(j in levels(Data.Cultivars.Final$`Weeks after planting`)) {
+    year <- i
+    week <- j
+    source("duncan.R")}
+}
+
+## Disease Severity
+
+for (i in 2015:2016) { 
+  for(j in levels(Data.Cultivars.Final$`Weeks after planting`)) {
+    year <- i
+    week <- j
+    source("duncan.R")}
+}
+
+## Stems
+
+for (i in 2015:2016) { 
+  for(j in levels(Data.Cultivars.Final$`Weeks after planting`)) {
+    year <- i
+    week <- j
+    source("duncan.R")}
+}
 
 
 
