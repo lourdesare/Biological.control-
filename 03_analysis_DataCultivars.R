@@ -64,3 +64,13 @@ for (i in 2015:2016) {
 }
 
 
+## Disease Incidence
+
+for (i in 2015:2016) { 
+  for(j in levels(Data.Cultivars.Final$`Weeks after planting`)) {
+    year <- i
+    week <- j
+    source("duncan.R")}
+}
+
+
