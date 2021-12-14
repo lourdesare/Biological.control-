@@ -4,30 +4,27 @@ library(agricolae)
 
 ### DUCAN TEST
 
+duncan(y, trt, DFerror, SSerror, alpha = 0.05, group = TRUE, main = NULL)
+
 # Plant Height
-model<-aov(Plant.Height~Treatment,data=Data.Cultivars.Final)
-out <- duncan.test(model,"Treatment", 
-                   main="Plant Height")
-plot(out,variation="IQR")
-out
+model<-aov(Plant.Height~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final)
+summary(model)
 
-# Disease Incidence
-model<-aov(Disease.Incidence~Treatment,data=Data.Cultivars.Final)
-out <- duncan.test(model,"Treatment", 
-                   main="Disease Incidence")
-plot(out,variation="IQR")
-out
+Data.Cultivars.Final$`Weeks after planting` <- factor(Data.Cultivars.Final$`Weeks after planting`)
 
-# Disease Severity
-model<-aov(Disease.Severity~Treatment,data=Data.Cultivars.Final)
-out <- duncan.test(model,"Treatment", 
-                   main="Disease Severity")
-plot(out,variation="IQR")
-out
+library(ggplot2)
+ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Plant.Height, fill=Treatment))+
+  geom_boxplot()+
+  facet_grid(.~Year)+
+  theme_light()
 
-# Stems
-model<-aov(Stems~Treatment,data=Data.Cultivars.Final)
-out <- duncan.test(model,"Treatment", 
-                   main="Stems")
-plot(out,variation="IQR")
-out
+
+
+
+
+
+## ANOVA TEST
+
+
+
+## NORMALITY OF RESIDUALS
