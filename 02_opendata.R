@@ -88,3 +88,34 @@ for (i in 1:5) {
 #dataframe with variables that I need 
 namesdatacultivar <- c("Cultivar","Treatment","Year","Weeks after planting", "Rep","Plant.Height","Disease.Incidence","Disease.Severity","Stems")           
 Data.Cultivars.Final <- Data.Cultivars [which(names(Data.Cultivars) %in% namesdatacultivar)]
+
+#Yieldofpotato 
+#Rename 
+library(dplyr)
+names(YieldOfPotato)[names(YieldOfPotato) == 'Yield, t ha-1'] <- "1"
+names(YieldOfPotato)[names(YieldOfPotato) == '...5'] <- "2"
+names(YieldOfPotato)[names(YieldOfPotato) == '...6'] <- "3"
+names(YieldOfPotato)[names(YieldOfPotato) == '...7'] <- "4"
+names(YieldOfPotato)[names(YieldOfPotato) == '...8'] <- "5"
+#Pivot longer 
+YieldOfPotato <- pivot_longer(YieldOfPotato,cols= c("1", "2", "3","4","5"), names_to="Rep", values_to="Yield.Potato")
+
+#BiomassDistribution
+#Rename 
+library(dplyr)
+names(BiomassDistribution)[names(BiomassDistribution) == 'Biomass distribution by fractions, %'] <- "1"
+names(BiomassDistribution)[names(BiomassDistribution) == '...6'] <- "2"
+names(BiomassDistribution)[names(BiomassDistribution) == '...7'] <- "3"
+names(BiomassDistribution)[names(BiomassDistribution) == '...8'] <- "4"
+names(BiomassDistribution)[names(BiomassDistribution) == '...9'] <- "5"
+#Pivot longer 
+BiomassDistribution <- pivot_longer(BiomassDistribution,cols= c("1", "2", "3","4","5"), names_to="Rep", values_to="Percentage.Biomass")
+
+#create a sheet for medium fraction
+medium.fraction <- BiomassDistribution[BiomassDistribution$Fractions=="medium",]
+
+#join sheets of yield and medium fraction
+names(YieldOfPotato)[names(YieldOfPotato) == 'Bacillus strain'] <- "Treatment"
+YieldOfPotato <- full_join(YieldOfPotato,medium.fraction)
+YieldOfPotato <- YieldOfPotato[,-which(names(YieldOfPotato)=="Fractions")]
+
