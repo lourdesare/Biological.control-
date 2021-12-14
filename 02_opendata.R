@@ -119,3 +119,6 @@ names(YieldOfPotato)[names(YieldOfPotato) == 'Bacillus strain'] <- "Treatment"
 YieldOfPotato <- full_join(YieldOfPotato,medium.fraction)
 YieldOfPotato <- YieldOfPotato[,-which(names(YieldOfPotato)=="Fractions")]
 
+#remove sheets
+ls()
+rm("A","A1", "A2", "BiomassDistribution","Data.Cultivars","DiseaseIncidenceAndSeverity","medium.fraction","MorphometricCharactOfPotato")
