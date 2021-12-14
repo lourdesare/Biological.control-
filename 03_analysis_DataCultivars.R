@@ -64,8 +64,6 @@ for (i in 2015:2016) {
 }
 
 
-## Disease Incidence
-
 
 
 
