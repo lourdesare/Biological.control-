@@ -121,4 +121,5 @@ YieldOfPotato <- YieldOfPotato[,-which(names(YieldOfPotato)=="Fractions")]
 
 #remove sheets
 ls()
-rm("BiomassDistribution","Data.Cultivars","DiseaseIncidenceAndSeverity","medium.fraction","MorphometricCharactOfPotato")
+rm("Data.Cultivars","DiseaseIncidenceAndSeverity","medium.fraction","MorphometricCharactOfPotato")
+
