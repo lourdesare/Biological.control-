@@ -1,5 +1,3 @@
-
-
 #Duncan Yield 2015 Svitanok kievskiy
 YieldOfPotato$Cultivar <- factor(YieldOfPotato$Cultivar)
 Con <- YieldOfPotato$Cultivar == "Svitanok kievskiy" & YieldOfPotato$Year==2015
@@ -42,20 +40,23 @@ model<-aov(Yield.Potato~Treatment,data=d2345)
 out <- duncan.test(model,"Treatment", 
                    main="Yield of potato")
 plot(out,variation="IQR")
-out
+
+########### DUNCAN TEST
+
+
+
 #graph yield
-graphyield <- ggerrorplot(YieldOfPotato, x = "Cultivar", y = "Yield.Potato",
+yield <- ggerrorplot(YieldOfPotato, x = "Cultivar", y = "Yield.Potato",
                      color = "Treatment", palette = "Paired", 
                      error.plot = "pointrange",
                      position = position_dodge(0.5),xlab = ("Cultivars"), ylab = ("Yield of potato (t/ha)"))+
   facet_grid(.~Year)+
   theme_light()
-graphyield
+yield
 
 
-#join two graphs 
-graphs <- plot_grid(
-  dp + theme(legend.position="none"), dens + theme(legend.position="bottom"),
-  labels = "AUTO", ncol = 1
-)
-graphs
+
+
+
+
+
