@@ -208,7 +208,7 @@ ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Severity, f
 ## Stems
 
 ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Stems, fill=Treatment))+
-  geom_boxplot()+
+  geom_boxplot()+ 
   facet_grid(Cultivar~Year)+
   theme_light()+
   geom_text(data = LettersST,
