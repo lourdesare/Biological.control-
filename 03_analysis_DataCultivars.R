@@ -132,6 +132,7 @@ ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Plant.Height, fill=
                           label = letra),
             position = position_dodge(0.9))
             
+hashahusdhuashdau
 
 # Disease Incidence
 
