@@ -1,4 +1,4 @@
-# Analysis Biomass.Distribution duncan
+#Analysis Biomass.Distribution duncan
 
 Y <- W <- Tr <- L <- C <- M <- numeric()
 
@@ -39,10 +39,12 @@ plotbiomass <- ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Bioma
             mapping = aes(x = Fractions,
                           y = MeanBiomass+7,
                           label = letra),
-            position = position_dodge(0.9))
+            position = position_dodge(0.9))+
+  labs(caption = "Figure No. 1 Percentage of Biomass of potato") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
 plotbiomass 
-print(plotbiomass + labs(y="Percentage of Biomass", x = "Fractions"),
-      labs(caption = "Figure No. 1 Percentage of Biomass of potato") +
-        theme(plot.caption.position = "plot",
-              plot.caption = element_text(hjust = 0)))
+
+
+
   

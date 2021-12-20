@@ -2,7 +2,9 @@
 title: "Biological control of important fungal diseases of potato and raspberry by two *Bacillus velezensis* strains"
 author: "Lourdes Arellano, Antonia Fernandes, Juliana Cajiao and Rosario Heribia"
 date: "2/11/2021"
-output: html_document
+output:
+  html_document:
+    code_folding: hide
 ---
 ## Objectives
 
@@ -12,6 +14,141 @@ Demonstrate the potential effect of *B. velezensis* strains  against *R. solani*
 
 *B. velezensis* strains can be used as biological control agents against *R. solani*, and increase significantly the plant growth of potato. 
 
+##Dowload Data 
+```{r}
+if(!dir.exists("data")) dir.create("data")
+download.file("https://dfzljdn9uc3pi.cloudfront.net/2021/11578/1/peerj-55829-Raw_data.xls",
+              "data/rawdata.xls")
+```
+
+##Open and Arrange Data 
+```{r}
+library(readxl)
+readxl::excel_sheets("data/peerj-55829-Raw_data.xls")
+dir("data")
+#dir("C:\Users\lsare\Desktop\Plant Health\Estadistica\Biologicalcontrol\data\")
+library(readxl)
+#AntagonisticActivity <- read_excel("data/peerj-55829-Raw_data.xls")
+
+#Open sheets with ranges 
+AntagonisticActivity <-
+  read_excel("data/peerj-55829-Raw_data.xls",
+             sheet = "Antagonistic activity",
+             range = "A3:E38")
+DiseaseIncidenceAndSeverity <- read_excel("data/peerj-55829-Raw_data.xls",
+                                          sheet = "disease incidence and severity",
+                                          range = "A4:N40")
+MorphometricCharactOfPotato <- read_excel("data/peerj-55829-Raw_data.xls",
+                                          sheet = "morphometric charact of potato",)
+BiomassDistribution <- read_excel("data/peerj-55829-Raw_data.xls",sheet = "biomass distribution")
+YieldOfPotato <- read_excel("data/peerj-55829-Raw_data.xls",
+                            sheet = "yield of potato",
+                            range = "B3:I15")
+#Fill 
+library(tidyr)
+library(dplyr)
+AntagonisticActivity <- AntagonisticActivity %>% fill(everything(), .direction = "down")
+BiomassDistribution <- BiomassDistribution %>% fill(everything(), .direction = "down")
+DiseaseIncidenceAndSeverity <- DiseaseIncidenceAndSeverity %>% fill(everything(), .direction = "down")
+MorphometricCharactOfPotato <- MorphometricCharactOfPotato %>% fill(everything(), .direction = "down")
+YieldOfPotato <- YieldOfPotato %>% fill(everything(), .direction = "down")
+
+#Rename 
+library(dplyr)
+names(AntagonisticActivity)[names(AntagonisticActivity) == 'strain'] <- "Strain"
+names(AntagonisticActivity)[names(AntagonisticActivity) == 'CFU/ml'] <- "Concentration"
+
+#Pivot longer 
+AntagonisticActivity <- pivot_longer(AntagonisticActivity,cols= c("3d", "5d", "7d"), names_to="Days", values_to="Colony.Diameter")
+
+#change potencia
+AntagonisticActivity$Concentration
+a <- as.numeric(substr(AntagonisticActivity$Concentration, 1, 2))
+b <- as.numeric(substr(AntagonisticActivity$Concentration, 3, 3))
+a^b
+AntagonisticActivity$Concentration <- a^b
+rm(a,b)
+
+#Join data frame 
+library(dplyr)
+Data.Cultivars <- full_join(MorphometricCharactOfPotato, DiseaseIncidenceAndSeverity, by = c("Cultivar","Year", "Treatment","Weeks after planting"))
+
+#Rename 
+library(dplyr)
+names(Data.Cultivars)[names(Data.Cultivars) == 'Plant height, cm'] <- "1"
+names(Data.Cultivars)[names(Data.Cultivars) == '...6.x'] <- "2"
+names(Data.Cultivars)[names(Data.Cultivars) == '...7.x'] <- "3"
+names(Data.Cultivars)[names(Data.Cultivars) == '...8.x'] <- "4"
+names(Data.Cultivars)[names(Data.Cultivars) == '...9.x'] <- "5"
+#Pivot longer 
+Data.Cultivars <- pivot_longer(Data.Cultivars,cols= c("1", "2", "3","4","5"), names_to="Rep", values_to="Plant.Height")
+
+#Create empty new columns 
+Data.Cultivars$Disease.Incidence <- NA
+Data.Cultivars$Disease.Severity <- NA
+Data.Cultivars$Stems <- NA
+
+#Add data to the columns 
+variables <- c("Disease incidence, %","...6.y","...7.y","...8.y","...9.y")
+for (i in 1:5) {
+  A <- Data.Cultivars$Rep==i
+  Data.Cultivars$Disease.Incidence[A] <- Data.Cultivars[[variables[i]]][A]
+}
+
+Data.Cultivars$Stems <- NA
+variables1 <- c("The number of stems per plant","...11.x","...12.x","...13.x","...14.x")
+for (i in 1:5) {
+  A1 <- Data.Cultivars$Rep==i
+  Data.Cultivars$Stems[A1] <- Data.Cultivars[[variables1[i]]][A1]
+}
+
+Data.Cultivars$Disease.Severity <- NA
+variables1 <- c("Disease severity, %","...11.y","...12.y","...13.y","...14.y")
+for (i in 1:5) {
+  A2 <- Data.Cultivars$Rep==i
+  Data.Cultivars$Disease.Severity[A2] <- Data.Cultivars[[variables1[i]]][A2]
+}
+
+
+#dataframe with variables that I need 
+namesdatacultivar <- c("Cultivar","Treatment","Year","Weeks after planting", "Rep","Plant.Height","Disease.Incidence","Disease.Severity","Stems")           
+Data.Cultivars.Final <- Data.Cultivars [which(names(Data.Cultivars) %in% namesdatacultivar)]
+
+#Yieldofpotato 
+#Rename 
+library(dplyr)
+names(YieldOfPotato)[names(YieldOfPotato) == 'Yield, t ha-1'] <- "1"
+names(YieldOfPotato)[names(YieldOfPotato) == '...5'] <- "2"
+names(YieldOfPotato)[names(YieldOfPotato) == '...6'] <- "3"
+names(YieldOfPotato)[names(YieldOfPotato) == '...7'] <- "4"
+names(YieldOfPotato)[names(YieldOfPotato) == '...8'] <- "5"
+#Pivot longer 
+YieldOfPotato <- pivot_longer(YieldOfPotato,cols= c("1", "2", "3","4","5"), names_to="Rep", values_to="Yield.Potato")
+
+#BiomassDistribution
+#Rename 
+library(dplyr)
+names(BiomassDistribution)[names(BiomassDistribution) == 'Biomass distribution by fractions, %'] <- "1"
+names(BiomassDistribution)[names(BiomassDistribution) == '...6'] <- "2"
+names(BiomassDistribution)[names(BiomassDistribution) == '...7'] <- "3"
+names(BiomassDistribution)[names(BiomassDistribution) == '...8'] <- "4"
+names(BiomassDistribution)[names(BiomassDistribution) == '...9'] <- "5"
+#Pivot longer 
+BiomassDistribution <- pivot_longer(BiomassDistribution,cols= c("1", "2", "3","4","5"), names_to="Rep", values_to="Percentage.Biomass")
+
+#create a sheet for medium fraction
+medium.fraction <- BiomassDistribution[BiomassDistribution$Fractions=="medium",]
+
+#join sheets of yield and medium fraction
+names(YieldOfPotato)[names(YieldOfPotato) == 'Bacillus strain'] <- "Treatment"
+YieldOfPotato <- full_join(YieldOfPotato,medium.fraction)
+YieldOfPotato <- YieldOfPotato[,-which(names(YieldOfPotato)=="Fractions")]
+
+#remove sheets
+ls()
+rm("Data.Cultivars","DiseaseIncidenceAndSeverity","medium.fraction","MorphometricCharactOfPotato")
+
+```
 ## Analysis 
 
 Comparation between ANOVA and Duncan test in this three data sets: 
@@ -144,9 +281,140 @@ Fractions:
 Variables: (5 rep/treatment)
 
 1. Biomass distribution 
+```{r}
+#Analysis Biomass.Distribution duncan
+
+Y <- W <- Tr <- L <- C <- M <- numeric()
+
+for (i in 2015:2016) { 
+  for (k in levels(as.factor(BiomassDistribution$Cultivar))) {
+    for(j in levels(BiomassDistribution$`Fractions`)) {
+      d1 <- BiomassDistribution[BiomassDistribution$Year==i & 
+                                   BiomassDistribution$`Fractions`==j &
+                                   BiomassDistribution$Cultivar==k, ]
+      model <- aov(Percentage.Biomass~Treatment, data=d1)
+      summary(model)
+      DT <- duncan.test(model, "Treatment", console = TRUE)
+      Y <- c(Y, i,i,i)
+      W <- c(W, j,j,j)
+      C <- c(C, k,k,k)
+      Tr <- c(Tr, row.names(DT$groups))
+      L <- c(L, DT$groups$groups)
+      M <- c(M,DT$groups$Percentage.Biomass)
+    } 
+  }
+}
+
+#graph
+LettersBio <- data.frame(Year = Y, `Fractions` = factor(W), 
+                        Cultivar = C, Treatment = factor(Tr), MeanBiomass = M, letra = L )
+
+model<-aov(Percentage.Biomass~Treatment+`Fractions`+Year, data=BiomassDistribution)
+summary(model)
+
+BiomassDistribution$`Fractions` <- factor(BiomassDistribution$`Fractions`)
+
+library(ggplot2)
+plotbiomass <- ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatment))+
+  geom_boxplot()+
+  facet_grid(Cultivar~Year)+
+  theme_light()+
+  geom_text(data = LettersBio,
+            mapping = aes(x = Fractions,
+                          y = MeanBiomass+7,
+                          label = letra),
+            position = position_dodge(0.9))+
+  labs(caption = "Figure No. 1 Percentage of Biomass of potato") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
+plotbiomass 
+
+
+```
 
 2. Yield (t/ha)
+```{r}
+library(agricolae)
+library(ggplot2)
+library(ggpubr)
+#Duncan Yield 2015 Svitanok kievskiy
+YieldOfPotato$Cultivar <- factor(YieldOfPotato$Cultivar)
+Con <- YieldOfPotato$Cultivar == "Svitanok kievskiy" & YieldOfPotato$Year==2015
+d1 <- YieldOfPotato[Con,]
 
+model<-aov(Yield.Potato~Treatment,data=d1)
+out <- duncan.test(model,"Treatment", 
+                   main="Yield of potato")
+plot(out,variation="IQR")
+out
+
+#BZR 336g        28.78      a
+#BZR 517         22.00      b
+#Control         20.34      c 
+
+#Duncan Yield 2015 Yuna
+YieldOfPotato$Cultivar <- factor(YieldOfPotato$Cultivar)
+Con1 <- YieldOfPotato$Cultivar == "Yuna" & YieldOfPotato$Year==2015
+d2 <- YieldOfPotato[Con1,]
+
+model<-aov(Yield.Potato~Treatment,data=d2)
+out <- duncan.test(model,"Treatment", 
+                   main="Yield of potato")
+plot(out,variation="IQR")
+out
+
+#BZR 336g         25.7      a
+#BZR 517          24.6      a
+#Control          21.0      b
+#Duncan Yield 2016 Svitanok kievskiy
+YieldOfPotato$Cultivar <- factor(YieldOfPotato$Cultivar)
+Con1234 <- YieldOfPotato$Cultivar == "Svitanok kievskiy" & YieldOfPotato$Year==2016
+d1234 <- YieldOfPotato[Con1234,]
+
+model<-aov(Yield.Potato~Treatment,data=d1234)
+out <- duncan.test(model,"Treatment", 
+                   main="Yield of potato")
+plot(out,variation="IQR")
+out
+#BZR 336g         18.9      a
+#BZR 517          16.5      b
+#Control          11.6      c
+#Duncan Yield 2016 Yuna
+YieldOfPotato$Cultivar <- factor(YieldOfPotato$Cultivar)
+Con12345 <- YieldOfPotato$Cultivar == "Yuna" & YieldOfPotato$Year==2016
+d2345 <- YieldOfPotato[Con12345,]
+
+model<-aov(Yield.Potato~Treatment,data=d2345)
+out <- duncan.test(model,"Treatment", 
+                   main="Yield of potato")
+plot(out,variation="IQR")
+out
+#BZR 336g        19.70      a
+#BZR 517         19.62      a
+#Control         15.46      b
+########### DUNCAN TEST
+yield123 <- ggerrorplot(YieldOfPotato, x = "Cultivar", y = "Yield.Potato",
+                     color = "Treatment", palette = "Paired", 
+                     error.plot = "pointrange",
+                     position = position_dodge(0.5),xlab = ("Cultivars"), ylab = ("Yield of potato (t/ha)"))+
+  facet_grid(.~Year)+
+  theme_light()
+yield123
+
+#add letters
+dat_text <- data.frame(
+  label = c("a", "b", "c","a","a","b","a", "b", "c","a","a","b"),
+  Year   = c(2015, 2015,2015,2015,2015,2015,2016,2016,2016,2016,2016,2016),
+  x     = c(0.85, 1,1.2,1.83,2,2.17,0.85, 1,1.2,1.83,2,2.17),
+  y     = c(29.3, 23.3,21.6, 27,26,21.8,19.8,17.3,12.3,20.55,20.6,16.1)
+)
+
+yield1234 <- yield123 + geom_text(
+  data    = dat_text,
+  mapping = aes(x = x, y = y, label = label)
+)
+yield1234
+```
 
 **Article:**  <https://peerj.com/articles/11578/#>
 
