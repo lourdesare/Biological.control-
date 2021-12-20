@@ -1,6 +1,6 @@
 # Analysis Biomass.Distribution duncan
 
-Y <- W <- Tr <- L <- C <- numeric()
+Y <- W <- Tr <- L <- C <- M <- numeric()
 
 for (i in 2015:2016) { 
   for (k in levels(as.factor(BiomassDistribution$Cultivar))) {
@@ -16,13 +16,14 @@ for (i in 2015:2016) {
       C <- c(C, k,k,k)
       Tr <- c(Tr, row.names(DT$groups))
       L <- c(L, DT$groups$groups)
+      M <- c(M,DT$groups$Percentage.Biomass)
     } 
   }
 }
 
 #graph
 LettersBio <- data.frame(Year = Y, `Fractions` = factor(W), 
-                        Cultivar = C, Treatment = factor(Tr), letra = L )
+                        Cultivar = C, Treatment = factor(Tr), MeanBiomass = M, letra = L )
 #
 model<-aov(Percentage.Biomass~Treatment+`Fractions`+Year, data=BiomassDistribution)
 summary(model)
@@ -36,8 +37,9 @@ ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatm
   theme_light()+
   geom_text(data = LettersBio,
             mapping = aes(x = Fractions,
-                          y = 40,
+                          y = MeanBiomass+7,
                           label = letra),
             position = position_dodge(0.9))
-
-coord_cartesian(xlim = c(0.3, 3.5), ylim = c(0.5, 3.5))
+  
+  
+  
