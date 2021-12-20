@@ -9,6 +9,10 @@ out <- duncan.test(model,"Treatment",
 plot(out,variation="IQR")
 out
 
+#BZR 336g        28.78      a
+#BZR 517         22.00      b
+#Control         20.34      c 
+
 #Duncan Yield 2015 Yuna
 YieldOfPotato$Cultivar <- factor(YieldOfPotato$Cultivar)
 Con1 <- YieldOfPotato$Cultivar == "Yuna" & YieldOfPotato$Year==2015
@@ -20,6 +24,9 @@ out <- duncan.test(model,"Treatment",
 plot(out,variation="IQR")
 out
 
+#BZR 336g         25.7      a
+#BZR 517          24.6      a
+#Control          21.0      b
 #Duncan Yield 2016 Svitanok kievskiy
 YieldOfPotato$Cultivar <- factor(YieldOfPotato$Cultivar)
 Con1234 <- YieldOfPotato$Cultivar == "Svitanok kievskiy" & YieldOfPotato$Year==2016
@@ -30,7 +37,9 @@ out <- duncan.test(model,"Treatment",
                    main="Yield of potato")
 plot(out,variation="IQR")
 out
-
+#BZR 336g         18.9      a
+#BZR 517          16.5      b
+#Control          11.6      c
 #Duncan Yield 2016 Yuna
 YieldOfPotato$Cultivar <- factor(YieldOfPotato$Cultivar)
 Con12345 <- YieldOfPotato$Cultivar == "Yuna" & YieldOfPotato$Year==2016
@@ -40,7 +49,10 @@ model<-aov(Yield.Potato~Treatment,data=d2345)
 out <- duncan.test(model,"Treatment", 
                    main="Yield of potato")
 plot(out,variation="IQR")
-
+out
+#BZR 336g        19.70      a
+#BZR 517         19.62      a
+#Control         15.46      b
 ########### DUNCAN TEST
 yield123 <- ggerrorplot(YieldOfPotato, x = "Cultivar", y = "Yield.Potato",
                      color = "Treatment", palette = "Paired", 
@@ -49,35 +61,19 @@ yield123 <- ggerrorplot(YieldOfPotato, x = "Cultivar", y = "Yield.Potato",
   facet_grid(.~Year)+
   theme_light()
 yield123
-#graph yield of potato
-# Analysis Biomass.Distribution duncan
 
-Y <- Tr <- L <- C <- M <- numeric()
+#add letters
+dat_text <- data.frame(
+  label = c("a", "b", "c","a","a","b"),
+  Year   = c(2015, 2015,2015,2015,2015,2015),
+  x     = c(0.85, 1,1.2,1.83,2,2.17),
+  y     = c(30, 23.3,21.6, 27,26,22.3)
+)
 
-for (i in 2015:2016) { 
-  for (k in levels(as.factor(YieldOfPotato$Cultivar))) {
-    {
-      hola <- YieldOfPotato[YieldOfPotato$Year==i & 
-                               YieldOfPotato$Cultivar==k, ]
-      
-      model1 <- aov(Yield.Potato~Treatment, data=hola)
-      summary(model1)
-      DT <- duncan.test(model1, "Treatment", console = TRUE)
-      Y <- c(Y, i,i,i)
-      C <- c(C, k,k,k)
-      Tr <- c(Tr, row.names(DT$groups))
-      L <- c(L, DT$groups$groups)
-      M <- c(M,DT$groups$Percentage.Biomass)
-    } 
-  }
-}
-LettersBio <- data.frame(Year = Y, `Fractions` = factor(W), 
-                         Cultivar = C, Treatment = factor(Tr), MeanBiomass = M, letra = L )
-
-LetterYield <- data.frame(Year = Y, Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
-
-
-
+yield123 + geom_text(
+  data    = dat_text,
+  mapping = aes(x = x, y = y, label = label)
+)
 
 
 
