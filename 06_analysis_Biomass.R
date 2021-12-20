@@ -31,7 +31,7 @@ summary(model)
 BiomassDistribution$`Fractions` <- factor(BiomassDistribution$`Fractions`)
 
 library(ggplot2)
-ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatment))+
+plotbiomass <- ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatment))+
   geom_boxplot()+
   facet_grid(Cultivar~Year)+
   theme_light()+
@@ -40,6 +40,9 @@ ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatm
                           y = MeanBiomass+7,
                           label = letra),
             position = position_dodge(0.9))
-  
-  
+plotbiomass 
+print(plotbiomass + labs(y="Percentage of Biomass", x = "Fractions")+
+      labs(caption = "Figure No. 1 Percentage of Biomass of potato") +
+        theme(plot.caption.position = "plot",
+              plot.caption = element_text(hjust = 0)))
   
