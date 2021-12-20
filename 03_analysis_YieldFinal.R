@@ -50,8 +50,31 @@ yield123 <- ggerrorplot(YieldOfPotato, x = "Cultivar", y = "Yield.Potato",
   theme_light()
 yield123
 #graph yield of potato
+# Analysis Biomass.Distribution duncan
 
+Y <- Tr <- L <- C <- M <- numeric()
 
+for (i in 2015:2016) { 
+  for (k in levels(as.factor(YieldOfPotato$Cultivar))) {
+    {
+      hola <- YieldOfPotato[YieldOfPotato$Year==i & 
+                               YieldOfPotato$Cultivar==k, ]
+      
+      model1 <- aov(Yield.Potato~Treatment, data=hola)
+      summary(model1)
+      DT <- duncan.test(model1, "Treatment", console = TRUE)
+      Y <- c(Y, i,i,i)
+      C <- c(C, k,k,k)
+      Tr <- c(Tr, row.names(DT$groups))
+      L <- c(L, DT$groups$groups)
+      M <- c(M,DT$groups$Percentage.Biomass)
+    } 
+  }
+}
+LettersBio <- data.frame(Year = Y, `Fractions` = factor(W), 
+                         Cultivar = C, Treatment = factor(Tr), MeanBiomass = M, letra = L )
+
+LetterYield <- data.frame(Year = Y, Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
 
 
 
