@@ -42,17 +42,16 @@ out <- duncan.test(model,"Treatment",
 plot(out,variation="IQR")
 
 ########### DUNCAN TEST
-
-
-
-#graph yield
-yield <- ggerrorplot(YieldOfPotato, x = "Cultivar", y = "Yield.Potato",
+yield123 <- ggerrorplot(YieldOfPotato, x = "Cultivar", y = "Yield.Potato",
                      color = "Treatment", palette = "Paired", 
                      error.plot = "pointrange",
                      position = position_dodge(0.5),xlab = ("Cultivars"), ylab = ("Yield of potato (t/ha)"))+
   facet_grid(.~Year)+
   theme_light()
-yield
+yield123
+#graph yield of potato
+
+
 
 
 

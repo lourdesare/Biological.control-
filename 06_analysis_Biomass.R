@@ -41,7 +41,7 @@ plotbiomass <- ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Bioma
                           label = letra),
             position = position_dodge(0.9))
 plotbiomass 
-print(plotbiomass + labs(y="Percentage of Biomass", x = "Fractions")+
+print(plotbiomass + labs(y="Percentage of Biomass", x = "Fractions"),
       labs(caption = "Figure No. 1 Percentage of Biomass of potato") +
         theme(plot.caption.position = "plot",
               plot.caption = element_text(hjust = 0)))
