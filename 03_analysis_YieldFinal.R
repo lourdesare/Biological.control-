@@ -54,6 +54,8 @@ out
 #BZR 517         19.62      a
 #Control         15.46      b
 ########### DUNCAN TEST
+library(ggplot2)
+library(ggpubr)
 yield123 <- ggerrorplot(YieldOfPotato, x = "Cultivar", y = "Yield.Potato",
                      color = "Treatment", palette = "Paired", 
                      error.plot = "pointrange",
@@ -70,11 +72,10 @@ dat_text <- data.frame(
   y     = c(29.3, 23.3,21.6, 27,26,21.8,19.8,17.3,12.3,20.55,20.6,16.1)
 )
 
-yield123 + geom_text(
+yield1234 <- yield123 + geom_text(
   data    = dat_text,
   mapping = aes(x = x, y = y, label = label)
 )
-
-
+yield1234
 
 
