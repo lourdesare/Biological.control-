@@ -82,7 +82,7 @@ AntagonisticActivity$Trat <- paste(AntagonisticActivity$Strain,AntagonisticActiv
 library(dplyr)
 Data.Cultivars <- full_join(MorphometricCharactOfPotato, DiseaseIncidenceAndSeverity, by = c("Cultivar","Year", "Treatment","Weeks after planting"))
 
-#Rename 
+#Rename sheets
 library(dplyr)
 names(Data.Cultivars)[names(Data.Cultivars) == 'Plant height, cm'] <- "1"
 names(Data.Cultivars)[names(Data.Cultivars) == '...6.x'] <- "2"

@@ -307,7 +307,7 @@ AntagonisticActivity$Trat &lt;- paste(AntagonisticActivity$Strain,AntagonisticAc
 library(dplyr)
 Data.Cultivars &lt;- full_join(MorphometricCharactOfPotato, DiseaseIncidenceAndSeverity, by = c(&quot;Cultivar&quot;,&quot;Year&quot;, &quot;Treatment&quot;,&quot;Weeks after planting&quot;))
 
-#Rename 
+#Rename sheets
 library(dplyr)
 names(Data.Cultivars)[names(Data.Cultivars) == &#39;Plant height, cm&#39;] &lt;- &quot;1&quot;
 names(Data.Cultivars)[names(Data.Cultivars) == &#39;...6.x&#39;] &lt;- &quot;2&quot;
