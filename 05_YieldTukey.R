@@ -1,36 +1,24 @@
-
-
-#Duncan Yield 2015 Svitanok kievskiy
+#Tukey Yield 2015 Svitanok kievskiy
 YieldOfPotato$Cultivar <- factor(YieldOfPotato$Cultivar)
-Con <- YieldOfPotato$Cultivar == "Svitanok kievskiy" & YieldOfPotato$Year==2015
-d1 <- YieldOfPotato[Con,]
+Con0 <- YieldOfPotato$Cultivar == "Svitanok kievskiy" & YieldOfPotato$Year==2015
+d111 <- YieldOfPotato[Co0,]
 
-model<-aov(Yield.Potato~Treatment,data=d1)
-out <- duncan.test(model,"Treatment", 
-                   main="Yield of potato")
-plot(out,variation="IQR")
-out$groups$groups
+model<-aov(Yield.Potato~Treatment,data=d111)
+out1 <- HSD.test(model,"Treatment", console =TRUE)
+out1$groups$groups
 
+letter142 <- character()
+letter142 <- c(letter142,out$groups$groups)
 
-#Tukey 
-duncansk2015 <- HSD.test(model, "Treatment", console = TRUE)
-
-
-
-letter1 <- character()
-letter1 <- c(letter1,out$groups$groups)
-#BZR 336g        28.78      a
-#BZR 517         22.00      b
-#Control         20.34      c 
 
 
 #Duncan Yield 2015 Yuna
 YieldOfPotato$Cultivar <- factor(YieldOfPotato$Cultivar)
-Con1 <- YieldOfPotato$Cultivar == "Yuna" & YieldOfPotato$Year==2015
-d2 <- YieldOfPotato[Con1,]
+Con10 <- YieldOfPotato$Cultivar == "Yuna" & YieldOfPotato$Year==2015
+d20 <- YieldOfPotato[Con10,]
 
-model<-aov(Yield.Potato~Treatment,data=d2)
-out <- duncan.test(model,"Treatment", 
+model<-aov(Yield.Potato~Treatment,data=d20)
+out01 <- HSD.test(model,"Treatment", 
                    main="Yield of potato")
 plot(out,variation="IQR")
 out
@@ -71,9 +59,9 @@ letter1 <- c(letter1,out$groups$groups)
 library(ggplot2)
 library(ggpubr)
 yield123 <- ggerrorplot(YieldOfPotato, x = "Cultivar", y = "Yield.Potato",
-                     color = "Treatment", palette = "Paired", 
-                     error.plot = "pointrange",
-                     position = position_dodge(0.5),xlab = ("Cultivars"), ylab = ("Yield of potato (t/ha)"))+
+                        color = "Treatment", palette = "Paired", 
+                        error.plot = "pointrange",
+                        position = position_dodge(0.5),xlab = ("Cultivars"), ylab = ("Yield of potato (t/ha)"))+
   facet_grid(.~Year)+
   theme_light()
 yield123
@@ -92,6 +80,3 @@ yield1234 <- yield123 + geom_text(
   mapping = aes(x = x, y = y, label = label)
 )
 yield1234
-
-
-

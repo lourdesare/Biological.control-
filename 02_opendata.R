@@ -49,7 +49,13 @@ AntagonisticActivity$Trat <- paste(AntagonisticActivity$Strain,AntagonisticActiv
 
 #Rename days
 library(dplyr)
+<<<<<<< HEAD
 AntagonisticActivity$Days<-gsub("d","",as.character(AntagonisticActivity$Days))
+=======
+names(AntagonisticActivity)[names(AntagonisticActivity) == '3d'] <- "3"
+names(AntagonisticActivity)[names(AntagonisticActivity) == '5d'] <- "5"
+names(AntagonisticActivity)[names(AntagonisticActivity) == '7d'] <- "7"
+>>>>>>> 836dfd5531c5e520008bd2e4fbfa0c4b14d01e10
 
 #Join data frame 
 library(dplyr)

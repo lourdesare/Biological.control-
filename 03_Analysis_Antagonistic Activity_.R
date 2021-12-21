@@ -43,3 +43,64 @@ ggplot(plot.means, aes(x = Days,
        y = "Colony diameter",
        color = "Trat") +
   theme_light()
+
+#### 1.2 Statistical Analysis
+
+### 1.2.1 Duncan and ANOVA test
+
+###  Multiple comparisons of the means were performed by the authors using 
+### Duncan test with a significance level of P = 0.05.
+
+# Duncan analysis for Fungal colony diameter at 3 d
+library ("agricolae")
+Dia <- 3
+
+AntagonisticActivity$Days <- factor(AntagonisticActivity$Days)
+Y1 <- AntagonisticActivity$Days==Dia
+AA <- AntagonisticActivity[Y1,]
+
+model <- aov(Colony.Diameter~Trat,data=AA)
+out <- duncan.test(model,"Trat",main = "Colony diameter")
+out
+
+plot(out,variation="IQR")
+
+# Duncan analysis for Fungal colony diameter at 3 d
+
+out.hsd <- HSD.test(model,"Trat",console = TRUE)
+
+# Duncan analysis for Fungal colony diameter at 5 d
+Dia <- 5
+
+AntagonisticActivity$Days <- factor(AntagonisticActivity$Days)
+Y1 <- AntagonisticActivity$Days==Dia
+AA <- AntagonisticActivity[Y1,]
+
+model <- aov(Colony.Diameter~Trat,data=AA)
+out <- duncan.test(model,"Trat",main = "Colony diameter")
+out
+
+plot(out,variation="IQR")
+
+# Duncan analysis for Fungal colony diameter at 5 d
+
+out.hsd <- HSD.test(model,"Trat",console = TRUE)
+
+# Duncan analysis for Fungal colony diameter at 7 d
+Dia <- 7
+
+AntagonisticActivity$Days <- factor(AntagonisticActivity$Days)
+Y1 <- AntagonisticActivity$Days==Dia
+AA <- AntagonisticActivity[Y1,]
+
+model <- aov(Colony.Diameter~Trat,data=AA)
+out <- duncan.test(model,"Trat",main = "Colony diameter")
+out
+
+plot(out,variation="IQR")
+
+# Duncan analysis for Fungal colony diameter at 7 d
+
+out.hsd <- HSD.test(model,"Trat",console = TRUE)
+
+############################################################################
