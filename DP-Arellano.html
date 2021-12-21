@@ -300,6 +300,9 @@ a^b</code></pre>
 <pre class="r"><code>AntagonisticActivity$Concentration &lt;- a^b
 rm(a,b)
 
+#Create new column for treatments
+AntagonisticActivity$Trat &lt;- paste(AntagonisticActivity$Strain,AntagonisticActivity$Concentration)
+
 #Join data frame 
 library(dplyr)
 Data.Cultivars &lt;- full_join(MorphometricCharactOfPotato, DiseaseIncidenceAndSeverity, by = c(&quot;Cultivar&quot;,&quot;Year&quot;, &quot;Treatment&quot;,&quot;Weeks after planting&quot;))
