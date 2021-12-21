@@ -11,7 +11,7 @@ ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatm
   theme_light()
 
 ##Biomass
-
+library(agricolae)
 Y <- W <- Tr <- L <- C <- M <- numeric()
 
 for (i in 2015:2016) { 
@@ -43,7 +43,7 @@ ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatm
   theme_light()+
   geom_text(data = LettersPH11,
             mapping = aes(x = Fractions,
-                          y = mea + 5,
+                          y = mea + 7,
                           label = letra),
             position = position_dodge(0.9))+
   labs(caption = "Results Tukey Figure No. 1 Percentage of Biomass of potato") +
