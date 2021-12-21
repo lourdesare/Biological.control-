@@ -64,7 +64,7 @@ yield123 <- ggerrorplot(YieldOfPotato, x = "Cultivar", y = "Yield.Potato",
   theme_light()
 yield123
 
-#add letters
+#add letterss
 dat_text <- data.frame(
   label = c("a", "b", "c","a","a","b","a", "b", "c","a","a","b"),
   Year   = c(2015, 2015,2015,2015,2015,2015,2016,2016,2016,2016,2016,2016),
