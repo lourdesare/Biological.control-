@@ -28,7 +28,7 @@ download.file("https://dfzljdn9uc3pi.cloudfront.net/2021/11578/1/peerj-55829-Raw
               "data/rawdata.xls")
 ```
 
-**2. Open and Arrange Data:** 
+**2. Open and Arrange Data:** For this sept, it was used the package "Readxl" to charge the excel file 
 ```{r include = FALSE}
 library(readxl)
 readxl::excel_sheets("data/peerj-55829-Raw_data.xls")
@@ -81,6 +81,10 @@ rm(a,b)
 
 #Create new column for treatments
 AntagonisticActivity$Trat <- paste(AntagonisticActivity$Strain,AntagonisticActivity$Concentration)
+
+#Rename days
+library(dplyr)
+AntagonisticActivity$Days<-gsub("d","",as.character(AntagonisticActivity$Days))
 
 #Join data frame 
 library(dplyr)
@@ -163,9 +167,9 @@ rm("Data.Cultivars","DiseaseIncidenceAndSeverity","medium.fraction","Morphometri
 
 ```
 
+
 **3. Do analysis:**
-
-
+Comparation between ANOVA and Duncan test in this three data sets. All results were expressed and analyzed as the mean. 
 
 &nbsp;
 
@@ -208,6 +212,7 @@ Variables:
 
 
 &nbsp;
+
 
 **2) Effect of *B. velezensis* strains on disease incidence and severity and morphometric parameters caused by *R. solani* on two potato cultivars differed by disease resistance during 2015 and 2016 growing seasons in Western Siberia**
 
@@ -298,7 +303,45 @@ Variables: (5 rep/treatment)
 
 ## Results 
 **1) Antifungal activity of B. velezensis against *R solani* in vitro.** 
+```{r include = FALSE}
+##### 1. ANTAGONISTIC ACTIVITY
+#### Antagonistic activity was evaluated by measuring the diameter of the fungal 
+#### colonies after 3, 5, and 7 days. The fungal inhibition (%) was determined 
+#### based on the data obtained. 
+#### All results were expressed and analyzed as the mean.
+#### 1.1 Mean and Standard error for Fungal diameter for each treatment.
+## Creating a new plot with means and standard errors
+#install.packages("dplyr")
+library("dplyr")
+plot.means <- AntagonisticActivity %>%
+  group_by(Days,Trat) %>%
+  summarize(n = n(),
+            mean = mean(Colony.Diameter),
+            sd = sd(Colony.Diameter),
+            se = sd / sqrt(n))
+```
 
+```{r}
+## Graph the influence of treatments on the fungal diameter growth after 3, 5 
+## and 7 days.
+#install.packages("ggplot2")
+library(ggplot2)
+ggplot(plot.means, aes(x = Days,
+                          y = mean,
+                          group=Trat,
+                          color=Trat)) +
+  geom_point(size = 3) +
+  geom_line(size = 1) +
+  geom_errorbar(aes(ymin=mean-se,
+                    ymax=mean+se),
+                width = .1)+
+  labs(title = "Graphic 1. The influence of B. velezensis strains on the growth of R. solani in vitro",
+       subtitle = "(Colony diameter)",
+       x = "Days",
+       y = "Colony diameter",
+       color = "Trat") +
+  theme_light()
+```
 
 
 &nbsp;
@@ -606,7 +649,6 @@ ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatm
 
 2. Yield (t/ha)
 ```{r include = FALSE}
-library(agricolae)
 #Duncan Yield 2015 Svitanok kievskiy
 YieldOfPotato$Cultivar <- factor(YieldOfPotato$Cultivar)
 Con <- YieldOfPotato$Cultivar == "Svitanok kievskiy" & YieldOfPotato$Year==2015
