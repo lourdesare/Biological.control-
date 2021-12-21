@@ -104,3 +104,7 @@ plot(out,variation="IQR")
 out.hsd <- HSD.test(model,"Trat",console = TRUE)
 
 ############################################################################
+
+#Combine graphs for 3, 5 and 7 d
+
+
