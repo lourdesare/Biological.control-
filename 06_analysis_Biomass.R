@@ -1,16 +1,17 @@
+#Residuals Biomass
+anova.biomass<-aov(Percentage.Biomass~Treatment+`Fractions`+Year, data=BiomassDistribution) #anova 
+anova.biomass.sqrt <- aov(sqrt(Percentage.Biomass)~Treatment+`Fractions`+Year, data=BiomassDistribution) #square root 
+shapiro.test(anova.biomass$residuals) #0.06424
+shapiro.test(anova.biomass.sqrt$residuals) #0.3364
+plot(anova.biomass, main = "ANOVA Percentage of Biomass", which = 2, ask = F,sub.caption = "")
+
+
 #Prueba Biomass
 model<-aov(Percentage.Biomass~Treatment+`Fractions`+Year, data=BiomassDistribution)
 summary(model)
 BiomassDistribution$`Fractions` <- factor(BiomassDistribution$`Fractions`)
 
-
-library(ggplot2)
-ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatment))+
-  geom_boxplot()+
-  facet_grid(Cultivar~Year)+
-  theme_light()
-
-##Biomass
+#Biomass Duncant Test
 
 Y <- W <- Tr <- L <- C <- M <- numeric()
 
@@ -33,46 +34,39 @@ for (i in 2015:2016) {
   }
 }
 
-#Biomass
+#Biomass Graph
 LettersPH1 <- data.frame(Year = Y, `Fractions` = factor(W), 
                         Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
 
-ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatment))+
+ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatment))+ylab("Biomass (%)")+
   geom_boxplot()+
   facet_grid(Cultivar~Year)+
   theme_light()+
   geom_text(data = LettersPH1,
             mapping = aes(x = Fractions,
-                          y = mea + 5,
+                          y = mea + 8,
                           label = letra),
             position = position_dodge(0.9))+
   labs(caption = "Figure No. 1 Result of Duncan Percentage of Biomass of potato") +
   theme(plot.caption.position = "plot",
         plot.caption = element_text(hjust = 0))
 
-#Biomass duncan test  
+#Prueba Biomass tukey 
 model<-aov(Percentage.Biomass~Treatment+`Fractions`+Year, data=BiomassDistribution)
 summary(model)
 BiomassDistribution$`Fractions` <- factor(BiomassDistribution$`Fractions`)
 
-
-library(ggplot2)
-ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatment))+
-  geom_boxplot()+
-  facet_grid(Cultivar~Year)+
-  theme_light()
-
 ##Biomass
-
+library(agricolae)
 Y <- W <- Tr <- L <- C <- M <- numeric()
 
 for (i in 2015:2016) { 
   for (k in levels(as.factor(BiomassDistribution$Cultivar))) {
     for(j in levels(BiomassDistribution$`Fractions`)) {
-      d2001 <- BiomassDistribution[BiomassDistribution$Year==i & 
-                                     BiomassDistribution$`Fractions`==j &
-                                     BiomassDistribution$Cultivar==k, ]
-      model <- aov(Percentage.Biomass~Treatment, data=d2001)
+      t200 <- BiomassDistribution[BiomassDistribution$Year==i & 
+                                    BiomassDistribution$`Fractions`==j &
+                                    BiomassDistribution$Cultivar==k, ]
+      model <- aov(Percentage.Biomass~Treatment, data=t200)
       summary(model)
       DT <- HSD.test(model, "Treatment", console = TRUE)
       Y <- c(Y, i,i,i)
@@ -86,22 +80,18 @@ for (i in 2015:2016) {
 }
 
 #Biomass
-LettersPH11 <- data.frame(Year = Y, `Fractions` = factor(W), 
-                          Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
+LetterstPH11 <- data.frame(Year = Y, `Fractions` = factor(W), 
+                           Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
 
-ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatment))+
+ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatment))+ ylab("Biomass (%)")+
   geom_boxplot()+
   facet_grid(Cultivar~Year)+
   theme_light()+
-  geom_text(data = LettersPH11,
+  geom_text(data = LetterstPH11,
             mapping = aes(x = Fractions,
-                          y = mea + 5,
+                          y = mea + 8,
                           label = letra),
             position = position_dodge(0.9))+
-  labs(caption = "Results Tukey Figure No. 1 Percentage of Biomass of potato") +
+  labs(caption = "Results Tukey Figure No.  Percentage of Biomass of potato") +
   theme(plot.caption.position = "plot",
         plot.caption = element_text(hjust = 0))
-  
-
-
-

@@ -1,56 +1,70 @@
 #Duncan Analysis Data.Cultivars.Final
-
 library(agricolae)
-
-########### GRAFICS
-
+library(ggplot2)
+library(ggpubr)
 # Plant Height
+#Residuals Plant Height 
+anova.ph<-aov(Plant.Height~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #anova 
+anova.ph.sqrt <- aov(sqrt(Plant.Height)~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #square root 
+shapiro.test(anova.ph$residuals) #0.0329 anormal 
+shapiro.test(anova.ph.sqrt$residuals) #0.02933
+par(mfrow = c(1, 2), oma = c(0, 0, 1.1, 0))
+plot(anova.ph, main = "ANOVA", which = 2, ask = F,sub.caption = "Plant Height")
+plot(anova.ph.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption = "")
+
+#Anova Plant Height
 model<-aov(Plant.Height~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final)
 summary(model)
-
 Data.Cultivars.Final$`Weeks after planting` <- factor(Data.Cultivars.Final$`Weeks after planting`)
 
-library(ggplot2)
-ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Plant.Height, fill=Treatment))+
-  geom_boxplot()+
-  facet_grid(Cultivar~Year)+
-  theme_light()
 
-# Disease Incidence
+#Disease Incidence
+#Residuals Disease Incidence
+anova.di<-aov(Disease.Incidence~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #anova 
+anova.di.sqrt <- aov(sqrt(Disease.Incidence)~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #square root 
+shapiro.test(anova.di$residuals) #0.03132 anormal 
+shapiro.test(anova.di.sqrt$residuals) #0.001165
+par(mfrow = c(1, 2), oma = c(0, 0, 1.1, 0))
+plot(anova.di, main = "ANOVA", which = 2, ask = F,sub.caption = "Disease Insidence")
+plot(anova.di.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption = "")
+
+#Anova Disease Incidence 
 model<-aov(Disease.Incidence~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final)
 summary(model)
-
 Data.Cultivars.Final$`Weeks after planting` <- factor(Data.Cultivars.Final$`Weeks after planting`)
 
-library(ggplot2)
-ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Incidence, fill=Treatment))+
-  geom_boxplot()+
-  facet_grid(Cultivar~Year)+
-  theme_light()
 
-# Disease Severity
+#Disease Severity
+#Residuals Disease Severity
+anova.ds<-aov(Disease.Severity~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #anova 
+anova.ds.sqrt <- aov(sqrt(Disease.Severity)~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #square root 
+shapiro.test(anova.ds$residuals) #0.002356 anormal  
+shapiro.test(anova.ds.sqrt$residuals) #0.0009698
+par(mfrow = c(1, 2), oma = c(0, 0, 1.1, 0))
+plot(anova.ds, main = "ANOVA", which = 2, ask = F,sub.caption = "Disease Severity")
+plot(anova.ds.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption = "")
+
+#Anova Disease Severity
 model<-aov(Disease.Severity~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final)
 summary(model)
-
 Data.Cultivars.Final$`Weeks after planting` <- factor(Data.Cultivars.Final$`Weeks after planting`)
 
-library(ggplot2)
-ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Severity, fill=Treatment))+
-  geom_boxplot()+
-  facet_grid(Cultivar~Year)+
-  theme_light()
+#Stems
+#Residuals Stems
+anova.st<-aov(Stems~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #anova 
+anova.st.sqrt <- aov(sqrt(Stems)~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #square root 
+shapiro.test(anova.st$residuals) #0.007876 anormal  
+shapiro.test(anova.st.sqrt$residuals) #0.002167
 
-# Stems
+par(mfrow = c(1, 2), oma = c(0, 0, 1.1, 0))
+plot(anova.ds, main = "ANOVA", which = 2, ask = F,sub.caption = "Stems")
+plot(anova.ds.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption = "")
+
+
+#Anova Stems
 model<-aov(Stems~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final)
 summary(model)
-
 Data.Cultivars.Final$`Weeks after planting` <- factor(Data.Cultivars.Final$`Weeks after planting`)
-
-library(ggplot2)
-ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Stems, fill=Treatment))+
-  geom_boxplot()+
-  facet_grid(Cultivar~Year)+
-  theme_light()
 
 
 
@@ -165,11 +179,11 @@ LettersST <- data.frame(Year = Y, `Weeks after planting` = factor(W),
                         Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
 
 
-#### Juntar letras en la grafica 
+#Duncan Graphics  
 
 # Plant Height
 
-ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Plant.Height, fill=Treatment))+
+ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Plant.Height, fill=Treatment))+ylab("Plant Height (cm)")+
   geom_boxplot()+
   facet_grid(Cultivar~Year)+
   theme_light()+
@@ -182,19 +196,19 @@ ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Plant.Height, fill=
 
 ## Disease Incidence
 
-ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Incidence, fill=Treatment))+
+ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Incidence, fill=Treatment))+ylab("Disease Incidence(%)")+
   geom_boxplot()+
   facet_grid(Cultivar~Year)+
   theme_light()+
   geom_text(data = LettersDI,
             mapping = aes(x = Weeks.after.planting,
-                          y = mea + 5,
+                          y = mea + 8,
                           label = letra),
             position = position_dodge(0.9))
 
 ## Disease Severity
 
-ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Severity, fill=Treatment))+
+ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Severity, fill=Treatment))+ylab("Disease Severity (%)")+
   geom_boxplot()+
   facet_grid(Cultivar~Year)+
   theme_light()+
@@ -207,7 +221,7 @@ ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Severity, f
 
 ## Stems
 
-ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Stems, fill=Treatment))+
+ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Stems, fill=Treatment))+ylab("Number of Stems")+
   geom_boxplot()+ 
   facet_grid(Cultivar~Year)+
   theme_light()+

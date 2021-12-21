@@ -148,7 +148,7 @@ LettersSTz <- data.frame(Year = Y, `Weeks after planting` = factor(W),
 
 # Plant Height
 
-ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Plant.Height, fill=Treatment))+
+ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Plant.Height, fill=Treatment))+ylab("Plant Height (cm)")+
   geom_boxplot()+
   facet_grid(Cultivar~Year)+
   theme_light()+
@@ -161,32 +161,32 @@ ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Plant.Height, fill=
 
 ## Disease Incidence
 
-ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Incidence, fill=Treatment))+
+ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Incidence, fill=Treatment))+ylab("Disease Incidence(%)")+
   geom_boxplot()+
   facet_grid(Cultivar~Year)+
   theme_light()+
   geom_text(data = LettersDIz,
             mapping = aes(x = Weeks.after.planting,
-                          y = mea + 5,
+                          y = mea + 8,
                           label = letra),
             position = position_dodge(0.9))
 
 ## Disease Severity
 
-ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Severity, fill=Treatment))+
+ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Severity, fill=Treatment))+ylab("Disease Severity(%)")+
   geom_boxplot()+
   facet_grid(Cultivar~Year)+
-  theme_light()+
+  theme_light()+ 
   geom_text(data = LettersDSz,
             mapping = aes(x = Weeks.after.planting,
-                          y = mea + 5,
+                          y = mea + 7,
                           label = letra),
             position = position_dodge(0.9))
 
 
 ## Stems
 
-ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Stems, fill=Treatment))+
+ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Stems, fill=Treatment))+ylab("Number of Stems")+
   geom_boxplot()+ 
   facet_grid(Cultivar~Year)+
   theme_light()+

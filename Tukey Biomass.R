@@ -1,14 +1,7 @@
-#Prueba Biomass duncan 
+#Prueba Biomass tukey 
 model<-aov(Percentage.Biomass~Treatment+`Fractions`+Year, data=BiomassDistribution)
 summary(model)
 BiomassDistribution$`Fractions` <- factor(BiomassDistribution$`Fractions`)
-
-
-library(ggplot2)
-ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatment))+
-  geom_boxplot()+
-  facet_grid(Cultivar~Year)+
-  theme_light()
 
 ##Biomass
 library(agricolae)
@@ -17,10 +10,10 @@ Y <- W <- Tr <- L <- C <- M <- numeric()
 for (i in 2015:2016) { 
   for (k in levels(as.factor(BiomassDistribution$Cultivar))) {
     for(j in levels(BiomassDistribution$`Fractions`)) {
-      d2001 <- BiomassDistribution[BiomassDistribution$Year==i & 
+      t200 <- BiomassDistribution[BiomassDistribution$Year==i & 
                                     BiomassDistribution$`Fractions`==j &
                                     BiomassDistribution$Cultivar==k, ]
-      model <- aov(Percentage.Biomass~Treatment, data=d2001)
+      model <- aov(Percentage.Biomass~Treatment, data=t200)
       summary(model)
       DT <- HSD.test(model, "Treatment", console = TRUE)
       Y <- c(Y, i,i,i)
@@ -34,18 +27,20 @@ for (i in 2015:2016) {
 }
 
 #Biomass
-LettersPH11 <- data.frame(Year = Y, `Fractions` = factor(W), 
+LetterstPH11 <- data.frame(Year = Y, `Fractions` = factor(W), 
                          Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
 
-ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatment))+
+ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatment))+ ylab("Biomass (%)")+
   geom_boxplot()+
   facet_grid(Cultivar~Year)+
   theme_light()+
-  geom_text(data = LettersPH11,
+  geom_text(data = LetterstPH11,
             mapping = aes(x = Fractions,
-                          y = mea + 7,
+                          y = mea + 8,
                           label = letra),
             position = position_dodge(0.9))+
-  labs(caption = "Results Tukey Figure No. 1 Percentage of Biomass of potato") +
+  labs(caption = "Results Tukey Figure No.  Percentage of Biomass of potato") +
   theme(plot.caption.position = "plot",
         plot.caption = element_text(hjust = 0))
+
+
