@@ -6,6 +6,7 @@ output:
   html_document:
     code_folding: hide
 ---
+
 ## Objectives
 
 Demonstrate the potential effect of *B. velezensis* strains  against *R. solani* as a biological control, and a potential increasement in the plant growth of potato. 
@@ -28,14 +29,17 @@ download.file("https://dfzljdn9uc3pi.cloudfront.net/2021/11578/1/peerj-55829-Raw
 ```
 
 **2. Open and Arrange Data:** 
-```{r}
+```{r include = FALSE}
 library(readxl)
 readxl::excel_sheets("data/peerj-55829-Raw_data.xls")
 dir("data")
 #dir("C:\Users\lsare\Desktop\Plant Health\Estadistica\Biologicalcontrol\data\")
 library(readxl)
 #AntagonisticActivity <- read_excel("data/peerj-55829-Raw_data.xls")
+```
 
+
+```{r include= FALSE}
 #Open sheets with ranges 
 AntagonisticActivity <-
   read_excel("data/peerj-55829-Raw_data.xls",
@@ -82,7 +86,7 @@ AntagonisticActivity$Trat <- paste(AntagonisticActivity$Strain,AntagonisticActiv
 library(dplyr)
 Data.Cultivars <- full_join(MorphometricCharactOfPotato, DiseaseIncidenceAndSeverity, by = c("Cultivar","Year", "Treatment","Weeks after planting"))
 
-#Rename sheets
+#Rename 
 library(dplyr)
 names(Data.Cultivars)[names(Data.Cultivars) == 'Plant height, cm'] <- "1"
 names(Data.Cultivars)[names(Data.Cultivars) == '...6.x'] <- "2"
@@ -158,9 +162,10 @@ ls()
 rm("Data.Cultivars","DiseaseIncidenceAndSeverity","medium.fraction","MorphometricCharactOfPotato")
 
 ```
-## Analysis 
 
-Comparation between ANOVA and Duncan test in this three data sets: 
+**3. Do analysis:**
+
+
 
 &nbsp;
 
@@ -251,7 +256,58 @@ Variables: (5 rep/treatment)
 
 
 &nbsp;
-```{r}
+
+**3) Effect of *B. velezens* strains on the biomass distribution of daughter tubers of two potato cultivars differed by disease resistance to *R. solani* and total yield during 2015 and 2016 growing seasons in Western Siberia.**
+
+
+Cultivars:
+
+1. Svitanok kievskiy 
+
+2. Yuna
+
+
+Years: 
+
+* 2015
+
+* 2016
+
+
+Treatments:
+
+1. Control 
+
+2. BZR 336g
+
+3. BZR 517
+
+
+Fractions:
+
+* Small
+
+* Medium
+
+* Large 
+
+
+Variables: (5 rep/treatment)
+
+1. Biomass distribution 
+
+## Results 
+**1) Antifungal activity of B. velezensis against *R solani* in vitro.** 
+
+
+
+&nbsp;
+
+**2) Effect of *B. velezensis* strains on disease incidence and severity and morphometric parameters caused by *R. solani* on two potato cultivars differed by disease resistance during 2015 and 2016 growing seasons in Western Siberia**
+
+
+&nbsp;
+```{r include = FALSE}
 #Analysis Data.Cultivars.Final
 
 library(agricolae)
@@ -418,7 +474,9 @@ for (i in 2015:2016) {
 LettersST <- data.frame(Year = Y, `Weeks after planting` = factor(W), 
                         Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
 
+```
 
+```{r}
 #### Juntar letras en la grafica 
 
 # Plant Height
@@ -486,42 +544,8 @@ ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Stems, fill=Treatme
 **3) Effect of *B. velezens* strains on the biomass distribution of daughter tubers of two potato cultivars differed by disease resistance to *R. solani* and total yield during 2015 and 2016 growing seasons in Western Siberia.**
 
 
-Cultivars:
-
-1. Svitanok kievskiy 
-
-2. Yuna
-
-
-Years: 
-
-* 2015
-
-* 2016
-
-
-Treatments:
-
-1. Control 
-
-2. BZR 336g
-
-3. BZR 517
-
-
-Fractions:
-
-* Small
-
-* Medium
-
-* Large 
-
-
-Variables: (5 rep/treatment)
-
 1. Biomass distribution 
-```{r}
+```{r include = FALSE}
 #Biomass
 model<-aov(Percentage.Biomass~Treatment+`Fractions`+Year, data=BiomassDistribution)
 summary(model)
@@ -557,6 +581,9 @@ for (i in 2015:2016) {
   }
 }
 
+```
+
+```{r}
 #Biomass graph
 LettersPH1 <- data.frame(Year = Y, `Fractions` = factor(W), 
                         Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
@@ -578,78 +605,81 @@ ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatm
 ```
 
 2. Yield (t/ha)
-```{r}
+```{r include = FALSE}
 library(agricolae)
-library(ggplot2)
-library(ggpubr)
-#Anova and duncan Yield 2015 Svitanok kievskiy
-#YieldOfPotato$Cultivar <- #factor(YieldOfPotato$Cultivar)
-#Con <- YieldOfPotato$Cultivar == "Svitanok kievskiy" #& YieldOfPotato$Year==2015
-#d1 <- YieldOfPotato[Con,]
+#Duncan Yield 2015 Svitanok kievskiy
+YieldOfPotato$Cultivar <- factor(YieldOfPotato$Cultivar)
+Con <- YieldOfPotato$Cultivar == "Svitanok kievskiy" & YieldOfPotato$Year==2015
+d1 <- YieldOfPotato[Con,]
 
-#model<-aov(Yield.Potato~Treatment,data=d1)
-#out <- duncan.test(model,"Treatment", 
-                   #main="Yield of potato")
-#plot(out,variation="IQR")
-#out
+model<-aov(Yield.Potato~Treatment,data=d1)
+out <- duncan.test(model,"Treatment", 
+                   main="Yield of potato")
+plot(out,variation="IQR")
+out
 
 #BZR 336g        28.78      a
 #BZR 517         22.00      b
 #Control         20.34      c 
 
-#Anova and duncan Yield 2015 Yuna
-#YieldOfPotato$Cultivar <- #factor(YieldOfPotato$Cultivar)
-#Con1 <- YieldOfPotato$Cultivar == "Yuna" & #YieldOfPotato$Year==2015
-#d2 <- YieldOfPotato[Con1,]
+#Duncan Yield 2015 Yuna
+YieldOfPotato$Cultivar <- factor(YieldOfPotato$Cultivar)
+Con1 <- YieldOfPotato$Cultivar == "Yuna" & YieldOfPotato$Year==2015
+d2 <- YieldOfPotato[Con1,]
 
-#model<-aov(Yield.Potato~Treatment,data=d2)
-#out <- duncan.test(model,"Treatment", 
-                   #main="Yield of potato")
-#plot(out,variation="IQR")
-#out
+model<-aov(Yield.Potato~Treatment,data=d2)
+out <- duncan.test(model,"Treatment", 
+                   main="Yield of potato")
+plot(out,variation="IQR")
+out
 
 #BZR 336g         25.7      a
 #BZR 517          24.6      a
 #Control          21.0      b
-#Anova and duncan Yield 2016 Svitanok kievskiy
-#YieldOfPotato$Cultivar <- factor(YieldOfPotato$Cultivar)
-#Con1234 <- YieldOfPotato$Cultivar == "Svitanok kievskiy" & YieldOfPotato$Year==2016
-#d1234 <- YieldOfPotato[Con1234,]
+#Duncan Yield 2016 Svitanok kievskiy
+YieldOfPotato$Cultivar <- factor(YieldOfPotato$Cultivar)
+Con1234 <- YieldOfPotato$Cultivar == "Svitanok kievskiy" & YieldOfPotato$Year==2016
+d1234 <- YieldOfPotato[Con1234,]
 
-#model<-aov(Yield.Potato~Treatment,data=d1234)
-#out <- duncan.test(model,"Treatment", 
-                   #main="Yield of potato")
-#plot(out,variation="IQR")
-#out
+model<-aov(Yield.Potato~Treatment,data=d1234)
+out <- duncan.test(model,"Treatment", 
+                   main="Yield of potato")
+plot(out,variation="IQR")
+out
 #BZR 336g         18.9      a
 #BZR 517          16.5      b
 #Control          11.6      c
-#Anova and duncan Yield 2016 Yuna
-#YieldOfPotato$Cultivar <- factor(YieldOfPotato$Cultivar)
-#Con12345 <- YieldOfPotato$Cultivar == "Yuna" & YieldOfPotato$Year==2016
-#d2345 <- YieldOfPotato[Con12345,]
+#Duncan Yield 2016 Yuna
+YieldOfPotato$Cultivar <- factor(YieldOfPotato$Cultivar)
+Con12345 <- YieldOfPotato$Cultivar == "Yuna" & YieldOfPotato$Year==2016
+d2345 <- YieldOfPotato[Con12345,]
 
-#model<-aov(Yield.Potato~Treatment,data=d2345)
-#out <- duncan.test(model,"Treatment", 
-                   #main="Yield of potato")
-#plot(out,variation="IQR")
-#out
+model<-aov(Yield.Potato~Treatment,data=d2345)
+out <- duncan.test(model,"Treatment", 
+                   main="Yield of potato")
+plot(out,variation="IQR")
+out
 #BZR 336g        19.70      a
 #BZR 517         19.62      a
 #Control         15.46      b
-###########Graph 
+```
+
+```{r}
+########### Graph
+library(ggplot2)
+library(ggpubr)
 yield123 <- ggerrorplot(YieldOfPotato, x = "Cultivar", y = "Yield.Potato",
                      color = "Treatment", palette = "Paired", 
                      error.plot = "pointrange",
                      position = position_dodge(0.5),xlab = ("Cultivars"), ylab = ("Yield of potato (t/ha)"))+
   facet_grid(.~Year)+
   theme_light()+
-  labs(caption = "Figure No. 8 Yield of potato (ha/t)") +
+  labs(caption = "Figure No. 8 Yield of potato (t/ha)") +
   theme(plot.caption.position = "plot",
         plot.caption = element_text(hjust = 0))
 #yield123
 
-#add letters
+#add letterss
 dat_text <- data.frame(
   label = c("a", "b", "c","a","a","b","a", "b", "c","a","a","b"),
   Year   = c(2015, 2015,2015,2015,2015,2015,2016,2016,2016,2016,2016,2016),
@@ -662,6 +692,7 @@ yield1234 <- yield123 + geom_text(
   mapping = aes(x = x, y = y, label = label)
 )
 yield1234
+
 ```
 
 **Article:**  <https://peerj.com/articles/11578/#>
