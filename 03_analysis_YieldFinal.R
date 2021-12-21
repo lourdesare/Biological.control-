@@ -53,7 +53,7 @@ out
 #BZR 336g        19.70      a
 #BZR 517         19.62      a
 #Control         15.46      b
-########### DUNCAN TEST
+########### graph
 library(ggplot2)
 library(ggpubr)
 yield123 <- ggerrorplot(YieldOfPotato, x = "Cultivar", y = "Yield.Potato",

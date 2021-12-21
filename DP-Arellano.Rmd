@@ -41,6 +41,7 @@ library(readxl)
 
 ```{r include= FALSE}
 #Open sheets with ranges 
+library
 AntagonisticActivity <-
   read_excel("data/peerj-55829-Raw_data.xls",
              sheet = "Antagonistic activity",
