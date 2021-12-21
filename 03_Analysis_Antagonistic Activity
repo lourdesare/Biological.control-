@@ -14,27 +14,24 @@
 
 library("dplyr")
 
-library("plyr")
-
-plot.data <- AntagonisticActivity %>%
+plot.means <- AntagonisticActivity %>%
   group_by(Days,Trat) %>%
   summarize(n = n(),
             mean = mean(Colony.Diameter),
             sd = sd(Colony.Diameter),
-            se = sd / sqrt(n),
-            ci = qt(0.975, df = n - 1) * sd / sqrt(n))
+            se = sd / sqrt(n))
 
 ## Graph the influence of treatments on the fungal diameter growth after 3, 5 
 ## and 7 days.
-  
+
 #install.packages("ggplot2")
 
 library(ggplot2)
 
-ggplot(plot.diam.col, aes(x = Days,
-                     y = Mean.Diam,
-                     group=Trat,
-                     color=Trat)) +
+ggplot(plot.means, aes(x = Days,
+                          y = mean,
+                          group=Trat,
+                          color=Trat)) +
   geom_point(size = 3) +
   geom_line(size = 1) +
   geom_errorbar(aes(ymin=mean-se,
@@ -46,52 +43,3 @@ ggplot(plot.diam.col, aes(x = Days,
        y = "Colony diameter",
        color = "Trat") +
   theme_light()
-
-#### 1.2 Statistical Analysis
-
-### 1.2.1 Duncan test
-
-###  Multiple comparisons of the means were performed by the authors using 
-### Duncan test with a significance level of P = 0.05. 
-
-## Duncan test analysis
-
-library(agricolae)
-
-D <- Cd <- Tr <- numeric()
-
-for (i in 2015:2016) { 
-  for (k in levels(as.factor(Data.Cultivars.Final$Cultivar))) {
-    for(j in levels(Data.Cultivars.Final$`Weeks after planting`)) {
-      d1 <- Data.Cultivars.Final[Data.Cultivars.Final$Year==i & 
-                                   Data.Cultivars.Final$`Weeks after planting`==j &
-                                   Data.Cultivars.Final$Cultivar==k, ]
-      model <- aov(Disease.Severity~Treatment, data=d1)
-      summary(model)
-      DT <- duncan.test(model, "Treatment", console = TRUE)
-      Y <- c(Y, i,i,i)
-      W <- c(W, j,j,j)
-      C <- c(C, k,k,k)
-      Tr <- c(Tr, row.names(DT$groups))
-      L <- c(L, DT$groups$groups)
-      M <- c(M, DT$groups$Disease.Severity)
-    } 
-  }
-}
-
-
-LettersDS <- data.frame(Year = Y, `Weeks after planting` = factor(W), 
-                        Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
-
-
-## Duncan distribution graphic
-
-ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Severity, fill=Treatment))+
-  geom_boxplot()+
-  facet_grid(Cultivar~Year)+
-  theme_light()+
-  geom_text(data = LettersDS,
-            mapping = aes(x = Weeks.after.planting,
-                          y = mea + 5,
-                          label = letra),
-            position = position_dodge(0.9))
