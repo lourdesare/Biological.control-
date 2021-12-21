@@ -20,6 +20,7 @@ plot.means <- AntagonisticActivity %>%
             mean = mean(Colony.Diameter),
             sd = sd(Colony.Diameter),
             se = sd / sqrt(n))
+
 ## Graph the influence of treatments on the fungal diameter growth after 3, 5 
 ## and 7 days.
 
