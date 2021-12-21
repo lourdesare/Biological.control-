@@ -2404,7 +2404,7 @@ ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatm
 <pre class="r"><code>library(agricolae)
 library(ggplot2)
 library(ggpubr)
-#Duncan Yield 2015 Svitanok kievskiy
+#Anova and duncan Yield 2015 Svitanok kievskiy
 #YieldOfPotato$Cultivar &lt;- #factor(YieldOfPotato$Cultivar)
 #Con &lt;- YieldOfPotato$Cultivar == &quot;Svitanok kievskiy&quot; #&amp; YieldOfPotato$Year==2015
 #d1 &lt;- YieldOfPotato[Con,]
@@ -2419,7 +2419,7 @@ library(ggpubr)
 #BZR 517         22.00      b
 #Control         20.34      c 
 
-#Duncan Yield 2015 Yuna
+#Anova and duncan Yield 2015 Yuna
 #YieldOfPotato$Cultivar &lt;- #factor(YieldOfPotato$Cultivar)
 #Con1 &lt;- YieldOfPotato$Cultivar == &quot;Yuna&quot; &amp; #YieldOfPotato$Year==2015
 #d2 &lt;- YieldOfPotato[Con1,]
@@ -2433,7 +2433,7 @@ library(ggpubr)
 #BZR 336g         25.7      a
 #BZR 517          24.6      a
 #Control          21.0      b
-#Duncan Yield 2016 Svitanok kievskiy
+#Anova and duncan Yield 2016 Svitanok kievskiy
 #YieldOfPotato$Cultivar &lt;- factor(YieldOfPotato$Cultivar)
 #Con1234 &lt;- YieldOfPotato$Cultivar == &quot;Svitanok kievskiy&quot; &amp; YieldOfPotato$Year==2016
 #d1234 &lt;- YieldOfPotato[Con1234,]
@@ -2446,7 +2446,7 @@ library(ggpubr)
 #BZR 336g         18.9      a
 #BZR 517          16.5      b
 #Control          11.6      c
-#Duncan Yield 2016 Yuna
+#Anova and duncan Yield 2016 Yuna
 #YieldOfPotato$Cultivar &lt;- factor(YieldOfPotato$Cultivar)
 #Con12345 &lt;- YieldOfPotato$Cultivar == &quot;Yuna&quot; &amp; YieldOfPotato$Year==2016
 #d2345 &lt;- YieldOfPotato[Con12345,]
@@ -2459,7 +2459,7 @@ library(ggpubr)
 #BZR 336g        19.70      a
 #BZR 517         19.62      a
 #Control         15.46      b
-########### DUNCAN TEST
+###########Graph 
 yield123 &lt;- ggerrorplot(YieldOfPotato, x = &quot;Cultivar&quot;, y = &quot;Yield.Potato&quot;,
                      color = &quot;Treatment&quot;, palette = &quot;Paired&quot;, 
                      error.plot = &quot;pointrange&quot;,
