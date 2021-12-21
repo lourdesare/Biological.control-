@@ -47,6 +47,12 @@ rm(a,b)
 #Create new column for treatments
 AntagonisticActivity$Trat <- paste(AntagonisticActivity$Strain,AntagonisticActivity$Concentration)
 
+#Rename days
+library(dplyr)
+names(AntagonisticActivity)[names(AntagonisticActivity) == '3d'] <- "3"
+names(AntagonisticActivity)[names(AntagonisticActivity) == '5d'] <- "5"
+names(AntagonisticActivity)[names(AntagonisticActivity) == '7d'] <- "7"
+
 #Join data frame 
 library(dplyr)
 Data.Cultivars <- full_join(MorphometricCharactOfPotato, DiseaseIncidenceAndSeverity, by = c("Cultivar","Year", "Treatment","Weeks after planting"))

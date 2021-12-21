@@ -198,15 +198,15 @@ pre code {
 download.file(&quot;https://dfzljdn9uc3pi.cloudfront.net/2021/11578/1/peerj-55829-Raw_data.xls&quot;,
               &quot;data/rawdata.xls&quot;)</code></pre>
 <p><strong>2. Open and Arrange Data:</strong></p>
-<pre class="r"><code>library(readxl)
-readxl::excel_sheets(&quot;data/peerj-55829-Raw_data.xls&quot;)</code></pre>
+<pre class="r"><code>library(readxl)</code></pre>
+<pre><code>## Warning: package &#39;readxl&#39; was built under R version 4.1.2</code></pre>
+<pre class="r"><code>readxl::excel_sheets(&quot;data/peerj-55829-Raw_data.xls&quot;)</code></pre>
 <pre><code>## [1] &quot;Antagonistic activity&quot;          &quot;D. applanata disease&quot;          
 ## [3] &quot;disease incidence and severity&quot; &quot;morphometric charact of potato&quot;
 ## [5] &quot;biomass distribution&quot;           &quot;yield of raspberry&quot;            
 ## [7] &quot;yield of potato&quot;</code></pre>
 <pre class="r"><code>dir(&quot;data&quot;)</code></pre>
-<pre><code>## [1] &quot;downloaded_data.xls&quot;      &quot;peerj-55829-Raw_data.xls&quot;
-## [3] &quot;rawdata.xls&quot;</code></pre>
+<pre><code>## [1] &quot;peerj-55829-Raw_data.xls&quot; &quot;rawdata.xls&quot;</code></pre>
 <pre class="r"><code>#dir(&quot;C:\Users\lsare\Desktop\Plant Health\Estadistica\Biologicalcontrol\data\&quot;)
 library(readxl)
 #AntagonisticActivity &lt;- read_excel(&quot;data/peerj-55829-Raw_data.xls&quot;)
@@ -252,6 +252,7 @@ DiseaseIncidenceAndSeverity &lt;- read_excel(&quot;data/peerj-55829-Raw_data.xls
 <pre class="r"><code>#Fill 
 library(tidyr)
 library(dplyr)</code></pre>
+<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 4.1.2</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;dplyr&#39;</code></pre>
 <pre><code>## The following objects are masked from &#39;package:stats&#39;:
@@ -471,8 +472,9 @@ summary(model)</code></pre>
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre class="r"><code>Data.Cultivars.Final$`Weeks after planting` &lt;- factor(Data.Cultivars.Final$`Weeks after planting`)
 
-library(ggplot2)
-#ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Plant.Height, fill=Treatment))+
+library(ggplot2)</code></pre>
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 4.1.2</code></pre>
+<pre class="r"><code>#ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Plant.Height, fill=Treatment))+
   #geom_boxplot()+
   #facet_grid(Cultivar~Year)+
   #theme_light()
@@ -2405,9 +2407,11 @@ ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatm
 <li>Yield (t/ha)</li>
 </ol>
 <pre class="r"><code>library(agricolae)
+#install.packages(&quot;ggpubr&quot;)
 library(ggplot2)
-library(ggpubr)
-#Anova and duncan Yield 2015 Svitanok kievskiy
+library(ggpubr)</code></pre>
+<pre><code>## Warning: package &#39;ggpubr&#39; was built under R version 4.1.2</code></pre>
+<pre class="r"><code>#Anova and duncan Yield 2015 Svitanok kievskiy
 #YieldOfPotato$Cultivar &lt;- #factor(YieldOfPotato$Cultivar)
 #Con &lt;- YieldOfPotato$Cultivar == &quot;Svitanok kievskiy&quot; #&amp; YieldOfPotato$Year==2015
 #d1 &lt;- YieldOfPotato[Con,]
