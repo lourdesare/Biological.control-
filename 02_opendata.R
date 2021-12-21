@@ -44,6 +44,9 @@ a^b
 AntagonisticActivity$Concentration <- a^b
 rm(a,b)
 
+#Create new column for treatments
+AntagonisticActivity$Trat <- paste(AntagonisticActivity$Strain,AntagonisticActivity$Concentration)
+
 #Join data frame 
 library(dplyr)
 Data.Cultivars <- full_join(MorphometricCharactOfPotato, DiseaseIncidenceAndSeverity, by = c("Cultivar","Year", "Treatment","Weeks after planting"))
