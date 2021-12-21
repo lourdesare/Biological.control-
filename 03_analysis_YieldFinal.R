@@ -1,3 +1,4 @@
+
 #Duncan Yield 2015 Svitanok kievskiy
 YieldOfPotato$Cultivar <- factor(YieldOfPotato$Cultivar)
 Con <- YieldOfPotato$Cultivar == "Svitanok kievskiy" & YieldOfPotato$Year==2015
@@ -7,11 +8,14 @@ model<-aov(Yield.Potato~Treatment,data=d1)
 out <- duncan.test(model,"Treatment", 
                    main="Yield of potato")
 plot(out,variation="IQR")
-out
+out$groups$groups
 
+letter1 <- character()
+letter1 <- c(letter1,out$groups$groups)
 #BZR 336g        28.78      a
 #BZR 517         22.00      b
 #Control         20.34      c 
+
 
 #Duncan Yield 2015 Yuna
 YieldOfPotato$Cultivar <- factor(YieldOfPotato$Cultivar)
@@ -23,6 +27,7 @@ out <- duncan.test(model,"Treatment",
                    main="Yield of potato")
 plot(out,variation="IQR")
 out
+letter1 <- c(letter1,out$groups$groups)
 
 #BZR 336g         25.7      a
 #BZR 517          24.6      a
@@ -37,6 +42,7 @@ out <- duncan.test(model,"Treatment",
                    main="Yield of potato")
 plot(out,variation="IQR")
 out
+letter1 <- c(letter1,out$groups$groups)
 #BZR 336g         18.9      a
 #BZR 517          16.5      b
 #Control          11.6      c
@@ -50,6 +56,7 @@ out <- duncan.test(model,"Treatment",
                    main="Yield of potato")
 plot(out,variation="IQR")
 out
+letter1 <- c(letter1,out$groups$groups)
 #BZR 336g        19.70      a
 #BZR 517         19.62      a
 #Control         15.46      b
@@ -65,9 +72,10 @@ yield123 <- ggerrorplot(YieldOfPotato, x = "Cultivar", y = "Yield.Potato",
 yield123
 
 #add letterss
+#c("a", "b", "c","a","a","b","a", "b", "c","a","a","b")
 dat_text <- data.frame(
-  label = c("a", "b", "c","a","a","b","a", "b", "c","a","a","b"),
-  Year   = c(2015, 2015,2015,2015,2015,2015,2016,2016,2016,2016,2016,2016),
+  label = letter1,
+  Year   = c(rep(2015,6),rep(2016,6)),
   x     = c(0.85, 1,1.2,1.83,2,2.17,0.85, 1,1.2,1.83,2,2.17),
   y     = c(29.3, 23.3,21.6, 27,26,21.8,19.8,17.3,12.3,20.55,20.6,16.1)
 )
