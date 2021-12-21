@@ -14,14 +14,20 @@ Demonstrate the potential effect of *B. velezensis* strains  against *R. solani*
 
 *B. velezensis* strains can be used as biological control agents against *R. solani*, and increase significantly the plant growth of potato. 
 
-Dowload Data 
+## Methods
+
+
+**1. Dowload Data:**
+First, dowload the raw data of the paper that is in the link: 
+<https://dfzljdn9uc3pi.cloudfront.net/2021/11578/1/peerj-55829-Raw_data.xls>
+
 ```{r}
 if(!dir.exists("data")) dir.create("data")
 download.file("https://dfzljdn9uc3pi.cloudfront.net/2021/11578/1/peerj-55829-Raw_data.xls",
               "data/rawdata.xls")
 ```
 
-Open and Arrange Data 
+**2. Open and Arrange Data:** 
 ```{r}
 library(readxl)
 readxl::excel_sheets("data/peerj-55829-Raw_data.xls")
@@ -422,7 +428,10 @@ ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Plant.Height, fill=
             mapping = aes(x = Weeks.after.planting,
                           y = mea + 5,
                           label = letra),
-            position = position_dodge(0.9))
+            position = position_dodge(0.9))+
+  labs(caption = "Figure 3. Plant Height (cm)") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
             
 
 ## Disease Incidence
@@ -435,7 +444,10 @@ ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Incidence, 
             mapping = aes(x = Weeks.after.planting,
                           y = mea + 5,
                           label = letra),
-            position = position_dodge(0.9))
+            position = position_dodge(0.9))+
+  labs(caption = "Figure No.4 Percentage of Disease incidence") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
 
 ## Disease Severity
 
@@ -447,7 +459,10 @@ ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Severity, f
             mapping = aes(x = Weeks.after.planting,
                           y = mea + 5,
                           label = letra),
-            position = position_dodge(0.9))
+            position = position_dodge(0.9))+
+  labs(caption = "Figure No.5 Percentage of Disease severity") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
 
 
 ## Stems
@@ -460,7 +475,10 @@ ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Stems, fill=Treatme
             mapping = aes(x = Weeks.after.planting,
                           y = mea + 1,
                           label = letra),
-            position = position_dodge(0.9))
+            position = position_dodge(0.9)) +
+  labs(caption = "Figure No. 6 Number of stems in potato") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
 ```
 **3) Effect of *B. velezens* strains on the biomass distribution of daughter tubers of two potato cultivars differed by disease resistance to *R. solani* and total yield during 2015 and 2016 growing seasons in Western Siberia.**
 
@@ -548,7 +566,10 @@ ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatm
             mapping = aes(x = Fractions,
                           y = mea + 5,
                           label = letra),
-            position = position_dodge(0.9))
+            position = position_dodge(0.9))+
+  labs(caption = "Figure No. 7 Percentage of Biomass of potato") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
 
 
 ```
@@ -619,7 +640,10 @@ yield123 <- ggerrorplot(YieldOfPotato, x = "Cultivar", y = "Yield.Potato",
                      error.plot = "pointrange",
                      position = position_dodge(0.5),xlab = ("Cultivars"), ylab = ("Yield of potato (t/ha)"))+
   facet_grid(.~Year)+
-  theme_light()
+  theme_light()+
+  labs(caption = "Figure No. 8 Yield of potato (ha/t)") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
 #yield123
 
 #add letters
