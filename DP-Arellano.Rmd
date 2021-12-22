@@ -1330,7 +1330,55 @@ TukCD1 <- TukCD+geom_text(data = dlt,mapping = aes(x = xt, y = yt, label = lt)
 
 TukCD2 = TukCD1+scale_x_discrete(("Treatments"),limitedLabels("Treatments"))
 TukCD2
+
+## Residuals for Antagonistic activity
+
+##Residuals for day 3
+library ("agricolae")
+Dia <- 3
+
+AntagonisticActivity$Days <- factor(AntagonisticActivity$Days)
+Y1 <- AntagonisticActivity$Days==Dia
+AA <- AntagonisticActivity[Y1,]
+
+anova.3d <- aov(Colony.Diameter~Trat,data=AA) #anova 
+anova.3d.sqrt <- aov(sqrt(Colony.Diameter)~Trat,data=AA) #square root 
+shapiro.test(anova.3d$residuals) #0.01891
+shapiro.test(anova.3d.sqrt$residuals) #0.3884
+
+##Residuals for day 5
+library ("agricolae")
+Dia <- 5
+
+AntagonisticActivity$Days <- factor(AntagonisticActivity$Days)
+Y1 <- AntagonisticActivity$Days==Dia
+AA <- AntagonisticActivity[Y1,]
+
+anova.5d <- aov(Colony.Diameter~Trat,data=AA) #anova 
+anova.5d.sqrt <- aov(sqrt(Colony.Diameter)~Trat,data=AA) #square root 
+shapiro.test(anova.5d$residuals) #1.646 e-06
+shapiro.test(anova.5d.sqrt$residuals) #1.099 e-05
+
+##Residuals for day 7
+library ("agricolae")
+Dia <- 7
+
+AntagonisticActivity$Days <- factor(AntagonisticActivity$Days)
+Y1 <- AntagonisticActivity$Days==Dia
+AA <- AntagonisticActivity[Y1,]
+
+anova.7d <- aov(Colony.Diameter~Trat,data=AA) #anova 
+anova.7d.sqrt <- aov(sqrt(Colony.Diameter)~Trat,data=AA) #square root 
+shapiro.test(anova.7d$residuals) #3.084 e-06
+shapiro.test(anova.7d.sqrt$residuals) #2.288 e-05
+
+#Graph 
+par(mfrow = c(2, 2), oma = c(0, 0, 1.1, 0))
+p1 <- plot(anova.3d, main = "ANOVA at 3 days", which = 2, ask = F,sub.caption = "") 
+p2 <- plot(anova.5d, main = "ANOVA at 5 days", which = 2, ask = F,sub.caption = "") 
+p3 <- plot(anova.7d, main = "ANOVA at 7 days", which = 2, ask = F,sub.caption = "") 
 ```
+<font size="1"> Figure No. 22 Normality of Residuals for Antagonistic activity</font>
 
 ## Conclusions 
 
