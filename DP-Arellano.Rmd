@@ -1134,7 +1134,7 @@ library(ggplot2)
 ggplot(plot.means, aes(x = Days,
                           y = mean,
                           group=Trat,
-                          color=Trat)) +
+                          color=Trat)) + guides(col=guide_legend("Treatments"))+
   geom_point(size = 3) +
   geom_line(size = 1) +
   geom_errorbar(aes(ymin=mean-se,
