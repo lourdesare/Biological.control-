@@ -1148,6 +1148,8 @@ ggplot(plot.means, aes(x = Days,
 
 Little differences were observed between Duncan and Tukey analyzes for *R. solani* colony growth at 3 and 5 days. However, there were no differences between both analyzes at 7 days (Figures 20 and 21). The treatments with the best performance were both *B. velezensis* strains: BZR 517 and BZR 336g, in their medium and high concentrations: 10^5 CFU/mL and 10^6 CFU/mL, generating the lower colony growth after 7 days.
 
+The Shapiro-Wilk normality test was performed for ANOVA, the p value was higher than 0.05, wich means that the data have a normal distribution (Figure XX).
+
 ```{r}
 ## Graph the fungal diameter growth after 3, 5 and 7 days.
 
