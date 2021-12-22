@@ -1169,6 +1169,14 @@ ggplot(plot.means, aes(x = Days,
        color = "Treatment") +
   theme_light()
 ```
+<<<<<<< HEAD
+=======
+**3.2 Growth of the diameter of the colonies of *R. solani* under the influence of *B. velenzis* after 3, 5 and 7 days**
+
+Little differences were observed between Duncan and Tukey analyzes for *R. solani* colony growth at 3 and 5 days. However, there were no differences between both analyzes at 7 days (Figures 20 and 21). The treatments with the best antagonistic actitivy were both *B. velezensis* strains: BZR 517 and BZR 336g, in their medium and high concentrations: 10^5 CFU/mL and 10^6 CFU/mL, generating the lower colony growth after 7 days.
+
+The Shapiro-Wilk normality test was performed for ANOVA, the p value was higher than 0.05, wich means that the data have a normal distribution (Figure XX).
+>>>>>>> 884d13693fb1d972a47425d822ce498571a1d620
 
 ```{r}
 ## Graph the fungal diameter growth after 3, 5 and 7 days.
