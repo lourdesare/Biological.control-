@@ -1069,6 +1069,7 @@ p2 <- plot(anova.yieldy, main = "ANOVA 2015 Y", which = 2, ask = F,sub.caption =
 p3 <- plot(anova.yieldsk6, main = "ANOVA 2016 SK", which = 2, ask = F,sub.caption = "") 
 p4 <- plot(anova.yieldy6, main = "ANOVA 2016 y", which = 2, ask = F,sub.caption = "")
 ```
+
 <font size="1"> Figure No. 18 Normality of Residuals Yield of Potato</font>
 
 **3) Antifungal activity of B. velezensis against *R solani* in vitro.** 
@@ -1112,6 +1113,9 @@ ggplot(plot.means, aes(x = Days,
        color = "Trat") +
   theme_light()
 ```
+
+## Conclusions 
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
