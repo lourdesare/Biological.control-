@@ -759,6 +759,7 @@ plot(anova.ds, main = "ANOVA", which = 2, ask = F,sub.caption = "")
 plot(anova.ds.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption = "")
 
 ```
+
 <font size="1"> Figure No. 12 Normality of Residuals Stems</font>
 
 
@@ -864,6 +865,7 @@ shapiro.test(anova.biomass$residuals) #0.06424
 shapiro.test(anova.biomass.sqrt$residuals) #0.3364
 plot(anova.biomass, main = "ANOVA Percentage of Biomass", which = 2, ask = F,sub.caption = "")
 ```
+
 <font size="1"> Figure No. 15 Normality of Residuals Percentage of Biomass</font>
 
 **2.2 Yield of Potato**
