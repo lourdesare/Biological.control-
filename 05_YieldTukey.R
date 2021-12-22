@@ -1,7 +1,7 @@
 #Tukey Yield 2015 Svitanok kievskiy
 YieldOfPotato$Cultivar <- factor(YieldOfPotato$Cultivar)
 Con0 <- YieldOfPotato$Cultivar == "Svitanok kievskiy" & YieldOfPotato$Year==2015
-t1 <- YieldOfPotato[Co0,]
+t1 <- YieldOfPotato[Con0,]
 
 model<-aov(Yield.Potato~Treatment,data=t1)
 out1 <- HSD.test(model,"Treatment", console =TRUE)

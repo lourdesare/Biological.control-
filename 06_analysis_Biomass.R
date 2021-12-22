@@ -1,18 +1,9 @@
-#Residuals Biomass
-anova.biomass<-aov(Percentage.Biomass~Treatment+`Fractions`+Year, data=BiomassDistribution) #anova 
-anova.biomass.sqrt <- aov(sqrt(Percentage.Biomass)~Treatment+`Fractions`+Year, data=BiomassDistribution) #square root 
-shapiro.test(anova.biomass$residuals) #0.06424
-shapiro.test(anova.biomass.sqrt$residuals) #0.3364
-plot(anova.biomass, main = "ANOVA Percentage of Biomass", which = 2, ask = F,sub.caption = "")
-
-
 #Prueba Biomass
 model<-aov(Percentage.Biomass~Treatment+`Fractions`+Year, data=BiomassDistribution)
 summary(model)
 BiomassDistribution$`Fractions` <- factor(BiomassDistribution$`Fractions`)
 
 #Biomass Duncant Test
-
 Y <- W <- Tr <- L <- C <- M <- numeric()
 
 for (i in 2015:2016) { 
@@ -34,29 +25,12 @@ for (i in 2015:2016) {
   }
 }
 
-#Biomass Graph
 LettersPH1 <- data.frame(Year = Y, `Fractions` = factor(W), 
-                        Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
+                         Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
 
-ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatment))+ylab("Biomass (%)")+
-  geom_boxplot()+
-  facet_grid(Cultivar~Year)+
-  theme_light()+
-  geom_text(data = LettersPH1,
-            mapping = aes(x = Fractions,
-                          y = mea + 8,
-                          label = letra),
-            position = position_dodge(0.9))+
-  labs(caption = "Figure No. 1 Result of Duncan Percentage of Biomass of potato") +
-  theme(plot.caption.position = "plot",
-        plot.caption = element_text(hjust = 0))
+
 
 #Prueba Biomass tukey 
-model<-aov(Percentage.Biomass~Treatment+`Fractions`+Year, data=BiomassDistribution)
-summary(model)
-BiomassDistribution$`Fractions` <- factor(BiomassDistribution$`Fractions`)
-
-##Biomass
 library(agricolae)
 Y <- W <- Tr <- L <- C <- M <- numeric()
 
@@ -78,11 +52,25 @@ for (i in 2015:2016) {
     } 
   }
 }
-
-#Biomass
 LetterstPH11 <- data.frame(Year = Y, `Fractions` = factor(W), 
                            Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
 
+
+#Biomass Graph Duncan 
+ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatment))+ylab("Biomass (%)")+
+  geom_boxplot()+
+  facet_grid(Cultivar~Year)+
+  theme_light()+
+  geom_text(data = LettersPH1,
+            mapping = aes(x = Fractions,
+                          y = mea + 8,
+                          label = letra),
+            position = position_dodge(0.9))+
+  labs(caption = "Figure No. 1 Result of Duncan Percentage of Biomass of potato") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
+
+#Biomass Graph Tukey 
 ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatment))+ ylab("Biomass (%)")+
   geom_boxplot()+
   facet_grid(Cultivar~Year)+
@@ -95,3 +83,11 @@ ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatm
   labs(caption = "Results Tukey Figure No.  Percentage of Biomass of potato") +
   theme(plot.caption.position = "plot",
         plot.caption = element_text(hjust = 0))
+
+#Residuals Biomass
+anova.biomass<-aov(Percentage.Biomass~Treatment+`Fractions`+Year, data=BiomassDistribution) #anova 
+anova.biomass.sqrt <- aov(sqrt(Percentage.Biomass)~Treatment+`Fractions`+Year, data=BiomassDistribution) #square root 
+shapiro.test(anova.biomass$residuals) #0.06424
+shapiro.test(anova.biomass.sqrt$residuals) #0.3364
+plot(anova.biomass, main = "ANOVA Percentage of Biomass", which = 2, ask = F,sub.caption = "")
+

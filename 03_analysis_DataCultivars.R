@@ -2,94 +2,34 @@
 library(agricolae)
 library(ggplot2)
 library(ggpubr)
+
 # Plant Height
-#Residuals Plant Height 
-anova.ph<-aov(Plant.Height~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #anova 
-anova.ph.sqrt <- aov(sqrt(Plant.Height)~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #square root 
-shapiro.test(anova.ph$residuals) #0.0329 anormal 
-shapiro.test(anova.ph.sqrt$residuals) #0.02933
-par(mfrow = c(1, 2), oma = c(0, 0, 1.1, 0))
-plot(anova.ph, main = "ANOVA", which = 2, ask = F,sub.caption = "Plant Height")
-plot(anova.ph.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption = "")
 
 #Anova Plant Height
 model<-aov(Plant.Height~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final)
 summary(model)
 Data.Cultivars.Final$`Weeks after planting` <- factor(Data.Cultivars.Final$`Weeks after planting`)
 
-
-#Disease Incidence
-#Residuals Disease Incidence
-anova.di<-aov(Disease.Incidence~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #anova 
-anova.di.sqrt <- aov(sqrt(Disease.Incidence)~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #square root 
-shapiro.test(anova.di$residuals) #0.03132 anormal 
-shapiro.test(anova.di.sqrt$residuals) #0.001165
-par(mfrow = c(1, 2), oma = c(0, 0, 1.1, 0))
-plot(anova.di, main = "ANOVA", which = 2, ask = F,sub.caption = "Disease Insidence")
-plot(anova.di.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption = "")
-
-#Anova Disease Incidence 
-model<-aov(Disease.Incidence~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final)
-summary(model)
-Data.Cultivars.Final$`Weeks after planting` <- factor(Data.Cultivars.Final$`Weeks after planting`)
-
-
-#Disease Severity
-#Residuals Disease Severity
-anova.ds<-aov(Disease.Severity~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #anova 
-anova.ds.sqrt <- aov(sqrt(Disease.Severity)~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #square root 
-shapiro.test(anova.ds$residuals) #0.002356 anormal  
-shapiro.test(anova.ds.sqrt$residuals) #0.0009698
-par(mfrow = c(1, 2), oma = c(0, 0, 1.1, 0))
-plot(anova.ds, main = "ANOVA", which = 2, ask = F,sub.caption = "Disease Severity")
-plot(anova.ds.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption = "")
-
-#Anova Disease Severity
-model<-aov(Disease.Severity~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final)
-summary(model)
-Data.Cultivars.Final$`Weeks after planting` <- factor(Data.Cultivars.Final$`Weeks after planting`)
-
-#Stems
-#Residuals Stems
-anova.st<-aov(Stems~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #anova 
-anova.st.sqrt <- aov(sqrt(Stems)~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #square root 
-shapiro.test(anova.st$residuals) #0.007876 anormal  
-shapiro.test(anova.st.sqrt$residuals) #0.002167
-
-par(mfrow = c(1, 2), oma = c(0, 0, 1.1, 0))
-plot(anova.ds, main = "ANOVA", which = 2, ask = F,sub.caption = "Stems")
-plot(anova.ds.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption = "")
-
-
-#Anova Stems
-model<-aov(Stems~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final)
-summary(model)
-Data.Cultivars.Final$`Weeks after planting` <- factor(Data.Cultivars.Final$`Weeks after planting`)
-
-
-
-########### DUNCAN TEST
-
-## Plant Height
+## Plant Height Duncan 
 
 Y <- W <- Tr <- L <- C <- M <- numeric()
 
 for (i in 2015:2016) { 
   for (k in levels(as.factor(Data.Cultivars.Final$Cultivar))) {
-  for(j in levels(Data.Cultivars.Final$`Weeks after planting`)) {
-  d1 <- Data.Cultivars.Final[Data.Cultivars.Final$Year==i & 
-                               Data.Cultivars.Final$`Weeks after planting`==j &
-                               Data.Cultivars.Final$Cultivar==k, ]
-  model <- aov(Plant.Height~Treatment, data=d1)
-  summary(model)
-  DT <- duncan.test(model, "Treatment", console = TRUE)
-  Y <- c(Y, i,i,i)
-  W <- c(W, j,j,j)
-  C <- c(C, k,k,k)
-  Tr <- c(Tr, row.names(DT$groups))
-  L <- c(L, DT$groups$groups)
-  M <- c(M, DT$groups$Plant.Height)
-  } 
+    for(j in levels(Data.Cultivars.Final$`Weeks after planting`)) {
+      d1 <- Data.Cultivars.Final[Data.Cultivars.Final$Year==i & 
+                                   Data.Cultivars.Final$`Weeks after planting`==j &
+                                   Data.Cultivars.Final$Cultivar==k, ]
+      model <- aov(Plant.Height~Treatment, data=d1)
+      summary(model)
+      DT <- duncan.test(model, "Treatment", console = TRUE)
+      Y <- c(Y, i,i,i)
+      W <- c(W, j,j,j)
+      C <- c(C, k,k,k)
+      Tr <- c(Tr, row.names(DT$groups))
+      L <- c(L, DT$groups$groups)
+      M <- c(M, DT$groups$Plant.Height)
+    } 
   }
 }
 
@@ -97,7 +37,84 @@ for (i in 2015:2016) {
 LettersPH <- data.frame(Year = Y, `Weeks after planting` = factor(W), 
                         Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
 
-## Disease Incidence
+#Plant Height Duncan Graph
+
+ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Plant.Height, fill=Treatment))+ylab("Plant Height (cm)")+
+  geom_boxplot()+
+  facet_grid(Cultivar~Year)+
+  theme_light()+
+  geom_text(data = LettersPH,
+            mapping = aes(x = Weeks.after.planting,
+                          y = mea + 5,
+                          label = letra),
+            position = position_dodge(0.9))+
+  labs(caption = "Figure No 1. Results of Duncan Test in the variable of Plant Height on potato (cm)") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
+
+#Plant Height Tukey 
+
+Y <- W <- Tr <- L <- C <- M <- numeric()
+
+for (i in 2015:2016) { 
+  for (k in levels(as.factor(Data.Cultivars.Final$Cultivar))) {
+    for(j in levels(Data.Cultivars.Final$`Weeks after planting`)) {
+      d1z <- Data.Cultivars.Final[Data.Cultivars.Final$Year==i & 
+                                    Data.Cultivars.Final$`Weeks after planting`==j &
+                                    Data.Cultivars.Final$Cultivar==k, ]
+      model <- aov(Plant.Height~Treatment, data=d1z)
+      summary(model)
+      DT <- HSD.test(model, "Treatment", console = TRUE)
+      Y <- c(Y, i,i,i)
+      W <- c(W, j,j,j)
+      C <- c(C, k,k,k)
+      Tr <- c(Tr, row.names(DT$groups))
+      L <- c(L, DT$groups$groups)
+      M <- c(M, DT$groups$Plant.Height)
+    } 
+  }
+}
+
+LettersPHz <- data.frame(Year = Y, `Weeks after planting` = factor(W), 
+                         Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
+
+#Plant Height Tukey Graph
+
+ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Plant.Height, fill=Treatment))+ylab("Plant Height (cm)")+
+  geom_boxplot()+
+  facet_grid(Cultivar~Year)+
+  theme_light()+
+  geom_text(data = LettersPHz,
+            mapping = aes(x = Weeks.after.planting,
+                          y = mea + 5,
+                          label = letra),
+            position = position_dodge(0.9))+
+  labs(caption = "Figure No 2. Results of Tukey Test in the variable of Plant Height on potato (cm)") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
+
+#Residuals Plant Height 
+anova.ph<-aov(Plant.Height~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #anova 
+anova.ph.sqrt <- aov(sqrt(Plant.Height)~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #square root 
+shapiro.test(anova.ph$residuals) #0.0329 anormal 
+shapiro.test(anova.ph.sqrt$residuals) #0.02933
+par(mfrow = c(1, 2), oma = c(0, 0, 1.1, 0))
+plot(anova.ph, main = "ANOVA", which = 2, ask = F,sub.caption = "Plant Height Residuals")
+plot(anova.ph.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption = "")
+
+
+
+
+
+
+#Disease Incidence
+#Anova Disease Incidence 
+model<-aov(Disease.Incidence~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final)
+summary(model)
+Data.Cultivars.Final$`Weeks after planting` <- factor(Data.Cultivars.Final$`Weeks after planting`)
+
+
+#Duncan Test Disease Incidence
 
 Y <- W <- Tr <- L <- C <- M <- numeric()
 
@@ -124,7 +141,76 @@ for (i in 2015:2016) {
 LettersDI <- data.frame(Year = Y, `Weeks after planting` = factor(W), 
                         Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
 
-## Disease Severity
+#Tukey Disease Incidence
+
+Y <- W <- Tr <- L <- C <- M <- numeric()
+
+for (i in 2015:2016) { 
+  for (k in levels(as.factor(Data.Cultivars.Final$Cultivar))) {
+    for(j in levels(Data.Cultivars.Final$`Weeks after planting`)) {
+      d1z <- Data.Cultivars.Final[Data.Cultivars.Final$Year==i & 
+                                    Data.Cultivars.Final$`Weeks after planting`==j &
+                                    Data.Cultivars.Final$Cultivar==k, ]
+      model <- aov(Disease.Incidence~Treatment, data=d1z)
+      summary(model)
+      DT <- HSD.test(model, "Treatment", console = TRUE)
+      Y <- c(Y, i,i,i)
+      W <- c(W, j,j,j)
+      C <- c(C, k,k,k)
+      Tr <- c(Tr, row.names(DT$groups))
+      L <- c(L, DT$groups$groups)
+      M <- c(M, DT$groups$Disease.Incidence)
+    } 
+  }
+}
+
+
+LettersDIz <- data.frame(Year = Y, `Weeks after planting` = factor(W), 
+                         Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
+
+#Duncan Graph Disease Incidence
+ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Incidence, fill=Treatment))+ylab("Disease Incidence(%)")+
+  geom_boxplot()+
+  facet_grid(Cultivar~Year)+
+  theme_light()+
+  geom_text(data = LettersDI,
+            mapping = aes(x = Weeks.after.planting,
+                          y = mea + 8,
+                          label = letra),
+            position = position_dodge(0.9))
+
+#Tukey Graph Disease Incidence
+ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Incidence, fill=Treatment))+ylab("Disease Incidence(%)")+
+  geom_boxplot()+
+  facet_grid(Cultivar~Year)+
+  theme_light()+
+  geom_text(data = LettersDIz,
+            mapping = aes(x = Weeks.after.planting,
+                          y = mea + 8,
+                          label = letra),
+            position = position_dodge(0.9))
+#Residuals Disease Incidence
+anova.di<-aov(Disease.Incidence~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #anova 
+anova.di.sqrt <- aov(sqrt(Disease.Incidence)~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #square root 
+shapiro.test(anova.di$residuals) #0.03132 anormal 
+shapiro.test(anova.di.sqrt$residuals) #0.001165
+par(mfrow = c(1, 2), oma = c(0, 0, 1.1, 0))
+plot(anova.di, main = "ANOVA", which = 2, ask = F,sub.caption = "Disease Insidence")
+plot(anova.di.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption = "")
+
+
+
+
+
+
+
+#Disease Severity
+
+#Anova Disease Severity
+model<-aov(Disease.Severity~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final)
+summary(model)
+Data.Cultivars.Final$`Weeks after planting` <- factor(Data.Cultivars.Final$`Weeks after planting`)
+#Disease Severity Duncan Test
 
 Y <- W <- Tr <- L <- C <- M <- numeric()
 
@@ -151,8 +237,79 @@ for (i in 2015:2016) {
 LettersDS <- data.frame(Year = Y, `Weeks after planting` = factor(W), 
                         Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
 
-## Stems
+#Tukey Test Disease Severity
 
+Y <- W <- Tr <- L <- C <- M <- numeric()
+
+for (i in 2015:2016) { 
+  for (k in levels(as.factor(Data.Cultivars.Final$Cultivar))) {
+    for(j in levels(Data.Cultivars.Final$`Weeks after planting`)) {
+      d1z <- Data.Cultivars.Final[Data.Cultivars.Final$Year==i & 
+                                    Data.Cultivars.Final$`Weeks after planting`==j &
+                                    Data.Cultivars.Final$Cultivar==k, ]
+      model <- aov(Disease.Severity~Treatment, data=d1z)
+      summary(model)
+      DT <- HSD.test(model, "Treatment", console = TRUE)
+      Y <- c(Y, i,i,i)
+      W <- c(W, j,j,j)
+      C <- c(C, k,k,k)
+      Tr <- c(Tr, row.names(DT$groups))
+      L <- c(L, DT$groups$groups)
+      M <- c(M, DT$groups$Disease.Severity)
+    } 
+  }
+}
+
+
+LettersDSz <- data.frame(Year = Y, `Weeks after planting` = factor(W), 
+                         Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
+
+#Duncan Graph Disease Severity
+ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Severity, fill=Treatment))+ylab("Disease Severity (%)")+
+  geom_boxplot()+
+  facet_grid(Cultivar~Year)+
+  theme_light()+
+  geom_text(data = LettersDS,
+            mapping = aes(x = Weeks.after.planting,
+                          y = mea + 5,
+                          label = letra),
+            position = position_dodge(0.9))+
+  labs(caption = "Figure No 7. Results of Duncan Test in the variable of Disease Severity (%)") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
+
+#Tukey Graph Disease Severity
+
+ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Severity, fill=Treatment))+ylab("Disease Severity(%)")+
+  geom_boxplot()+
+  facet_grid(Cultivar~Year)+
+  theme_light()+ 
+  geom_text(data = LettersDSz,
+            mapping = aes(x = Weeks.after.planting,
+                          y = mea + 7,
+                          label = letra),
+            position = position_dodge(0.9))+
+  labs(caption = "Figure No 8. Results of Tukey Test in the variable of Disease Severity (%)") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
+
+#Residuals Disease Severity
+anova.ds<-aov(Disease.Severity~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #anova 
+anova.ds.sqrt <- aov(sqrt(Disease.Severity)~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #square root 
+shapiro.test(anova.ds$residuals) #0.002356 anormal  
+shapiro.test(anova.ds.sqrt$residuals) #0.0009698
+par(mfrow = c(1, 2), oma = c(0, 0, 1.1, 0))
+plot(anova.ds, main = "ANOVA", which = 2, ask = F,sub.caption = "Disease Severity")
+plot(anova.ds.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption = "")
+
+
+#Stems
+#Anova Stems
+model<-aov(Stems~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final)
+summary(model)
+Data.Cultivars.Final$`Weeks after planting` <- factor(Data.Cultivars.Final$`Weeks after planting`)
+
+#Ducant Test Stems
 Y <- W <- Tr <- L <- C <- M <- numeric()
 
 for (i in 2015:2016) { 
@@ -178,49 +335,37 @@ for (i in 2015:2016) {
 LettersST <- data.frame(Year = Y, `Weeks after planting` = factor(W), 
                         Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
 
+#Tukey Graph Stems
 
-#Duncan Graphics  
+Y <- W <- Tr <- L <- C <- M <- numeric()
 
-# Plant Height
-
-ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Plant.Height, fill=Treatment))+ylab("Plant Height (cm)")+
-  geom_boxplot()+
-  facet_grid(Cultivar~Year)+
-  theme_light()+
-  geom_text(data = LettersPH,
-            mapping = aes(x = Weeks.after.planting,
-                          y = mea + 5,
-                          label = letra),
-            position = position_dodge(0.9))
-            
-
-## Disease Incidence
-
-ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Incidence, fill=Treatment))+ylab("Disease Incidence(%)")+
-  geom_boxplot()+
-  facet_grid(Cultivar~Year)+
-  theme_light()+
-  geom_text(data = LettersDI,
-            mapping = aes(x = Weeks.after.planting,
-                          y = mea + 8,
-                          label = letra),
-            position = position_dodge(0.9))
-
-## Disease Severity
-
-ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Severity, fill=Treatment))+ylab("Disease Severity (%)")+
-  geom_boxplot()+
-  facet_grid(Cultivar~Year)+
-  theme_light()+
-  geom_text(data = LettersDS,
-            mapping = aes(x = Weeks.after.planting,
-                          y = mea + 5,
-                          label = letra),
-            position = position_dodge(0.9))
+for (i in 2015:2016) { 
+  for (k in levels(as.factor(Data.Cultivars.Final$Cultivar))) {
+    for(j in levels(Data.Cultivars.Final$`Weeks after planting`)) {
+      d1z <- Data.Cultivars.Final[Data.Cultivars.Final$Year==i & 
+                                    Data.Cultivars.Final$`Weeks after planting`==j &
+                                    Data.Cultivars.Final$Cultivar==k, ]
+      model <- aov(Stems~Treatment, data=d1z)
+      summary(model)
+      DT <- HSD.test(model, "Treatment", console = TRUE)
+      Y <- c(Y, i,i,i)
+      W <- c(W, j,j,j)
+      C <- c(C, k,k,k)
+      Tr <- c(Tr, row.names(DT$groups))
+      L <- c(L, DT$groups$groups)
+      M <- c(M, DT$groups$Stems)
+    } 
+  }
+}
 
 
-## Stems
+LettersSTz <- data.frame(Year = Y, `Weeks after planting` = factor(W), 
+                         Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
 
+
+
+
+#Duncan Graph Stems 
 ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Stems, fill=Treatment))+ylab("Number of Stems")+
   geom_boxplot()+ 
   facet_grid(Cultivar~Year)+
@@ -229,5 +374,32 @@ ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Stems, fill=Treatme
             mapping = aes(x = Weeks.after.planting,
                           y = mea + 1,
                           label = letra),
-            position = position_dodge(0.9))
+            position = position_dodge(0.9))+
+  labs(caption = "Figure No 10. Results of Duncan Test in the variable Number of Stems") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
+
+#Tukey Graph Stems
+ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Stems, fill=Treatment))+ylab("Number of Stems")+
+  geom_boxplot()+ 
+  facet_grid(Cultivar~Year)+
+  theme_light()+
+  geom_text(data = LettersSTz,
+            mapping = aes(x = Weeks.after.planting,
+                          y = mea + 1,
+                          label = letra),
+            position = position_dodge(0.9))+
+  labs(caption = "Figure No 11. Results of Tukey Test in the variable Number of Stems") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
+
+#Residuals Stems
+anova.st<-aov(Stems~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #anova 
+anova.st.sqrt <- aov(sqrt(Stems)~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #square root 
+shapiro.test(anova.st$residuals) #0.007876 anormal  
+shapiro.test(anova.st.sqrt$residuals) #0.002167
+par(mfrow = c(1, 2), oma = c(0, 0, 1.1, 0))
+plot(anova.ds, main = "ANOVA", which = 2, ask = F,sub.caption = "")
+plot(anova.ds.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption = "")
+
 

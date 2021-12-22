@@ -101,7 +101,7 @@ for (i in 2015:2016) {
                                    Data.Cultivars.Final$Cultivar==k, ]
       model <- aov(Disease.Severity~Treatment, data=d1z)
       summary(model)
-      DT <- duncan.test(model, "Treatment", console = TRUE)
+      DT <- HSD.test(model, "Treatment", console = TRUE)
       Y <- c(Y, i,i,i)
       W <- c(W, j,j,j)
       C <- c(C, k,k,k)
@@ -128,7 +128,7 @@ for (i in 2015:2016) {
                                    Data.Cultivars.Final$Cultivar==k, ]
       model <- aov(Stems~Treatment, data=d1z)
       summary(model)
-      DT <- duncan.test(model, "Treatment", console = TRUE)
+      DT <- HSD.test(model, "Treatment", console = TRUE)
       Y <- c(Y, i,i,i)
       W <- c(W, j,j,j)
       C <- c(C, k,k,k)
@@ -146,42 +146,8 @@ LettersSTz <- data.frame(Year = Y, `Weeks after planting` = factor(W),
 
 #### Juntar letras en la grafica 
 
-# Plant Height
-
-ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Plant.Height, fill=Treatment))+ylab("Plant Height (cm)")+
-  geom_boxplot()+
-  facet_grid(Cultivar~Year)+
-  theme_light()+
-  geom_text(data = LettersPHz,
-            mapping = aes(x = Weeks.after.planting,
-                          y = mea + 5,
-                          label = letra),
-            position = position_dodge(0.9))
 
 
-## Disease Incidence
-
-ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Incidence, fill=Treatment))+ylab("Disease Incidence(%)")+
-  geom_boxplot()+
-  facet_grid(Cultivar~Year)+
-  theme_light()+
-  geom_text(data = LettersDIz,
-            mapping = aes(x = Weeks.after.planting,
-                          y = mea + 8,
-                          label = letra),
-            position = position_dodge(0.9))
-
-## Disease Severity
-
-ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Severity, fill=Treatment))+ylab("Disease Severity(%)")+
-  geom_boxplot()+
-  facet_grid(Cultivar~Year)+
-  theme_light()+ 
-  geom_text(data = LettersDSz,
-            mapping = aes(x = Weeks.after.planting,
-                          y = mea + 7,
-                          label = letra),
-            position = position_dodge(0.9))
 
 
 ## Stems

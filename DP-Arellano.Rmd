@@ -22,13 +22,15 @@ Demonstrate the potential effect of *B. velezensis* strains  against *R. solani*
 First, dowload the raw data of the paper that is in the link: 
 <https://dfzljdn9uc3pi.cloudfront.net/2021/11578/1/peerj-55829-Raw_data.xls>
 
+**Article:**  <https://peerj.com/articles/11578/#>
+
 ```{r}
 if(!dir.exists("data")) dir.create("data")
 download.file("https://dfzljdn9uc3pi.cloudfront.net/2021/11578/1/peerj-55829-Raw_data.xls",
               "data/rawdata.xls")
 ```
 
-**2. Open and Arrange Data:** For this sept, it was used the package "Readxl" to charge the excel file. Each sheet of excel was opened indicating its name and the range required. In some sheets it was use the function "fill" to fill the cells that were empty. Also some names of variables were changed with "rename" and "pivot longer" was used to increase the number of rows or to decrease the number of columns.The potence format was changed. Finally, some new sheets were created why others where joined or deleted in order to have the data arranged. 
+**2. Open and Arrange Data:** For this step, it was used the package "Readxl" to charge the excel file. Each sheet of excel was opened indicating its name and the range required. In some sheets it was use the function "fill" to fill the cells that were empty. Also some names of variables were changed with "rename" and "pivot longer" was used to increase the number of rows or to decrease the number of columns.The potence format was changed. Finally, some new sheets were created why others where joined or deleted in order to have the data arranged. 
 
 ```{r include = FALSE}
 library(readxl)
@@ -73,7 +75,7 @@ names(AntagonisticActivity)[names(AntagonisticActivity) == 'CFU/ml'] <- "Concent
 #Pivot longer 
 AntagonisticActivity <- pivot_longer(AntagonisticActivity,cols= c("3d", "5d", "7d"), names_to="Days", values_to="Colony.Diameter")
 
-#change potencia
+#change potence
 AntagonisticActivity$Concentration
 a <- as.numeric(substr(AntagonisticActivity$Concentration, 1, 2))
 b <- as.numeric(substr(AntagonisticActivity$Concentration, 3, 3))
@@ -99,6 +101,7 @@ names(Data.Cultivars)[names(Data.Cultivars) == '...6.x'] <- "2"
 names(Data.Cultivars)[names(Data.Cultivars) == '...7.x'] <- "3"
 names(Data.Cultivars)[names(Data.Cultivars) == '...8.x'] <- "4"
 names(Data.Cultivars)[names(Data.Cultivars) == '...9.x'] <- "5"
+
 #Pivot longer 
 Data.Cultivars <- pivot_longer(Data.Cultivars,cols= c("1", "2", "3","4","5"), names_to="Rep", values_to="Plant.Height")
 
@@ -171,53 +174,13 @@ rm("Data.Cultivars","DiseaseIncidenceAndSeverity","medium.fraction","Morphometri
 
 
 **3. Do analysis:**
-Finally with the arrangement of the sheets of excel, there were obtained 4 main data sets. The first one was Antagonistic Activity, then Data Cultivars that include the variables of Percentage of Disease Incidence, Percentage of Disease Severity, Plant height and number of stems per plant.Then, the data set of Biomass Distribution and the the Yield of Potato. With these data sets were performed a comparation between ANOVA and Duncan test in this four data sets. All results were expressed in graphs and analyzed. 
+Finally with the arrangement of the sheets of excel, there were obtained 4 main data sets. The first one was Antagonistic Activity, then Data Cultivars that include the variables of Percentage of Disease Incidence, Percentage of Disease Severity, Plant height and number of stems per plant.Then, the data set of Biomass Distribution and finally the data set of Yield of Potato. 
 
-**Description of data sets**
+With these data sets were performed Tukey HSD Test, Duncan test and Normality Test of Residuals with shapiro Test. All results were expressed in graphs using the packages of "ggplot" and "ggpubr". The results were analyzed and compared with the results of the article. It is important to say that in the article, the authors have only performed Duncan Test.
 
+**Description of data sets:**
 
-**1) Antifungal activity of B. velezensis against *R solani* in vitro.** 
-
-
-Strains:
-
-1. *Bacillus velezensis* strain BZR 336 g
-
-2. *Bacillus velezensis* strain BZR 517
-
-3. Control 
-
-
-Treatments:
- 
-1. 10^4 CFU/mL
-  
-2. 10^5 CFU/mL
-  
-3. 10^6 CFU/mL
-  
-4. Control.
-
-###### CFU: Colony-Forming Unit
-
-
-Days:
-
-* 3
-
-* 5
-
-* 7 
-
-Variables: 
-
-* Colony Diameter (cm)
-
-
-&nbsp;
-
-
-**2) Effect of *B. velezensis* strains on disease incidence and severity and morphometric parameters caused by *R. solani* on two potato cultivars differed by disease resistance during 2015 and 2016 growing seasons in Western Siberia**
+**1) Effect of *B. velezensis* strains on disease incidence and severity and morphometric parameters caused by *R. solani* on two potato cultivars differed by disease resistance during 2015 and 2016 growing seasons in Western Siberia**
 
 
 Cultivars:
@@ -254,9 +217,9 @@ Weeks after planting:
 
 Variables: (5 rep/treatment)
 
-1. Disease incidence % 
+1. Disease incidence (%) 
 
-2. Disease severity
+2. Disease severity (%)
 
 3. Plant height (cm) 
 
@@ -265,7 +228,7 @@ Variables: (5 rep/treatment)
 
 &nbsp;
 
-**3) Effect of *B. velezens* strains on the biomass distribution of daughter tubers of two potato cultivars differed by disease resistance to *R. solani* and total yield during 2015 and 2016 growing seasons in Western Siberia.**
+**2) Effect of *B. velezens* strains on the biomass distribution of daughter tubers of two potato cultivars differed by disease resistance to *R. solani* and total yield during 2015 and 2016 growing seasons in Western Siberia.**
 
 
 Cultivars:
@@ -304,134 +267,91 @@ Variables: (5 rep/treatment)
 
 1. Biomass distribution 
 
-## Results 
-**1) Antifungal activity of B. velezensis against *R solani* in vitro.** 
-```{r include = FALSE}
-##### 1. ANTAGONISTIC ACTIVITY
-#### Antagonistic activity was evaluated by measuring the diameter of the fungal 
-#### colonies after 3, 5, and 7 days. The fungal inhibition (%) was determined 
-#### based on the data obtained. 
-#### All results were expressed and analyzed as the mean.
-#### 1.1 Mean and Standard error for Fungal diameter for each treatment.
-## Creating a new plot with means and standard errors
-#install.packages("dplyr")
-library("dplyr")
-plot.means <- AntagonisticActivity %>%
-  group_by(Days,Trat) %>%
-  summarize(n = n(),
-            mean = mean(Colony.Diameter),
-            sd = sd(Colony.Diameter),
-            se = sd / sqrt(n))
-```
+**3) Antifungal activity of B. velezensis against *R solani* in vitro.** 
 
-```{r}
-## Graph the influence of treatments on the fungal diameter growth after 3, 5 
-## and 7 days.
-#install.packages("ggplot2")
-library(ggplot2)
-ggplot(plot.means, aes(x = Days,
-                          y = mean,
-                          group=Trat,
-                          color=Trat)) +
-  geom_point(size = 3) +
-  geom_line(size = 1) +
-  geom_errorbar(aes(ymin=mean-se,
-                    ymax=mean+se),
-                width = .1)+
-  labs(title = "Graphic 1. The influence of B. velezensis strains on the growth of R. solani in vitro",
-       subtitle = "(Colony diameter)",
-       x = "Days",
-       y = "Colony diameter",
-       color = "Trat") +
-  theme_light()
-```
+Strains:
+
+1. *Bacillus velezensis* strain BZR 336 g
+
+2. *Bacillus velezensis* strain BZR 517
+
+3. Control 
+
+
+Treatments:
+ 
+1. 10^4 CFU/mL
+  
+2. 10^5 CFU/mL
+  
+3. 10^6 CFU/mL
+  
+4. Control.
+
+###### CFU: Colony-Forming Unit
+
+
+Days:
+
+* 3
+
+* 5
+
+* 7 
+
+Variables: 
+
+* Colony Diameter (cm)
 
 
 &nbsp;
 
-**2) Effect of *B. velezensis* strains on disease incidence and severity and morphometric parameters caused by *R. solani* on two potato cultivars differed by disease resistance during 2015 and 2016 growing seasons in Western Siberia**
+## Results and Discussion 
 
 
 &nbsp;
-```{r include = FALSE}
-#Analysis Data.Cultivars.Final
 
+**1) Effect of *B. velezensis* strains on disease incidence and severity and morphometric parameters caused by *R. solani* on two potato cultivars differed by disease resistance during 2015 and 2016 growing seasons in Western Siberia**
+
+
+&nbsp;
+**1.1 Plant Height**
+
+The Duncan and Tukey tests had few differences.Only in year 2016, week 6 in cultivar Svitanok kievski it can be seen a difference in the group of BZR 517 (Figures 1 and 2). The Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was lower than 0.05, that means that the data significantly deviate from a normal distribution (Figure 3).
+
+```{r include = FALSE}
+#Duncan Analysis Data.Cultivars.Final
 library(agricolae)
-
-########### GRAFICS
+library(ggplot2)
+library(ggpubr)
 
 # Plant Height
+
+#Anova Plant Height
 model<-aov(Plant.Height~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final)
 summary(model)
-
 Data.Cultivars.Final$`Weeks after planting` <- factor(Data.Cultivars.Final$`Weeks after planting`)
 
-library(ggplot2)
-#ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Plant.Height, fill=Treatment))+
-  #geom_boxplot()+
-  #facet_grid(Cultivar~Year)+
-  #theme_light()
-
-# Disease Incidence
-model<-aov(Disease.Incidence~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final)
-summary(model)
-
-Data.Cultivars.Final$`Weeks after planting` <- factor(Data.Cultivars.Final$`Weeks after planting`)
-
-library(ggplot2)
-#ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Incidence, fill=Treatment))+
-  #geom_boxplot()+
-  #facet_grid(Cultivar~Year)+
-  #theme_light()
-
-# Disease Severity
-model<-aov(Disease.Severity~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final)
-summary(model)
-
-Data.Cultivars.Final$`Weeks after planting` <- factor(Data.Cultivars.Final$`Weeks after planting`)
-
-library(ggplot2)
-#ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Severity, fill=Treatment))+
-  #geom_boxplot()+
-  #facet_grid(Cultivar~Year)+
-  #theme_light()
-
-#Stems
-model<-aov(Stems~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final)
-summary(model)
-
-Data.Cultivars.Final$`Weeks after planting` <- factor(Data.Cultivars.Final$`Weeks after planting`)
-
-library(ggplot2)
-#ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Stems, fill=Treatment))+
-  #geom_boxplot()+
-  #facet_grid(Cultivar~Year)+
-  #theme_light()
-
-
-
-########### DUNCAN TEST
-
-## Plant Height
+## Plant Height Duncan 
 
 Y <- W <- Tr <- L <- C <- M <- numeric()
 
 for (i in 2015:2016) { 
   for (k in levels(as.factor(Data.Cultivars.Final$Cultivar))) {
-  for(j in levels(Data.Cultivars.Final$`Weeks after planting`)) {
-  d1 <- Data.Cultivars.Final[Data.Cultivars.Final$Year==i & 
-                               Data.Cultivars.Final$`Weeks after planting`==j &
-                               Data.Cultivars.Final$Cultivar==k, ]
-  model <- aov(Plant.Height~Treatment, data=d1)
-  summary(model)
-  DT <- duncan.test(model, "Treatment", console = TRUE)
-  Y <- c(Y, i,i,i)
-  W <- c(W, j,j,j)
-  C <- c(C, k,k,k)
-  Tr <- c(Tr, row.names(DT$groups))
-  L <- c(L, DT$groups$groups)
-  M <- c(M, DT$groups$Plant.Height)
-  } 
+    for(j in levels(Data.Cultivars.Final$`Weeks after planting`)) {
+      d1 <- Data.Cultivars.Final[Data.Cultivars.Final$Year==i & 
+                                   Data.Cultivars.Final$`Weeks after planting`==j &
+                                   Data.Cultivars.Final$Cultivar==k, ]
+      model <- aov(Plant.Height~Treatment, data=d1)
+      summary(model)
+      DT <- duncan.test(model, "Treatment", console = TRUE)
+      Y <- c(Y, i,i,i)
+      W <- c(W, j,j,j)
+      C <- c(C, k,k,k)
+      Tr <- c(Tr, row.names(DT$groups))
+      L <- c(L, DT$groups$groups)
+      M <- c(M, DT$groups$Plant.Height)
+    } 
   }
 }
 
@@ -439,7 +359,99 @@ for (i in 2015:2016) {
 LettersPH <- data.frame(Year = Y, `Weeks after planting` = factor(W), 
                         Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
 
-## Disease Incidence
+## Plant Height Tukey 
+
+Y <- W <- Tr <- L <- C <- M <- numeric()
+
+for (i in 2015:2016) { 
+  for (k in levels(as.factor(Data.Cultivars.Final$Cultivar))) {
+    for(j in levels(Data.Cultivars.Final$`Weeks after planting`)) {
+      d1z <- Data.Cultivars.Final[Data.Cultivars.Final$Year==i & 
+                                    Data.Cultivars.Final$`Weeks after planting`==j &
+                                    Data.Cultivars.Final$Cultivar==k, ]
+      model <- aov(Plant.Height~Treatment, data=d1z)
+      summary(model)
+      DT <- HSD.test(model, "Treatment", console = TRUE)
+      Y <- c(Y, i,i,i)
+      W <- c(W, j,j,j)
+      C <- c(C, k,k,k)
+      Tr <- c(Tr, row.names(DT$groups))
+      L <- c(L, DT$groups$groups)
+      M <- c(M, DT$groups$Plant.Height)
+    } 
+  }
+}
+
+LettersPHz <- data.frame(Year = Y, `Weeks after planting` = factor(W), 
+                         Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
+
+```
+
+```{r}
+library(agricolae)
+library(ggplot2)
+library(ggpubr)
+#Plant Height Duncan Graph
+
+ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Plant.Height, fill=Treatment))+ylab("Plant Height (cm)")+
+  geom_boxplot()+
+  facet_grid(Cultivar~Year)+
+  theme_light()+
+  geom_text(data = LettersPH,
+            mapping = aes(x = Weeks.after.planting,
+                          y = mea + 5,
+                          label = letra),
+            position = position_dodge(0.9))+
+  labs(caption = "Figure No 1. Results of Duncan Test in the variable of Plant Height on potato (cm)") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
+```
+
+```{r}
+#Plant Height Tukey Graph
+
+ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Plant.Height, fill=Treatment))+ylab("Plant Height (cm)")+
+  geom_boxplot()+
+  facet_grid(Cultivar~Year)+
+  theme_light()+
+  geom_text(data = LettersPHz,
+            mapping = aes(x = Weeks.after.planting,
+                          y = mea + 5,
+                          label = letra),
+            position = position_dodge(0.9))+
+  labs(caption = "Figure No 2. Results of Tukey Test in the variable of Plant Height on potato (cm)") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
+
+#Residuals Plant Height 
+anova.ph<-aov(Plant.Height~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #anova 
+anova.ph.sqrt <- aov(sqrt(Plant.Height)~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #square root 
+shapiro.test(anova.ph$residuals) #0.0329 anormal 
+shapiro.test(anova.ph.sqrt$residuals) #0.02933
+par(mfrow = c(1, 2), oma = c(0, 0, 1.1, 0))
+plot(anova.ph, main = "ANOVA", which = 2, ask = F,sub.caption = "")
+plot(anova.ph.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption = "")
+```
+
+<font size="1.5"> Figure No 3. Normality of Residuals Plant Height.</font> 
+
+
+
+&nbsp;
+
+**1.2 Disease Incidence** 
+
+The Duncan and Tukey tests had few differences.Only in year 2015 in cultivar Svitanok kievski it can be seen a difference between the groups (Figures 4 and 5). The Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was lower than 0.05, that means that the data significantly deviate from a normal distribution (Figure 6).
+
+```{r include = FALSE}
+#Disease Incidence
+#Anova Disease Incidence 
+model<-aov(Disease.Incidence~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final)
+summary(model)
+Data.Cultivars.Final$`Weeks after planting` <- factor(Data.Cultivars.Final$`Weeks after planting`)
+
+
+#Duncan Test Disease Incidence
 
 Y <- W <- Tr <- L <- C <- M <- numeric()
 
@@ -466,7 +478,87 @@ for (i in 2015:2016) {
 LettersDI <- data.frame(Year = Y, `Weeks after planting` = factor(W), 
                         Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
 
-## Disease Severity
+#Tukey Disease Incidence
+
+Y <- W <- Tr <- L <- C <- M <- numeric()
+
+for (i in 2015:2016) { 
+  for (k in levels(as.factor(Data.Cultivars.Final$Cultivar))) {
+    for(j in levels(Data.Cultivars.Final$`Weeks after planting`)) {
+      d1z <- Data.Cultivars.Final[Data.Cultivars.Final$Year==i & 
+                                    Data.Cultivars.Final$`Weeks after planting`==j &
+                                    Data.Cultivars.Final$Cultivar==k, ]
+      model <- aov(Disease.Incidence~Treatment, data=d1z)
+      summary(model)
+      DT <- HSD.test(model, "Treatment", console = TRUE)
+      Y <- c(Y, i,i,i)
+      W <- c(W, j,j,j)
+      C <- c(C, k,k,k)
+      Tr <- c(Tr, row.names(DT$groups))
+      L <- c(L, DT$groups$groups)
+      M <- c(M, DT$groups$Disease.Incidence)
+    } 
+  }
+}
+
+
+LettersDIz <- data.frame(Year = Y, `Weeks after planting` = factor(W), 
+                         Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
+```
+
+```{r}
+#Duncan Graph Disease Incidence
+ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Incidence, fill=Treatment))+ylab("Disease Incidence(%)")+
+  geom_boxplot()+
+  facet_grid(Cultivar~Year)+
+  theme_light()+
+  geom_text(data = LettersDI,
+            mapping = aes(x = Weeks.after.planting,
+                          y = mea + 8,
+                          label = letra),
+            position = position_dodge(0.9))+
+  labs(caption = "Figure No 4. Results of Duncan Test in the variable of Disease Incidence (%)") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
+
+#Tukey Graph Disease Incidence
+ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Incidence, fill=Treatment))+ylab("Disease Incidence(%)")+
+  geom_boxplot()+
+  facet_grid(Cultivar~Year)+
+  theme_light()+
+  geom_text(data = LettersDIz,
+            mapping = aes(x = Weeks.after.planting,
+                          y = mea + 8,
+                          label = letra),
+            position = position_dodge(0.9))+
+  labs(caption = "Figure No 5. Results of Tukey Test in the variable of Disease Incidence (%)") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
+#Residuals Disease Incidence
+anova.di<-aov(Disease.Incidence~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #anova 
+anova.di.sqrt <- aov(sqrt(Disease.Incidence)~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #square root 
+shapiro.test(anova.di$residuals) #0.03132 anormal 
+shapiro.test(anova.di.sqrt$residuals) #0.001165
+par(mfrow = c(1, 2), oma = c(0, 0, 1.1, 0))
+plot(anova.di, main = "ANOVA", which = 2, ask = F,sub.caption = "")
+plot(anova.di.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption = "")
+```
+
+<font size="1"> Figure No. 6 Normality of Residuals Disease Incidence</font> 
+
+
+**1.3 Disease Severity**
+
+The Duncan and Tukey tests did not have differences (Figures 7 and 8). The Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was lower than 0.05, that means that the data significantly deviate from a normal distribution (Figure 9).
+
+```{r include = FALSE}
+#Disease Severity
+
+#Anova Disease Severity
+model<-aov(Disease.Severity~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final)
+summary(model)
+Data.Cultivars.Final$`Weeks after planting` <- factor(Data.Cultivars.Final$`Weeks after planting`)
+#Disease Severity Duncan Test
 
 Y <- W <- Tr <- L <- C <- M <- numeric()
 
@@ -493,8 +585,88 @@ for (i in 2015:2016) {
 LettersDS <- data.frame(Year = Y, `Weeks after planting` = factor(W), 
                         Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
 
-## Stems
+#Tukey Test Disease Severity
 
+Y <- W <- Tr <- L <- C <- M <- numeric()
+
+for (i in 2015:2016) { 
+  for (k in levels(as.factor(Data.Cultivars.Final$Cultivar))) {
+    for(j in levels(Data.Cultivars.Final$`Weeks after planting`)) {
+      d1z <- Data.Cultivars.Final[Data.Cultivars.Final$Year==i & 
+                                    Data.Cultivars.Final$`Weeks after planting`==j &
+                                    Data.Cultivars.Final$Cultivar==k, ]
+      model <- aov(Disease.Severity~Treatment, data=d1z)
+      summary(model)
+      DT <- HSD.test(model, "Treatment", console = TRUE)
+      Y <- c(Y, i,i,i)
+      W <- c(W, j,j,j)
+      C <- c(C, k,k,k)
+      Tr <- c(Tr, row.names(DT$groups))
+      L <- c(L, DT$groups$groups)
+      M <- c(M, DT$groups$Disease.Severity)
+    } 
+  }
+}
+
+
+LettersDSz <- data.frame(Year = Y, `Weeks after planting` = factor(W), 
+                         Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
+```
+
+```{r}
+#Duncan Graph Disease Severity
+ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Severity, fill=Treatment))+ylab("Disease Severity (%)")+
+  geom_boxplot()+
+  facet_grid(Cultivar~Year)+
+  theme_light()+
+  geom_text(data = LettersDS,
+            mapping = aes(x = Weeks.after.planting,
+                          y = mea + 5,
+                          label = letra),
+            position = position_dodge(0.9))+
+  labs(caption = "Figure No 7. Results of Duncan Test in the variable of Disease Severity (%)") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
+
+#Tukey Graph Disease Severity
+
+ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Severity, fill=Treatment))+ylab("Disease Severity(%)")+
+  geom_boxplot()+
+  facet_grid(Cultivar~Year)+
+  theme_light()+ 
+  geom_text(data = LettersDSz,
+            mapping = aes(x = Weeks.after.planting,
+                          y = mea + 7,
+                          label = letra),
+            position = position_dodge(0.9))+
+  labs(caption = "Figure No 8. Results of Tukey Test in the variable of Disease Severity (%)") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
+#Residuals Disease Severity
+anova.ds<-aov(Disease.Severity~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #anova 
+anova.ds.sqrt <- aov(sqrt(Disease.Severity)~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #square root 
+shapiro.test(anova.ds$residuals) #0.002356 anormal  
+shapiro.test(anova.ds.sqrt$residuals) #0.0009698
+par(mfrow = c(1, 2), oma = c(0, 0, 1.1, 0))
+plot(anova.ds, main = "ANOVA", which = 2, ask = F,sub.caption = "")
+plot(anova.ds.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption = "")
+
+```
+
+<font size="1"> Figure No. 9 Normality of Residuals Disease Incidence</font> 
+
+**1.4 Number of stems**
+
+The Duncan and Tukey tests had few differences.Only in year 2016 in cultivar Yuna in the control it can be seen a difference between the groups (Figures 10 and 11). The Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was lower than 0.05, that means that the data significantly deviate from a normal distribution (Figure 12).
+
+```{r include = FALSE}
+#Stems
+#Anova Stems
+model<-aov(Stems~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final)
+summary(model)
+Data.Cultivars.Final$`Weeks after planting` <- factor(Data.Cultivars.Final$`Weeks after planting`)
+
+#Ducant Test Stems
 Y <- W <- Tr <- L <- C <- M <- numeric()
 
 for (i in 2015:2016) { 
@@ -520,61 +692,37 @@ for (i in 2015:2016) {
 LettersST <- data.frame(Year = Y, `Weeks after planting` = factor(W), 
                         Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
 
+#Tukey Graph Stems
+
+Y <- W <- Tr <- L <- C <- M <- numeric()
+
+for (i in 2015:2016) { 
+  for (k in levels(as.factor(Data.Cultivars.Final$Cultivar))) {
+    for(j in levels(Data.Cultivars.Final$`Weeks after planting`)) {
+      d1z <- Data.Cultivars.Final[Data.Cultivars.Final$Year==i & 
+                                    Data.Cultivars.Final$`Weeks after planting`==j &
+                                    Data.Cultivars.Final$Cultivar==k, ]
+      model <- aov(Stems~Treatment, data=d1z)
+      summary(model)
+      DT <- HSD.test(model, "Treatment", console = TRUE)
+      Y <- c(Y, i,i,i)
+      W <- c(W, j,j,j)
+      C <- c(C, k,k,k)
+      Tr <- c(Tr, row.names(DT$groups))
+      L <- c(L, DT$groups$groups)
+      M <- c(M, DT$groups$Stems)
+    } 
+  }
+}
+
+
+LettersSTz <- data.frame(Year = Y, `Weeks after planting` = factor(W), 
+                         Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
 ```
 
 ```{r}
-#### Juntar letras en la grafica 
-
-# Plant Height
-
-ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Plant.Height, fill=Treatment))+
-  geom_boxplot()+
-  facet_grid(Cultivar~Year)+
-  theme_light()+
-  geom_text(data = LettersPH,
-            mapping = aes(x = Weeks.after.planting,
-                          y = mea + 5,
-                          label = letra),
-            position = position_dodge(0.9))+
-  labs(caption = "Figure 3. Result of Duncan Test of Plant Height (cm)") +
-  theme(plot.caption.position = "plot",
-        plot.caption = element_text(hjust = 0))
-            
-
-## Disease Incidence
-
-ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Incidence, fill=Treatment))+
-  geom_boxplot()+
-  facet_grid(Cultivar~Year)+
-  theme_light()+
-  geom_text(data = LettersDI,
-            mapping = aes(x = Weeks.after.planting,
-                          y = mea + 5,
-                          label = letra),
-            position = position_dodge(0.9))+
-  labs(caption = "Figure No.4 Result of Duncan Test of Percentage of Disease incidence") +
-  theme(plot.caption.position = "plot",
-        plot.caption = element_text(hjust = 0))
-
-## Disease Severity
-
-ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Severity, fill=Treatment))+
-  geom_boxplot()+
-  facet_grid(Cultivar~Year)+
-  theme_light()+
-  geom_text(data = LettersDS,
-            mapping = aes(x = Weeks.after.planting,
-                          y = mea + 5,
-                          label = letra),
-            position = position_dodge(0.9))+
-  labs(caption = "Figure No.5 Result of Duncan Test of Percentage of Disease severity") +
-  theme(plot.caption.position = "plot",
-        plot.caption = element_text(hjust = 0))
-
-
-## Stems
-
-ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Stems, fill=Treatment))+
+#Duncan Graph Stems 
+ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Stems, fill=Treatment))+ylab("Number of Stems")+
   geom_boxplot()+ 
   facet_grid(Cultivar~Year)+
   theme_light()+
@@ -582,30 +730,52 @@ ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Stems, fill=Treatme
             mapping = aes(x = Weeks.after.planting,
                           y = mea + 1,
                           label = letra),
-            position = position_dodge(0.9)) +
-  labs(caption = "Figure No. 6 Result of Duncan Test of Number of stems in potato") +
+            position = position_dodge(0.9))+
+  labs(caption = "Figure No 10. Results of Duncan Test in the variable Number of Stems") +
   theme(plot.caption.position = "plot",
         plot.caption = element_text(hjust = 0))
+
+#Tukey Graph Stems
+ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Stems, fill=Treatment))+ylab("Number of Stems")+
+  geom_boxplot()+ 
+  facet_grid(Cultivar~Year)+
+  theme_light()+
+  geom_text(data = LettersSTz,
+            mapping = aes(x = Weeks.after.planting,
+                          y = mea + 1,
+                          label = letra),
+            position = position_dodge(0.9))+
+  labs(caption = "Figure No 11. Results of Tukey Test in the variable Number of Stems") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
+
+#Residuals Stems
+anova.st<-aov(Stems~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #anova 
+anova.st.sqrt <- aov(sqrt(Stems)~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #square root 
+shapiro.test(anova.st$residuals) #0.007876 anormal  
+shapiro.test(anova.st.sqrt$residuals) #0.002167
+par(mfrow = c(1, 2), oma = c(0, 0, 1.1, 0))
+plot(anova.ds, main = "ANOVA", which = 2, ask = F,sub.caption = "")
+plot(anova.ds.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption = "")
+
 ```
-**3) Effect of *B. velezens* strains on the biomass distribution of daughter tubers of two potato cultivars differed by disease resistance to *R. solani* and total yield during 2015 and 2016 growing seasons in Western Siberia.**
+<font size="1"> Figure No. 12 Normality of Residuals Stems</font>
 
 
-1. Biomass distribution 
+**2) Effect of *B. velezens* strains on the biomass distribution of daughter tubers of two potato cultivars differed by disease resistance to *R. solani* and total yield during 2015 and 2016 growing seasons in Western Siberia.**
+
+**2.1 Biomass distribution**
+
+The Duncan and Tukey tests did not have differences (Figures 13 and 14). The Shapiro-Wilk normality test was performed for Anova and Square Root Anova but this case in Anova p was higher than 0.05, that means that the data has a normal distribution (Figure 15).
+
+
 ```{r include = FALSE}
-#Biomass
+#Prueba Biomass
 model<-aov(Percentage.Biomass~Treatment+`Fractions`+Year, data=BiomassDistribution)
 summary(model)
-
 BiomassDistribution$`Fractions` <- factor(BiomassDistribution$`Fractions`)
 
-library(ggplot2)
-#ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatment))+
-  #geom_boxplot()+
- #facet_grid(Cultivar~Year)+
-  #theme_light()
-
-##Biomass for
-
+#Biomass Duncant Test
 Y <- W <- Tr <- L <- C <- M <- numeric()
 
 for (i in 2015:2016) { 
@@ -627,30 +797,79 @@ for (i in 2015:2016) {
   }
 }
 
+LettersPH1 <- data.frame(Year = Y, `Fractions` = factor(W), 
+                         Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
+
+
+
+#Prueba Biomass tukey 
+library(agricolae)
+Y <- W <- Tr <- L <- C <- M <- numeric()
+
+for (i in 2015:2016) { 
+  for (k in levels(as.factor(BiomassDistribution$Cultivar))) {
+    for(j in levels(BiomassDistribution$`Fractions`)) {
+      t200 <- BiomassDistribution[BiomassDistribution$Year==i & 
+                                    BiomassDistribution$`Fractions`==j &
+                                    BiomassDistribution$Cultivar==k, ]
+      model <- aov(Percentage.Biomass~Treatment, data=t200)
+      summary(model)
+      DT <- HSD.test(model, "Treatment", console = TRUE)
+      Y <- c(Y, i,i,i)
+      W <- c(W, j,j,j)
+      C <- c(C, k,k,k)
+      Tr <- c(Tr, row.names(DT$groups))
+      L <- c(L, DT$groups$groups)
+      M <- c(M, DT$groups$Percentage.Biomass)
+    } 
+  }
+}
+LetterstPH11 <- data.frame(Year = Y, `Fractions` = factor(W), 
+                           Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
 ```
 
 ```{r}
-#Biomass graph
-LettersPH1 <- data.frame(Year = Y, `Fractions` = factor(W), 
-                        Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
-
-ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatment))+
+#Biomass Graph Duncan 
+ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatment))+ylab("Biomass (%)")+
   geom_boxplot()+
   facet_grid(Cultivar~Year)+
   theme_light()+
   geom_text(data = LettersPH1,
             mapping = aes(x = Fractions,
-                          y = mea + 5,
+                          y = mea + 8,
                           label = letra),
             position = position_dodge(0.9))+
-  labs(caption = "Figure No. 7 Result of Duncan Test of Percentage of Biomass of potato") +
+  labs(caption = "Figure No. 13  Result of Duncan Test on the variable  Percentage of Biomass of potato") +
   theme(plot.caption.position = "plot",
         plot.caption = element_text(hjust = 0))
 
+#Biomass Graph Tukey 
+ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatment))+ ylab("Biomass (%)")+
+  geom_boxplot()+
+  facet_grid(Cultivar~Year)+
+  theme_light()+
+  geom_text(data = LetterstPH11,
+            mapping = aes(x = Fractions,
+                          y = mea + 8,
+                          label = letra),
+            position = position_dodge(0.9))+
+  labs(caption = "Figure No. 14 Result of Tukey Test in the variable Percentage of Biomass of potato") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
 
+#Residuals Biomass
+anova.biomass<-aov(Percentage.Biomass~Treatment+`Fractions`+Year, data=BiomassDistribution) #anova 
+anova.biomass.sqrt <- aov(sqrt(Percentage.Biomass)~Treatment+`Fractions`+Year, data=BiomassDistribution) #square root 
+shapiro.test(anova.biomass$residuals) #0.06424
+shapiro.test(anova.biomass.sqrt$residuals) #0.3364
+plot(anova.biomass, main = "ANOVA Percentage of Biomass", which = 2, ask = F,sub.caption = "")
 ```
+<font size="1"> Figure No. 15 Normality of Residuals Percentage of Biomass</font>
 
-2. Yield (t/ha)
+**2.2 Yield of Potato**
+
+The Duncan and Tukey tests did not have differences (Figures 16 and 17). The Shapiro-Wilk normality test was performed for Anova with a p-vañue higher than 0.05 both years and cultivars, that means that the data has a normal distribution (Figure 18).
+
 ```{r include = FALSE}
 #Duncan Yield 2015 Svitanok kievskiy
 YieldOfPotato$Cultivar <- factor(YieldOfPotato$Cultivar)
@@ -665,9 +884,6 @@ out$groups$groups
 
 letter1 <- character()
 letter1 <- c(letter1,out$groups$groups)
-#BZR 336g        28.78      a
-#BZR 517         22.00      b
-#Control         20.34      c 
 
 
 #Duncan Yield 2015 Yuna
@@ -682,9 +898,6 @@ plot(out,variation="IQR")
 out
 letter1 <- c(letter1,out$groups$groups)
 
-#BZR 336g         25.7      a
-#BZR 517          24.6      a
-#Control          21.0      b
 #Duncan Yield 2016 Svitanok kievskiy
 YieldOfPotato$Cultivar <- factor(YieldOfPotato$Cultivar)
 Con1234 <- YieldOfPotato$Cultivar == "Svitanok kievskiy" & YieldOfPotato$Year==2016
@@ -696,9 +909,7 @@ out <- duncan.test(model,"Treatment",
 plot(out,variation="IQR")
 out
 letter1 <- c(letter1,out$groups$groups)
-#BZR 336g         18.9      a
-#BZR 517          16.5      b
-#Control          11.6      c
+
 #Duncan Yield 2016 Yuna
 YieldOfPotato$Cultivar <- factor(YieldOfPotato$Cultivar)
 Con12345 <- YieldOfPotato$Cultivar == "Yuna" & YieldOfPotato$Year==2016
@@ -710,25 +921,62 @@ out <- duncan.test(model,"Treatment",
 plot(out,variation="IQR")
 out
 letter1 <- c(letter1,out$groups$groups)
-#BZR 336g        19.70      a
-#BZR 517         19.62      a
-#Control         15.46      b
+
+#Tukey Yield 2015 Svitanok kievskiy
+YieldOfPotato$Cultivar <- factor(YieldOfPotato$Cultivar)
+Con0 <- YieldOfPotato$Cultivar == "Svitanok kievskiy" & YieldOfPotato$Year==2015
+t1 <- YieldOfPotato[Con0,]
+
+model<-aov(Yield.Potato~Treatment,data=t1)
+out1 <- HSD.test(model,"Treatment", console =TRUE)
+out1$groups$groups
+
+lettert <- character()
+lettert <- c(lettert,out1$groups$groups)
+
+
+#Tukey Yield 2015 Yuna
+YieldOfPotato$Cultivar <- factor(YieldOfPotato$Cultivar)
+Con10 <- YieldOfPotato$Cultivar == "Yuna" & YieldOfPotato$Year==2015
+t2 <- YieldOfPotato[Con10,]
+
+model<-aov(Yield.Potato~Treatment,data=t2)
+out1 <- HSD.test(model,"Treatment", console =TRUE)
+lettert <- c(lettert,out1$groups$groups)
+
+
+#Tukey Yield 2016 Svitanok kievskiy
+YieldOfPotato$Cultivar <- factor(YieldOfPotato$Cultivar)
+Cont <- YieldOfPotato$Cultivar == "Svitanok kievskiy" & YieldOfPotato$Year==2016
+t3 <- YieldOfPotato[Cont,]
+
+model<-aov(Yield.Potato~Treatment,data=t3)
+out1 <- HSD.test(model,"Treatment", console =TRUE)
+lettert <- c(lettert,out1$groups$groups)
+
+#Tukey Yield 2016 Yuna
+YieldOfPotato$Cultivar <- factor(YieldOfPotato$Cultivar)
+Con12345 <- YieldOfPotato$Cultivar == "Yuna" & YieldOfPotato$Year==2016
+t4 <- YieldOfPotato[Con12345,]
+
+model<-aov(Yield.Potato~Treatment,data=t4)
+out1 <- HSD.test(model,"Treatment", console =TRUE)
+lettert <- c(lettert,out1$groups$groups)
 ```
 
 ```{r}
-########### graph
+#Duncan Yield graph
 library(ggplot2)
 library(ggpubr)
 yield123 <- ggerrorplot(YieldOfPotato, x = "Cultivar", y = "Yield.Potato",
-                     color = "Treatment", palette = "Paired", 
-                     error.plot = "pointrange",
-                     position = position_dodge(0.5),xlab = ("Cultivars"), ylab = ("Yield of potato (t/ha)"))+
+                        color = "Treatment", palette = "Paired", 
+                        error.plot = "pointrange",
+                        position = position_dodge(0.5),xlab = ("Cultivars"), ylab = ("Yield of potato (t/ha)"))+
   facet_grid(.~Year)+
   theme_light()
 #yield123
 
 #add letterss
-#c("a", "b", "c","a","a","b","a", "b", "c","a","a","b")
 dat_text <- data.frame(
   label = letter1,
   Year   = c(rep(2015,6),rep(2016,6)),
@@ -739,15 +987,129 @@ dat_text <- data.frame(
 yield1234 <- yield123 + geom_text(
   data    = dat_text,
   mapping = aes(x = x, y = y, label = label)
-)
+)+
+  labs(caption = "Figure No. 16 Results of Duncan test Yield of potato") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
 yield1234
 
+#Graph Tukey Yield 
+library(ggplot2)
+library(ggpubr)
+yieldtuk <- ggerrorplot(YieldOfPotato, x = "Cultivar", y = "Yield.Potato",
+                        color = "Treatment", palette = "Paired", 
+                        error.plot = "pointrange",
+                        position = position_dodge(0.5),xlab = ("Cultivars"), ylab = ("Yield of potato (t/ha)"))+
+  facet_grid(.~Year)+
+  theme_light()
+#yieldtuk
+
+#add letterss
+#c("a", "b", "c","a","a","b","a", "b", "c","a","a","b")
+dat_text1 <- data.frame(
+  label = lettert,
+  Year   = c(rep(2015,6),rep(2016,6)),
+  x     = c(0.85, 1,1.2,1.83,2,2.17,0.85, 1,1.2,1.83,2,2.17),
+  y     = c(29.3, 23.3,21.6, 27,26,21.8,19.8,17.3,12.3,20.55,20.6,16.1)
+)
+
+yieldtukey1 <- yieldtuk + geom_text(
+  data    = dat_text1,
+  mapping = aes(x = x, y = y, label = label)
+)+
+  labs(caption = "Figure No. 17 Results of Tukey test Yield of potato") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
+yieldtukey1
+
+#Residuals 
+
+#Residuals Yield 2015 Svitanok kievskiy
+YieldOfPotato$Cultivar <- factor(YieldOfPotato$Cultivar)
+Con <- YieldOfPotato$Cultivar == "Svitanok kievskiy" & YieldOfPotato$Year==2015
+d1 <- YieldOfPotato[Con,]
+anova.yieldsk<-aov(Yield.Potato~Treatment,data=d1) #anova 
+anova.yieldsk.sqrt <- aov(sqrt(Yield.Potato)~Treatment,data=d1) #square root 
+shapiro.test(anova.yieldsk$residuals) #0.0553
+#shapiro.test(anova.yieldsk.sqrt$residuals) #0.02795
+
+#Residuals Yield 2015 Yuna
+YieldOfPotato$Cultivar <- factor(YieldOfPotato$Cultivar)
+Con1 <- YieldOfPotato$Cultivar == "Yuna" & YieldOfPotato$Year==2015
+d2 <- YieldOfPotato[Con1,]
+anova.yieldy<-aov(Yield.Potato~Treatment,data=d2)#anova 
+anova.yieldy.sqrt <- aov(sqrt(Yield.Potato)~Treatment,data=d2) #square root
+shapiro.test(anova.yieldy$residuals) #0.4242
+#shapiro.test(anova.yieldy.sqrt$residuals) #0.3887
+
+#Residuals Yield 2016 Svitanok kievskiy
+YieldOfPotato$Cultivar <- factor(YieldOfPotato$Cultivar)
+Con1234 <- YieldOfPotato$Cultivar == "Svitanok kievskiy" & YieldOfPotato$Year==2016
+d1234 <- YieldOfPotato[Con1234,]
+anova.yieldsk6<-aov(Yield.Potato~Treatment,data=d1234)#anova
+anova.yieldsk6.sqrt <- aov(sqrt(Yield.Potato)~Treatment,data=d1234)#square root
+shapiro.test(anova.yieldsk6$residuals) #0.1674
+#shapiro.test(anova.yieldsk6.sqrt$residuals) #0.1481
+
+#Residuals Yield 2016 Yuna
+YieldOfPotato$Cultivar <- factor(YieldOfPotato$Cultivar)
+Con12345 <- YieldOfPotato$Cultivar == "Yuna" & YieldOfPotato$Year==2016
+d2345 <- YieldOfPotato[Con12345,]
+anova.yieldy6<-aov(Yield.Potato~Treatment,data=d2345) #anova
+anova.yieldy6.sqrt <- aov(sqrt(Yield.Potato)~Treatment,data=d2345) #square root
+shapiro.test(anova.yieldy6$residuals) #0.6108
+#shapiro.test(anova.yieldy6.sqrt$residuals) #0.6299
+
+#Graph 
+par(mfrow = c(2, 2), oma = c(0, 0, 1.1, 0))
+p1 <- plot(anova.yieldsk, main = "ANOVA 2015 SK", which = 2, ask = F,sub.caption = "") 
+p2 <- plot(anova.yieldy, main = "ANOVA 2015 Y", which = 2, ask = F,sub.caption = "") 
+p3 <- plot(anova.yieldsk6, main = "ANOVA 2016 SK", which = 2, ask = F,sub.caption = "") 
+p4 <- plot(anova.yieldy6, main = "ANOVA 2016 y", which = 2, ask = F,sub.caption = "")
+```
+<font size="1"> Figure No. 18 Normality of Residuals Yield of Potato</font>
+
+**3) Antifungal activity of B. velezensis against *R solani* in vitro.** 
+```{r include = FALSE}
+##### 1. ANTAGONISTIC ACTIVITY
+#### Antagonistic activity was evaluated by measuring the diameter of the fungal 
+#### colonies after 3, 5, and 7 days. The fungal inhibition (%) was determined 
+#### based on the data obtained. 
+#### All results were expressed and analyzed as the mean.
+#### 1.1 Mean and Standard error for Fungal diameter for each treatment.
+## Creating a new plot with means and standard errors
+#install.packages("dplyr")
+library("dplyr")
+plot.means <- AntagonisticActivity %>%
+  group_by(Days,Trat) %>%
+  summarize(n = n(),
+            mean = mean(Colony.Diameter),
+            sd = sd(Colony.Diameter),
+            se = sd / sqrt(n))
 ```
 
-**Article:**  <https://peerj.com/articles/11578/#>
 
-**Data:**
-<https://dfzljdn9uc3pi.cloudfront.net/2021/11578/1/peerj-55829-Raw_data.xls>
+```{r}
+## Graph the influence of treatments on the fungal diameter growth after 3, 5 
+## and 7 days.
+#install.packages("ggplot2")
+library(ggplot2)
+ggplot(plot.means, aes(x = Days,
+                          y = mean,
+                          group=Trat,
+                          color=Trat)) +
+  geom_point(size = 3) +
+  geom_line(size = 1) +
+  geom_errorbar(aes(ymin=mean-se,
+                    ymax=mean+se),
+                width = .1)+
+  labs(title = "Graphic 1. The influence of B. velezensis strains on the growth of R. solani in vitro",
+       subtitle = "(Colony diameter)",
+       x = "Days",
+       y = "Colony diameter",
+       color = "Trat") +
+  theme_light()
+```
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
