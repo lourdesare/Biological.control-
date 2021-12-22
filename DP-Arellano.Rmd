@@ -13,9 +13,12 @@ output:
 
 Demonstrate the potential effect of *B. velezensis* strains  against *R. solani* as a biological control, and a potential increasement in the plant growth of potato. 
 
+And in this review, the aim of this group is to compare the analysis done in the article between the Duncan and Turkey tests to understand why Duncan was used in the article.
+
+
 ## Hypothesis
 
-*B. velezensis* strains can be used as biological control agents against *R. solani*, and increase significantly the plant growth of potato. 
+*B. velezensis* strains can be used as biological control agents against *R. solani*, and increase significantly the plant growth of potato. Moreover, there is no significant difference between the results obtained through the Duncan and Turkey test.
 
 ## Methods
 
@@ -319,7 +322,7 @@ Variables:
 &nbsp;
 **1.1 Plant Height**
 
-The Duncan and Tukey tests had few differences.Only in year 2016, week 6 in cultivar Svitanok kievski it can be seen a difference in the group of BZR 517 (Figures 1 and 2). The Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was lower than 0.05, that means that the data significantly deviate from a normal distribution (Figure 3).
+The Duncan and Tukey tests had few differences.Only in year 2016, week 6 in cultivar Svitanok kievski it can be seen a difference in the group of BZR 517 (Figures 1 and 2). The Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was lower than 0.05, that means that the data significantly deviate from a normal distribution (Figure 3). Taking into account the plant height, at week 10, we can see that the BZR 336g treatment generated greater plant height in the Yuna cultivar in both years. However, in the other cultivar, this difference was only significant in 2015 and with the Duncan test, having no significant difference between treatments when analyzed in the Turkey test
 
 ```{r include = FALSE}
 #Duncan Analysis Data.Cultivars.Final
