@@ -13,7 +13,7 @@ output:
 
 Demonstrate the potential effect of *B. velezensis* strains  against *R. solani* as a biological control, and a potential increasement in the plant growth of potato. 
 
-And in this review, the aim of this group is to compare the analysis done in the article between the Duncan and Turkey tests to understand why Duncan was used in the article.
+Also in this review, the aim of this group is to compare the analysis done in the article between the Duncan and Turkey tests to understand why Duncan was used in the article.
 
 
 ## Hypothesis
@@ -324,6 +324,9 @@ Variables:
 
 The Duncan and Tukey tests had few differences.Only in year 2016, week 6 in cultivar Svitanok kievski it can be seen a difference in the group of BZR 517 (Figures 1 and 2). The Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was lower than 0.05, that means that the data significantly deviate from a normal distribution (Figure 3).
 
+Taking into account the plant height, at week 10, we can see that the BZR 336g treatment generated greater plant height in every cultivar and year in the Ducan test, less in the cultivar Svitanok Kievski in 2016, when there was no significant difference between treatments. In the Tukey test, the difference between treatments was significant only in the Yuna variety.
+
+
 ```{r include = FALSE}
 #Duncan Analysis Data.Cultivars.Final
 library(agricolae)
@@ -448,6 +451,9 @@ plot(anova.ph.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption =
 
 The Duncan and Tukey tests had few differences.Only in year 2015 in cultivar Svitanok kievski it can be seen a difference between the groups (Figures 4 and 5). The Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was lower than 0.05, that means that the data significantly deviate from a normal distribution (Figure 6). 
 
+Taking into account the incidence of the disease, at week 10, we can observe that the BZR 336 treatment was the one that caused the lowest incidence in both years and in both cultivars when using the Duncan test. In the Tukey test, this difference was not significant between treatments on cultivar Svitanok kievski in 2015.
+
+
 ```{r include = FALSE}
 #Disease Incidence
 #Anova Disease Incidence 
@@ -556,6 +562,8 @@ plot(anova.di.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption =
 
 The Duncan and Tukey tests did not have differences (Figures 7 and 8). The Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was lower than 0.05, that means that the data significantly deviate from a normal distribution (Figure 9).
 
+Taking into account the disease severity, at week 10, we can observe that the BZR 336 treatment was the one that caused the lowest severity in both years and in both cultivars in both tests. However, this difference was not significant between the two treatments on cultivar Svitanok kievski in 2015, in both tests.
+
 ```{r include = FALSE}
 #Disease Severity
 
@@ -663,6 +671,8 @@ plot(anova.ds.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption =
 **1.4 Number of stems**
 
 The Duncan and Tukey tests had few differences.Only in year 2016 in cultivar Yuna in the control it can be seen a difference between the groups (Figures 10 and 11). The Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was lower than 0.05, that means that the data significantly deviate from a normal distribution (Figure 12).
+
+Taking into account the number of stems, at week 10, we can see that the BZR 336 treatment generated the highest number of stems in both years and in both cultivars in both tests. However, this difference was not significant between the two treatments on cultivar Yuna in 2015, in both tests.
 
 ```{r include = FALSE}
 #Stems
@@ -774,6 +784,8 @@ plot(anova.ds.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption =
 
 The Duncan and Tukey tests did not have differences (Figures 13 and 14). The Shapiro-Wilk normality test was performed for Anova and Square Root Anova but this case in Anova p was higher than 0.05, that means that the data has a normal distribution (Figure 15).
 
+Taking into account the biomass, in the medium fraction, we can observe that in both tests and in both years, in cultivar Svitanok kievski, the BZR 517 treatment generated the highest biomass. However, for cultivar Yuna, the difference between treatments and/or control was not significant.
+
 
 ```{r include = FALSE}
 #Prueba Biomass
@@ -876,6 +888,9 @@ plot(anova.biomass, main = "ANOVA Percentage of Biomass", which = 2, ask = F,sub
 **2.2 Yield of Potato**
 
 The Duncan and Tukey tests did not have differences (Figures 16 and 17). The Shapiro-Wilk normality test was performed for Anova with a p-vañue higher than 0.05 both years and cultivars, that means that the data has a normal distribution (Figure 18).
+
+Taking into account the yield of potato, we can observe that in both tests and in both years, in cultivar Svitanok kievski, the BZR 336g treatment generated the highest yield. However, for the cultivar Yuna, the difference between the two treatments was not significant at any time.
+
 
 ```{r include = FALSE}
 #Duncan Yield 2015 Svitanok kievskiy
@@ -1135,6 +1150,7 @@ ggplot(plot.means, aes(x = Days,
 
 ## Conclusions 
 
+It can be said that the article in question has very little data to be worked on and therefore the differences between the Tukey and Duncan tests were not significant, which also justifies the authors' choice of use the Duncan test.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
