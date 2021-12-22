@@ -1077,17 +1077,29 @@ p4 <- plot(anova.yieldy6, main = "ANOVA 2016 y", which = 2, ask = F,sub.caption 
 
 <font size="1"> Figure No. 18 Normality of Residuals Yield of Potato</font>
 
-**3) Antifungal activity of B. velezensis against *R solani* in vitro.** 
+**3) *In vitro* antifungal activity of *Bacillus strains* against the phytopathogenic fungus *R. solani*, isolated from infected potato tubers**
+
+**3.1 Growth of the diameter of the colonies of *R. solani* under the influence of *B. velenzis* after 3, 5 and 7 days**
+
+Significant differences were observed between the treatments and control over time (Figure 19).
+
+
 ```{r include = FALSE}
 ##### 1. ANTAGONISTIC ACTIVITY
+
 #### Antagonistic activity was evaluated by measuring the diameter of the fungal 
-#### colonies after 3, 5, and 7 days. The fungal inhibition (%) was determined 
-#### based on the data obtained. 
+#### colonies after 3, 5, and 7 days. 
+
 #### All results were expressed and analyzed as the mean.
+
 #### 1.1 Mean and Standard error for Fungal diameter for each treatment.
+
 ## Creating a new plot with means and standard errors
+
 #install.packages("dplyr")
+
 library("dplyr")
+
 plot.means <- AntagonisticActivity %>%
   group_by(Days,Trat) %>%
   summarize(n = n(),
@@ -1098,10 +1110,12 @@ plot.means <- AntagonisticActivity %>%
 
 
 ```{r}
-## Graph the influence of treatments on the fungal diameter growth after 3, 5 
-## and 7 days.
+## Graph the fungal diameter growth after 3, 5 and 7 days.
+
 #install.packages("ggplot2")
+
 library(ggplot2)
+
 ggplot(plot.means, aes(x = Days,
                           y = mean,
                           group=Trat,
@@ -1111,7 +1125,7 @@ ggplot(plot.means, aes(x = Days,
   geom_errorbar(aes(ymin=mean-se,
                     ymax=mean+se),
                 width = .1)+
-  labs(title = "Graphic 1. The influence of B. velezensis strains on the growth of R. solani in vitro",
+  labs(title = "Figure 19. The influence of B. velezensis strains on the growth of R. solani in vitro",
        subtitle = "(Colony diameter)",
        x = "Days",
        y = "Colony diameter",
