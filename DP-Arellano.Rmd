@@ -12,6 +12,7 @@ Fungal phytopathogens affecting agricultural crops lead to a decrease in their q
 In the case of potato and raspberry plants, they are affected by important diseases among which are mainly stem canker and black scurf, causes by the fungal Rhizoctonia solani and Didymella applanata, namely. Recently, two possible strains of the bacteria Bacillus velezensis, specifically BZR336 g and BZR 517, have been demonstrated as potential biological control of these diseases (Asaturova et al., 2020).
 
 Bacillus velezensis, an antagonistic bacterium produces several antimicrobial compounds as secondary metabolites against various phytopathogens. B. velezensis produces spores, which can be used for the development of an effective microbial biopesticide formulation. Previously, many studies have demonstrated that several secondary metabolites produced by antagonistic bacteria, play key roles in the control of various phytopathogens. Furthermore, Bacillus spp., have been found to produce cyclic lipopeptides (CLPs), which play a key role in antimicrobial activity (Soo Kim et al., 2021).  
+
 Different methodologies can be applied for the evaluation of the effectiveness of pesticides with different factors and levels; and for this, a variance test must first be carried out. An example is Duncan's test, which is used to compare all pairs of means. It was first developed by Duncan in 1951 but later he himself modified his first method generating what is now called Duncan's New Multiple Range method.
 
 Therefore, in its equation, this test implicitly measures the number of inclusive means between the two means to compare for balanced designs. To apply this test, the following stages must be passed: determine the standard error (standard deviation) of each mean; obtained from the Anova table. Then, with the degrees of freedom of the error and the level of significance, the values, intervals or standardized significant amplitudes are determined using Duncan's tables of standardized amplitudes, then the minimum significant amplitudes are determined. Following this, the average results of the experiment are ordered in increasing order and the ordered means are compared: The highest average, with the lowest, comparing this difference with the least significant interval.
@@ -1171,7 +1172,9 @@ ggplot(plot.means, aes(x = Days,
        x = "Days",
        y = "Colony diameter",
        color = "Treatment") +
-  theme_light()+ guides(col=guide_legend("Treatments"))
+  theme_light()+ guides(col=guide_legend("Treatments")) +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
 
 ```
 **3.2 Growth of the diameter of the colonies of *R. solani* under the influence of *B. velenzis* after 3, 5 and 7 days**
