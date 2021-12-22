@@ -322,7 +322,7 @@ Variables:
 &nbsp;
 **1.1 Plant Height**
 
-The Duncan and Tukey tests had few differences.Only in year 2016, week 6 in cultivar Svitanok kievski it can be seen a difference in the group of BZR 517 (Figures 1 and 2). The Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was lower than 0.05, that means that the data significantly deviate from a normal distribution (Figure 3). Taking into account the plant height, at week 10, we can see that the BZR 336g treatment generated greater plant height in the Yuna cultivar in both years. However, in the other cultivar, this difference was only significant in 2015 and with the Duncan test, having no significant difference between treatments when analyzed in the Turkey test
+The Duncan and Tukey tests had few differences.Only in year 2016, week 6 in cultivar Svitanok kievski it can be seen a difference in the group of BZR 517 (Figures 1 and 2). The Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was lower than 0.05, that means that the data significantly deviate from a normal distribution (Figure 3).
 
 ```{r include = FALSE}
 #Duncan Analysis Data.Cultivars.Final
@@ -446,7 +446,7 @@ plot(anova.ph.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption =
 
 **1.2 Disease Incidence** 
 
-The Duncan and Tukey tests had few differences.Only in year 2015 in cultivar Svitanok kievski it can be seen a difference between the groups (Figures 4 and 5). The Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was lower than 0.05, that means that the data significantly deviate from a normal distribution (Figure 6).
+The Duncan and Tukey tests had few differences.Only in year 2015 in cultivar Svitanok kievski it can be seen a difference between the groups (Figures 4 and 5). The Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was lower than 0.05, that means that the data significantly deviate from a normal distribution (Figure 6). 
 
 ```{r include = FALSE}
 #Disease Incidence
