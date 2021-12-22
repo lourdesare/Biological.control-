@@ -1151,8 +1151,7 @@ plot.means <- AntagonisticActivity %>%
 
 
 ```{r}
-## Graph the influence of treatments on the fungal diameter growth after 3, 5 
-## and 7 days.
+##Graph the influence of treatments on the fungal diameter growth after 3, 5 and 7 days.
 
 #install.packages("ggplot2")
 
@@ -1170,10 +1169,12 @@ ggplot(plot.means, aes(x = Days,
   labs(caption = "Figure No. 19. The influence of B. velezensis strains on the growth of R. solani in vitro (colony growth)",
        x = "Days",
        y = "Colony diameter",
-       color = "Treatment") +
-  theme_light()+ guides(col=guide_legend("Treatments"))
+       color = "Treatment") +theme_light()+ guides(col=guide_legend("Treatments")) +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
 
 ```
+
 **3.2 Growth of the diameter of the colonies of *R. solani* under the influence of *B. velenzis* after 3, 5 and 7 days**
 
 Little differences were observed between Duncan and Tukey analyzes for *R. solani* colony growth at 3 and 5 days. However, there were no differences between both analyzes at 7 days (Figures 20 and 21). The treatments with the best performance were both *B. velezensis* strains: BZR 517 and BZR 336g, in their medium and high concentrations: 10^5 CFU/mL and 10^6 CFU/mL, generating the lower colony growth after 7 days.
@@ -1354,6 +1355,8 @@ p3 <- plot(anova.7d, main = "ANOVA at 7 days", which = 2, ask = F,sub.caption = 
 ## Conclusions 
 
 It can be said that this article in question has very little data to be worked on and therefore the differences between the Tukey and Duncan tests were not significant, which also justifies the authors' choice of use the Duncan test. About the treatments, in general we can said that the treatment with BZR 336g was what generated the best results in the control of the disease and also in practically all morphological aspects. Only when we talk about the biomass, the BZR 517 treatment showed the best results. In this way, we can say that the article did the best that was possible with the informations that they have.
+
+From the observation that several data sets do not follow a normal distribution, it can be inferred that the authors preferred to perform the mean comparison analysis using the Duncan test, since this can be applied in the same conditions of the Tukey's test, but with a significance less cautionary. Due to the lack of robustness of Duncan's test there are some cautions to follow, as many times it cannot be accepted as a proof of differences.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
