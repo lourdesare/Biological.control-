@@ -1147,6 +1147,10 @@ plot.means <- AntagonisticActivity %>%
             sd = sd(Colony.Diameter),
             se = sd / sqrt(n))
 
+```
+
+
+```{r}
 ## Graph the influence of treatments on the fungal diameter growth after 3, 5 
 ## and 7 days.
 
@@ -1167,7 +1171,8 @@ ggplot(plot.means, aes(x = Days,
        x = "Days",
        y = "Colony diameter",
        color = "Treatment") +
-  theme_light()
+  theme_light()+ guides(col=guide_legend("Treatments"))
+
 ```
 **3.2 Growth of the diameter of the colonies of *R. solani* under the influence of *B. velenzis* after 3, 5 and 7 days**
 
@@ -1348,7 +1353,7 @@ p3 <- plot(anova.7d, main = "ANOVA at 7 days", which = 2, ask = F,sub.caption = 
 
 ## Conclusions 
 
-It can be said that the article in question has very little data to be worked on and therefore the differences between the Tukey and Duncan tests were not significant, which also justifies the authors' choice of use the Duncan test.
+It can be said that this article in question has very little data to be worked on and therefore the differences between the Tukey and Duncan tests were not significant, which also justifies the authors' choice of use the Duncan test. About the treatments, in general we can said that the treatment with BZR 336g was what generated the best results in the control of the disease and also in practically all morphological aspects. Only when we talk about the biomass, the BZR 517 treatment showed the best results. In this way, we can say that the article did the best that was possible with the informations that they have.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
