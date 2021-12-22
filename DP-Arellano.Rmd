@@ -1162,47 +1162,18 @@ ggplot(plot.means, aes(x = Days,
   geom_line(size = 1) +
   geom_errorbar(aes(ymin=mean-se,
                     ymax=mean+se),
-                width = .1)+ ylab("Colony Diameter (cm)")+
+                width = .1)+
   labs(caption = "Figure No. 19. The influence of B. velezensis strains on the growth of R. solani in vitro (colony growth)",
        x = "Days",
        y = "Colony diameter",
        color = "Treatment") +
   theme_light()
 ```
-
-
-```{r}
-## Graph the fungal diameter growth after 3, 5 and 7 days.
-
-#install.packages("ggplot2")
-
-library(ggplot2)
-
-ggplot(plot.means, aes(x = Days,
-                          y = mean,
-                          group=Trat,
-                          color=Trat)) + guides(col=guide_legend("Treatments"))+
-  geom_point(size = 3) +
-  geom_line(size = 1) +
-  geom_errorbar(aes(ymin=mean-se,
-                    ymax=mean+se),
-                width = .1)+
-  labs(title = "",
-       subtitle = "",
-       x = "Days",
-       y = "Colony diameter",
-       color = "Trat") +
-  theme_light()+
-  labs(caption = "Figure 19. The influence of B. velezensis strains on the growth of R. solani in vitro") +
-  theme(plot.caption.position = "plot",
-        plot.caption = element_text(hjust = 0))
-```
-
 **3.2 Growth of the diameter of the colonies of *R. solani* under the influence of *B. velenzis* after 3, 5 and 7 days**
 
 Little differences were observed between Duncan and Tukey analyzes for *R. solani* colony growth at 3 and 5 days. However, there were no differences between both analyzes at 7 days (Figures 20 and 21). The treatments with the best performance were both *B. velezensis* strains: BZR 517 and BZR 336g, in their medium and high concentrations: 10^5 CFU/mL and 10^6 CFU/mL, generating the lower colony growth after 7 days.
 
-The Shapiro-Wilk normality test was performed for ANOVA, the p value was higher than 0.05, wich means that the data have a normal distribution (Figure XX).
+The Shapiro-Wilk normality test was performed for ANOVA, the p values at 3, 5 and 7 days were less than alpha=0.05, wich means that the data do not follow a normal distribution (Figure 22).
 
 
 ```{r include = FALSE}
@@ -1377,7 +1348,7 @@ p3 <- plot(anova.7d, main = "ANOVA at 7 days", which = 2, ask = F,sub.caption = 
 
 ## Conclusions 
 
-In conclusion, it can be said that the article in question has very little data to be worked on and therefore the differences between the Tukey and Duncan tests were not significant, which also justifies the authors' choice of use the Duncan test. About the treatments, in general we can said that the treatment with BZR 336g was what generated the best results in the control of the disease and also in practically all morphological aspects. Only when we talk about the biomass, the BZR 517 treatment showed the best results. In this way, we can say that the article did the best that was possible with the informations that they have.
+It can be said that the article in question has very little data to be worked on and therefore the differences between the Tukey and Duncan tests were not significant, which also justifies the authors' choice of use the Duncan test.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
