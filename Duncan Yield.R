@@ -186,3 +186,4 @@ p4 <- plot(anova.yieldy6, main = "ANOVA 2016 y", which = 2, ask = F,sub.caption 
 
 
 
+

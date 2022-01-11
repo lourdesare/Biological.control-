@@ -91,3 +91,6 @@ shapiro.test(anova.biomass$residuals) #0.06424
 shapiro.test(anova.biomass.sqrt$residuals) #0.3364
 plot(anova.biomass, main = "ANOVA Percentage of Biomass", which = 2, ask = F,sub.caption = "")
 
+#AIC and BIC 
+AIC(anova.biomass, anova.biomass.sqrt)
+BIC(anova.biomass, anova.biomass.sqrt)
