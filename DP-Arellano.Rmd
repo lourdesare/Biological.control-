@@ -5,7 +5,24 @@ date: "21/12/2021"
 output:
   html_document:
     code_folding: hide
+    highlight: tango 
+    toc: yes 
+    toc_depth: 6 
 ---
+
+```{r}
+library(knitr)
+knitr::opts_chunk$set(
+  echo = TRUE,                    
+  results = 'markup',                 
+  fig.path = "results/",            
+  fig.width = 10,                   
+  fig.height = 6.1803,              
+  dev = "png",                      
+  dev.args = list(type = "cairo"),  
+  dpi = 100)
+```
+
 ## Introduction 
 Fungal phytopathogens affect agricultural crops lead to a improtant decrease in their quality and production. They act as a threat to crops through various mechanisms of pathogenesis that compromise the immune system of the plants. The use of fungicides against fungal plant diseases improves crop yield, quality, and shelf-life (Brauer et al., 2019).  Nevertheless, the irrational uses of this products triggers to health problems, and can also cause severe damage to the environment. Accumulation of pesticides in the environment disrupts the ecological balance and raises pathogen resistance to pesticides. Thus, the application of fungicides in agriculture should be under strict regulation to ensure that commercialized foods are safe for consumption and pose negligible risks of acute toxicity due to carry-over (Brauer et al., 2019).   
 
@@ -54,7 +71,7 @@ First, dowload the raw data of the paper that is in the link:
 
 **Article:**  <https://peerj.com/articles/11578/#>
 
-```{r}
+```{r, eval=FALSE} 
 if(!dir.exists("data")) dir.create("data")
 download.file("https://dfzljdn9uc3pi.cloudfront.net/2021/11578/1/peerj-55829-Raw_data.xls",
               "data/rawdata.xls")
