@@ -82,6 +82,12 @@ out
 
 out.hsd <- HSD.test(model,"Trat",console = TRUE)
 
+plot(out,variation="IQR")
+out$groups$groups
+
+letterTu <- character()
+letterTu <- c(letterTu,out$groups$groups)
+
 ## Duncan analysis for Fungal colony diameter at 5 d
 Dia <- 5
 
@@ -98,6 +104,10 @@ out
 ## Tukey analysis for Fungal colony diameter at 5 d
 
 out.hsd <- HSD.test(model,"Trat",console = TRUE)
+
+plot(out,variation="IQR")
+out$groups$groups
+letterTu <- c(letterTu,out$groups$groups)
 
 ## Duncan analysis for Fungal colony diameter at 7 d
 Dia <- 7
@@ -116,66 +126,92 @@ out
 ## Tukey analysis for Fungal colony diameter at 7 d
 
 out.hsd <- HSD.test(model,"Trat",console = TRUE)
+
+plot(out,variation="IQR")
+out$groups$groups
+letterTu <- c(letterTu,out$groups$groups)
 ```
 
 ```{r}
 ## Combine Duncan graphs for 3, 5 and 7 d
 
-library(ggplot2)
-library(ggpubr)
-theme_set(theme_pubr())
+#library(ggplot2)
+#library(ggpubr)
+#theme_set(theme_pubr())
 
-DunCD <- ggerrorplot(AntagonisticActivity, x = "Trat", y = "Colony.Diameter",
-                     color = "Trat", palette = "Paired", 
-                     error.plot = "pointrange",
-                     position = position_dodge(0.5),xlab = ("Days"),ylab = ("Fungal colony diameter(cm)"))+
+DunLetters <- data.frame(Days=c(rep(3,7),rep(5,7),rep(7,7)),
+                         Trat=c("Bacillus velezensis strain BZR 336 g 10000","Bacillus velezensis strain BZR 336 g 1e+05",
+                                "Bacillus velezensis strain BZR 336 g 1e+06","Bacillus velezensis strain BZR 517 10000",
+                                "Bacillus velezensis strain BZR 517 1e+05","Bacillus velezensis strain BZR 517 1e+06",
+                                "Control 1e+06","Bacillus velezensis strain BZR 336 g 10000","Bacillus velezensis strain BZR 336 g 1e+05",
+                                "Bacillus velezensis strain BZR 336 g 1e+06","Bacillus velezensis strain BZR 517 10000",
+                                "Bacillus velezensis strain BZR 517 1e+05","Bacillus velezensis strain BZR 517 1e+06",
+                                "Control 1e+06","Bacillus velezensis strain BZR 336 g 10000","Bacillus velezensis strain BZR 336 g 1e+05",
+                                "Bacillus velezensis strain BZR 336 g 1e+06","Bacillus velezensis strain BZR 517 10000",
+                                "Bacillus velezensis strain BZR 517 1e+05","Bacillus velezensis strain BZR 517 1e+06",
+                                "Control 1e+06"),
+                         Mean=plot.means$mean,
+                         SE=plot.means$se,
+                         label=c("bc","bcd","d","b","cd","bc","a","c","c","c","b","c","c","a","b","c","c","b","c","c","a"))
+
+DunBox <- ggplot(AntagonisticActivity, aes(x=`Trat`, y=Colony.Diameter, fill=Trat))+xlab("Treatments")+ylab("Fungal colony diameter (cm)")+
+  stat_boxplot(geom = "errorbar",
+               width = 0.2) +
+  geom_boxplot()+
+  theme_light()+
+  geom_text(data = DunLetters,
+            mapping = aes(x = Trat,
+                          y = Mean+1,
+                          label=label),
+            position = position_dodge(0.9))+
   facet_grid(.~Days)+
-  labs(caption = "Figure No. 20. Duncan Test for Antagonistic activity")+
-  theme_light()+ guides(col=guide_legend("Treatments"))
-#DunCD
+  labs(caption = "Figure No. 20. Duncan Test for Antagonistic activity") +
+  scale_x_discrete(("Treatments"),limitedLabels("Treatments"))+
+  scale_fill_discrete(("Treatments"))+
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
 
-dl <- data.frame(
-  l=c("bc","bcd","d","b","cd","bc","a","c","c","c","b","c","c","a","b","c","c","b","c","c","a"),
-  Days=c(3,3,3,3,3,3,3,5,5,5,5,5,5,5,7,7,7,7,7,7,7),
-  xd=c(1,2,3,4,5,6,7,1,2,3,4,5,6,7,1,2,3,4,5,6,7),
-  yd=c(2.1,1.9,1.6,2.1,1.7,1.9,4.5,2.5,1.9,1.8,2.9,1.9,2,8.1,2.8,2,1.9,2.9,2,1.8,9.2)
-)
+DunBox
 
-DunCD1 <- DunCD+geom_text(data = dl,mapping = aes(x = xd, y = yd, label = l)
-)
-#DunCD1
+## Tukey graphs for 3, 5 and 7 d
 
-DunCD2 = DunCD1+scale_x_discrete(("Treatments"),limitedLabels("Treatments"))
-DunCD2
+#library(ggplot2)
+#library(ggpubr)
+#theme_set(theme_pubr())
 
-## Combine Tukey graphs for 3, 5 and 7 d
+TukLetters <- data.frame(Days=c(rep(3,7),rep(5,7),rep(7,7)),
+                         Trat=c("Bacillus velezensis strain BZR 336 g 10000","Bacillus velezensis strain BZR 336 g 1e+05",
+                                "Bacillus velezensis strain BZR 336 g 1e+06","Bacillus velezensis strain BZR 517 10000",
+                                "Bacillus velezensis strain BZR 517 1e+05","Bacillus velezensis strain BZR 517 1e+06",
+                                "Control 1e+06","Bacillus velezensis strain BZR 336 g 10000","Bacillus velezensis strain BZR 336 g 1e+05",
+                                "Bacillus velezensis strain BZR 336 g 1e+06","Bacillus velezensis strain BZR 517 10000",
+                                "Bacillus velezensis strain BZR 517 1e+05","Bacillus velezensis strain BZR 517 1e+06",
+                                "Control 1e+06","Bacillus velezensis strain BZR 336 g 10000","Bacillus velezensis strain BZR 336 g 1e+05",
+                                "Bacillus velezensis strain BZR 336 g 1e+06","Bacillus velezensis strain BZR 517 10000",
+                                "Bacillus velezensis strain BZR 517 1e+05","Bacillus velezensis strain BZR 517 1e+06",
+                                "Control 1e+06"),
+                         Mean=plot.means$mean,
+                         SE=plot.means$se,
+                         label=c("b","bc","c","b","bc","bc","a","bc","c","c","b","c","c","a","b","c","c","b","c","c","a"))
 
-library(ggplot2)
-library(ggpubr)
-theme_set(theme_pubr())
-
-TukCD <- ggerrorplot(AntagonisticActivity, x = "Trat", y = "Colony.Diameter",
-                     color = "Trat", palette = "Paired", 
-                     error.plot = "pointrange",
-                     position = position_dodge(0.5),xlab = ("Days"),ylab = ("Fungal colony diameter (cm)"))+
+TukBox <- ggplot(AntagonisticActivity, aes(x=`Trat`, y=Colony.Diameter, fill=Trat))+xlab("Treatments")+ylab("Fungal colony diameter (cm)")+
+  stat_boxplot(geom = "errorbar",
+               width = 0.2) +
+  geom_boxplot()+
+  theme_light()+
+  geom_text(data = TukLetters,
+            mapping = aes(x = Trat,
+                          y = Mean+1,
+                          label=label),
+            position = position_dodge(0.9))+
   facet_grid(.~Days)+
-  labs(caption = "Figure No. 21. Tukey Test for Antagonistic activity")+
-  theme_light()+ guides(col=guide_legend("Treatments"))
-#TukCD
+  labs(caption = "Figure No. 21. Tukey Test for Antagonistic activity") +
+  scale_x_discrete(("Treatments"),limitedLabels("Treatments"))+
+  scale_fill_discrete(("Treatments"))+
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
 
-dlt <- data.frame(
-  lt=c("b","bc","c","b","bc","bc","a","bc","c","c","b","c","c","a","b","c","c","b","c","c","a"),
-  Days=c(3,3,3,3,3,3,3,5,5,5,5,5,5,5,7,7,7,7,7,7,7),
-  xt=c(1,2,3,4,5,6,7,1,2,3,4,5,6,7,1,2,3,4,5,6,7),
-  yt=c(2.1,1.9,1.6,2.1,1.7,1.9,4.5,2.5,1.9,1.8,2.9,1.9,2,8.1,2.8,2,1.9,2.9,2,1.8,9.2)
-)
-
-TukCD1 <- TukCD+geom_text(data = dlt,mapping = aes(x = xt, y = yt, label = lt)
-)
-#TukCD1
-
-TukCD2 = TukCD1+scale_x_discrete(("Treatments"),limitedLabels("Treatments"))
-TukCD2
+TukBox
 
 ## Residuals for Antagonistic activity
 
