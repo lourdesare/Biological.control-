@@ -89,7 +89,7 @@ library(readxl)
 ```
 
 
-```{r include= FALSE}
+```{r}
 #Open sheets with ranges 
 library
 AntagonisticActivity <-
@@ -484,9 +484,11 @@ plot(anova.ph.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption =
 ```
 
 <font size="1.5"> Figure No 3. Normality of Residuals Plant Height.</font> 
-
-
-
+```{r}
+#AIC and BIC Plant Height
+AIC(anova.ph, anova.ph.sqrt)
+BIC(anova.ph, anova.ph.sqrt)
+```
 &nbsp;
 
 **1.2 Disease Incidence** 
@@ -599,7 +601,11 @@ plot(anova.di.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption =
 
 <font size="1"> Figure No. 6 Normality of Residuals Disease Incidence</font> 
 
-
+```{r}
+#AIC and BIC Disease Incidence 
+AIC(anova.di, anova.di.sqrt)
+BIC(anova.di, anova.di.sqrt)
+```
 **1.3 Disease Severity**
 
 The Duncan and Tukey tests did not have differences (Figures 7 and 8). The Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was lower than 0.05, that means that the data significantly deviate from a normal distribution (Figure 9).
@@ -710,6 +716,12 @@ plot(anova.ds.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption =
 
 <font size="1"> Figure No. 9 Normality of Residuals Disease Incidence</font> 
 
+```{r}
+#AIC and BIC Disease Severity 
+AIC(anova.ds, anova.ds.sqrt)
+BIC(anova.ds, anova.ds.sqrt)
+```
+
 **1.4 Number of stems**
 
 The Duncan and Tukey tests had few differences.Only in year 2016 in cultivar Yuna in the control it can be seen a difference between the groups (Figures 10 and 11). The Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was lower than 0.05, that means that the data significantly deviate from a normal distribution (Figure 12).
@@ -812,13 +824,18 @@ anova.st.sqrt <- aov(sqrt(Stems)~Treatment+`Weeks after planting`+Year, data=Dat
 shapiro.test(anova.st$residuals) #0.007876 anormal  
 shapiro.test(anova.st.sqrt$residuals) #0.002167
 par(mfrow = c(1, 2), oma = c(0, 0, 1.1, 0))
-plot(anova.ds, main = "ANOVA", which = 2, ask = F,sub.caption = "")
-plot(anova.ds.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption = "")
+plot(anova.st, main = "ANOVA", which = 2, ask = F,sub.caption = "")
+plot(anova.st.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption = "")
 
 ```
 
 <font size="1"> Figure No. 12 Normality of Residuals Stems</font>
 
+```{r}
+#AIC and BIC Stems
+AIC(anova.st, anova.st.sqrt)
+BIC(anova.st, anova.st.sqrt)
+```
 
 **2) Effect of *B. velezens* strains on the biomass distribution of daughter tubers of two potato cultivars differed by disease resistance to *R. solani* and total yield during 2015 and 2016 growing seasons in Western Siberia.**
 
@@ -922,7 +939,16 @@ anova.biomass<-aov(Percentage.Biomass~Treatment+`Fractions`+Year, data=BiomassDi
 anova.biomass.sqrt <- aov(sqrt(Percentage.Biomass)~Treatment+`Fractions`+Year, data=BiomassDistribution) #square root 
 shapiro.test(anova.biomass$residuals) #0.06424
 shapiro.test(anova.biomass.sqrt$residuals) #0.3364
-plot(anova.biomass, main = "ANOVA Percentage of Biomass", which = 2, ask = F,sub.caption = "")
+par(mfrow = c(1, 2), oma = c(0, 0, 1.1, 0))
+plot(anova.biomass, main = "ANOVA", which = 2, ask = F,sub.caption = "")
+plot(anova.biomass.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption = "")
+```
+<font size="1"> Figure No. 15 Normality of Residuals Percentage of Biomass</font>
+
+```{r}
+#AIC and BIC Biomass
+AIC(anova.biomass, anova.biomass.sqrt)
+BIC(anova.biomass, anova.biomass.sqrt)
 ```
 
 <font size="1"> Figure No. 15 Normality of Residuals Percentage of Biomass</font>
