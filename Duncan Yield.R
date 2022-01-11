@@ -49,6 +49,9 @@ plot(out,variation="IQR")
 out
 letter1 <- c(letter1,out$groups$groups)
 
+
+
+
 #Tukey Yield 2015 Svitanok kievskiy
 YieldOfPotato$Cultivar <- factor(YieldOfPotato$Cultivar)
 Con0 <- YieldOfPotato$Cultivar == "Svitanok kievskiy" & YieldOfPotato$Year==2015
@@ -91,6 +94,10 @@ out1 <- HSD.test(model,"Treatment", console =TRUE)
 lettert <- c(lettert,out1$groups$groups)
 
 
+
+
+
+
 #Duncan Yield graph
 library(ggplot2)
 library(ggpubr)
@@ -118,6 +125,98 @@ yield1234 <- yield123 + geom_text(
   theme(plot.caption.position = "plot",
         plot.caption = element_text(hjust = 0))
 yield1234
+
+#nueva grafica duncan 
+dat_text <- data.frame(
+  label = letter1,
+  Year   = c(rep(2015,6),rep(2016,6)),
+  Treatment = rep(levels(as.factor(YieldOfPotato$Treatment)),4),
+  Cultivar= c("Svitanok kievskiy","Svitanok kievskiy","Svitanok kievskiy","Yuna","Yuna","Yuna","Svitanok kievskiy","Svitanok kievskiy","Svitanok kievskiy","Yuna","Yuna","Yuna"))
+
+duncanyieldgraph <- ggplot(YieldOfPotato, aes(x=`Cultivar`, y=Yield.Potato, fill=Treatment))+ylab("Yield of potato(t/ha)")+
+  geom_boxplot()+
+  facet_grid(.~Year)+
+  theme_light()+
+  geom_text(data = dat_text,
+            mapping = aes(x = Cultivar,
+                          y = c(29.3, 23.3,21.6, 27,26,21.8,19.8,17.3,12.3,20.55,20.6,16.1),
+                          label = letter1),
+            position = position_dodge(0.9))+
+  labs(caption = "Figure No. 16 Results of Duncan test Yield of potato") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
+duncanyieldgraph
+
+
+duncanyieldgraph + geom_text(
+  data    = dat_text,
+  mapping = aes(x = x, y = y, label = label)
+)+
+  labs(caption = "Figure No. 16 Results of Duncan test Yield of potato") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
+
+
+
+
+
+#add letterss
+dat_text <- data.frame(
+  label = letter1,
+  Year   = c(rep(2015,6),rep(2016,6)),
+  Treatment = rep(levels(as.factor(YieldOfPotato$Treatment)),4),
+  Cultivar= c("Svitanok kievskiy","Svitanok kievskiy","Svitanok kievskiy","Yuna","Yuna","Yuna","Svitanok kievskiy","Svitanok kievskiy","Svitanok kievskiy","Yuna","Yuna","Yuna"))
+  
+  
+
+yield1234 <- yield123 + geom_text(
+  data    = dat_text,
+  mapping = aes(x = x, y = y, label = label)
+)+
+  labs(caption = "Figure No. 16 Results of Duncan test Yield of potato") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
+yield1234
+
+
+ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatment))+ ylab("Biomass (%)")+
+  geom_boxplot()+
+  facet_grid(Cultivar~Year)+
+  theme_light()+
+  geom_text(data = LetterstPH11,
+            mapping = aes(x = Fractions,
+                          y = mea + 8,
+                          label = letra),
+            position = position_dodge(0.9))+
+  labs(caption = "Results Tukey Figure No.  Percentage of Biomass of potato") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
+
+
+
+
+
+
+
+
+#add letters 
+dat_text1 <- data.frame(
+  label = letter1,
+  Year   = c(rep(2015,6),rep(2016,6)),
+  x     = c(0.85, 1,1.2,1.83,2,2.17,0.85, 1,1.2,1.83,2,2.17),
+  y     = c(29.3, 23.3,21.6, 27,26,21.8,19.8,17.3,12.3,20.55,20.6,16.1)
+)
+
+duncanyieldgraph1 <- duncanyieldgraph + geom_text(
+  data    = dat_text1,
+  mapping = aes(x = x, y = y, label = label)
+)+
+  labs(caption = "Figure No. 16 Results of Duncan test Yield of potato") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
+duncanyieldgraph1
+
+
 
 #Graph Tukey Yield 
 library(ggplot2)
