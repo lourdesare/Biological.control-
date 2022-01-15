@@ -103,7 +103,48 @@ plot(anova.ph, main = "ANOVA", which = 2, ask = F,sub.caption = "Plant Height Re
 plot(anova.ph.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption = "")
 
 
+#Plant Height Kruskal  
 
+Y <- W <- Tr <- L <- C <- M <- numeric()
+
+for (i in 2015:2016) { 
+  for (k in levels(as.factor(Data.Cultivars.Final$Cultivar))) {
+    for(j in levels(Data.Cultivars.Final$`Weeks after planting`)) {
+      d1k <- Data.Cultivars.Final[Data.Cultivars.Final$Year==i & 
+                                    Data.Cultivars.Final$`Weeks after planting`==j &
+                                    Data.Cultivars.Final$Cultivar==k, ]
+      d1k$Treatment <- factor(d1k$Treatment)
+      DT <- with(d1k,kruskal(Plant.Height,Treatment))
+      Y <- c(Y, i,i,i)
+      W <- c(W, j,j,j)
+      C <- c(C, k,k,k)
+      Tr <- c(Tr, row.names(DT$groups))
+      L <- c(L, DT$groups$groups)
+      M <- c(M, mean(d1k$Plant.Height[d1k$Treatment == levels(d1k$Treatment)[1]]),
+             mean(d1k$Plant.Height[d1k$Treatment == levels(d1k$Treatment)[2]]),
+             mean(d1k$Plant.Height[d1k$Treatment == levels(d1k$Treatment)[3]]))
+    }
+  }
+}
+
+LettersPHk <- data.frame(Year = Y, `Weeks after planting` = factor(W), 
+                         Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
+
+
+#Plant Height Kruskal Graph
+
+ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Plant.Height, fill=Treatment))+ylab("Plant Height (cm)")+
+  geom_boxplot()+
+  facet_grid(Cultivar~Year)+
+  theme_light()+
+  geom_text(data = LettersPHk,
+            mapping = aes(x = Weeks.after.planting,
+                          y = mea + 5,
+                          label = letra),
+            position = position_dodge(0.9))+
+  labs(caption = "Figure No X. Results of Kruskal Test in the variable of Plant Height on potato (cm)") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
 
 
 
