@@ -1155,7 +1155,6 @@ p4 <- plot(anova.yieldy6, main = "ANOVA 2016 y", which = 2, ask = F,sub.caption 
 
 Significant differences were observed between the treatments and control over time (Figure 19).
 
-```{r include = FALSE}
 ##### 1. ANTAGONISTIC ACTIVITY
 
 #### Antagonistic activity was evaluated by measuring the diameter of the fungal 
@@ -1217,7 +1216,7 @@ The Shapiro-Wilk normality test was performed for ANOVA, the p values at 3, 5 an
 ```{r include = FALSE}
 #### 1.2 Statistical Analysis
 
-### 1.2.1 Duncan and ANOVA test
+### 1.2.1 Duncan, ANOVA and Kruskal-Wallis test
 
 ### Multiple comparisons of the means were performed by the authors using 
 ### Duncan test with a significance level of P = 0.05.
@@ -1246,6 +1245,12 @@ out$groups$groups
 letterTu <- character()
 letterTu <- c(letterTu,out$groups$groups)
 
+## Kruskal-Wallis analysis for Fungal colony diameter at 3 d
+
+library(agricolae)
+
+kw.3d<-with(AA,kruskal(Colony.Diameter,Trat,group=TRUE, main=NULL, console = TRUE))
+
 ## Duncan analysis for Fungal colony diameter at 5 d
 Dia <- 5
 
@@ -1266,6 +1271,12 @@ out.hsd <- HSD.test(model,"Trat",console = TRUE)
 plot(out,variation="IQR")
 out$groups$groups
 letterTu <- c(letterTu,out$groups$groups)
+
+## Kruskal-Wallis analysis for Fungal colony diameter at 5 d
+
+library(agricolae)
+
+kw.5d<-with(AA,kruskal(Colony.Diameter,Trat,group=TRUE, main=NULL, console = TRUE))
 
 ## Duncan analysis for Fungal colony diameter at 7 d
 Dia <- 7
@@ -1288,6 +1299,12 @@ out.hsd <- HSD.test(model,"Trat",console = TRUE)
 plot(out,variation="IQR")
 out$groups$groups
 letterTu <- c(letterTu,out$groups$groups)
+
+## Kruskal-Wallis analysis for Fungal colony diameter at 7 d
+
+library(agricolae)
+
+kw.7d<-with(AA,kruskal(Colony.Diameter,Trat,group=TRUE, main=NULL, console = TRUE))
 ```
 
 ```{r}
@@ -1370,6 +1387,46 @@ TukBox <- ggplot(AntagonisticActivity, aes(x=`Trat`, y=Colony.Diameter, fill=Tra
         plot.caption = element_text(hjust = 0))
 
 TukBox
+
+## Kruskal-Wallis graphs for 3, 5 and 7 d
+
+library(ggplot2)
+library(ggpubr)
+theme_set(theme_pubr())
+
+KWLetters <- data.frame(Days=c(rep(3,7),rep(5,7),rep(7,7)),
+                         Trat=c("Bacillus velezensis strain BZR 336 g 10000","Bacillus velezensis strain BZR 336 g 1e+05",
+                                "Bacillus velezensis strain BZR 336 g 1e+06","Bacillus velezensis strain BZR 517 10000",
+                                "Bacillus velezensis strain BZR 517 1e+05","Bacillus velezensis strain BZR 517 1e+06",
+                                "Control 1e+06","Bacillus velezensis strain BZR 336 g 10000","Bacillus velezensis strain BZR 336 g 1e+05",
+                                "Bacillus velezensis strain BZR 336 g 1e+06","Bacillus velezensis strain BZR 517 10000",
+                                "Bacillus velezensis strain BZR 517 1e+05","Bacillus velezensis strain BZR 517 1e+06",
+                                "Control 1e+06","Bacillus velezensis strain BZR 336 g 10000","Bacillus velezensis strain BZR 336 g 1e+05",
+                                "Bacillus velezensis strain BZR 336 g 1e+06","Bacillus velezensis strain BZR 517 10000",
+                                "Bacillus velezensis strain BZR 517 1e+05","Bacillus velezensis strain BZR 517 1e+06",
+                                "Control 1e+06"),
+                         Mean=plot.means$mean,
+                         SE=plot.means$se,
+                         label=c("b","c","d","b","c","bc","a","b","c","c","b","c","b","a","b","c","c","b","c","c","a"))
+
+KWBox <- ggplot(AntagonisticActivity, aes(x=`Trat`, y=Colony.Diameter, fill=Trat))+xlab("Treatments")+ylab("Fungal colony diameter (cm)")+
+  stat_boxplot(geom = "errorbar",
+               width = 0.2) +
+  geom_boxplot()+
+  theme_light()+
+  geom_text(data = KWLetters,
+            mapping = aes(x = Trat,
+                          y = Mean+1,
+                          label=label),
+            position = position_dodge(0.9))+
+  facet_grid(.~Days)+
+  labs(caption = "Figure No. 22. Kruskal-Wallis Test for Antagonistic activity") +
+  scale_x_discrete(("Treatments"),limitedLabels("Treatments"))+
+  scale_fill_discrete(("Treatments"))+
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
+
+KWBox
 
 ## Residuals for Antagonistic activity
 
