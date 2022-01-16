@@ -1155,6 +1155,8 @@ p4 <- plot(anova.yieldy6, main = "ANOVA 2016 y", which = 2, ask = F,sub.caption 
 
 Significant differences were observed between the treatments and control over time (Figure 19).
 
+```{r include = FALSE}
+
 ##### 1. ANTAGONISTIC ACTIVITY
 
 #### Antagonistic activity was evaluated by measuring the diameter of the fungal 
@@ -1182,6 +1184,7 @@ plot.means <- AntagonisticActivity %>%
 
 
 ```{r}
+
 ##Graph the influence of treatments on the fungal diameter growth after 3, 5 and 7 days.
 
 #install.packages("ggplot2")
@@ -1208,12 +1211,13 @@ ggplot(plot.means, aes(x = Days,
 
 **3.2 Growth of the diameter of the colonies of *R. solani* under the influence of *B. velenzis* after 3, 5 and 7 days**
   
-  Little differences were observed between Duncan and Tukey analyzes for *R. solani* colony growth at 3 and 5 days. However, there were no differences between both analyzes at 7 days (Figures 20 and 21). The treatments with the best performance were both *B. velezensis* strains: BZR 517 and BZR 336g, in their medium and high concentrations: 10^5 CFU/mL and 10^6 CFU/mL, generating the lower colony growth after 7 days.
+Little differences were observed between Duncan and Tukey analyzes for *R. solani* colony growth at 3 and 5 days. However, there were no differences between both analyzes at 7 days (Figures 20 and 21). The treatments with the best performance were both *B. velezensis* strains: BZR 517 and BZR 336g, in their medium and high concentrations: 10^5 CFU/mL and 10^6 CFU/mL, generating the lower colony growth after 7 days.
 
-The Shapiro-Wilk normality test was performed for ANOVA, the p values at 3, 5 and 7 days were less than alpha=0.05, wich means that the data do not follow a normal distribution (Figure 22).
+The Shapiro-Wilk normality test was performed for ANOVA, the p values at 3, 5 and 7 days were less than alpha=0.05, which means that the data do not follow a normal distribution (Figure 22).
 
 
 ```{r include = FALSE}
+
 #### 1.2 Statistical Analysis
 
 ### 1.2.1 Duncan, ANOVA and Kruskal-Wallis test
@@ -1305,9 +1309,11 @@ letterTu <- c(letterTu,out$groups$groups)
 library(agricolae)
 
 kw.7d<-with(AA,kruskal(Colony.Diameter,Trat,group=TRUE, main=NULL, console = TRUE))
+
 ```
 
 ```{r}
+
 ## Combine Duncan graphs for 3, 5 and 7 d
 
 #library(ggplot2)
@@ -1474,9 +1480,10 @@ par(mfrow = c(2, 2), oma = c(0, 0, 1.1, 0))
 p1 <- plot(anova.3d, main = "ANOVA at 3 days", which = 2, ask = F,sub.caption = "") 
 p2 <- plot(anova.5d, main = "ANOVA at 5 days", which = 2, ask = F,sub.caption = "") 
 p3 <- plot(anova.7d, main = "ANOVA at 7 days", which = 2, ask = F,sub.caption = "") 
+
 ```
 
-<font size="1"> Figure No. 22 Normality of Residuals for Antagonistic activity</font>
+<font size="1"> Figure No. 23 Normality of Residuals for Antagonistic activity</font>
 
 ## Conclusions 
 
