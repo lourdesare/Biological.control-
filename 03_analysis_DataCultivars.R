@@ -130,7 +130,6 @@ for (i in 2015:2016) {
 LettersPHk <- data.frame(Year = Y, `Weeks after planting` = factor(W), 
                          Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
 
-
 #Plant Height Kruskal Graph
 
 ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Plant.Height, fill=Treatment))+ylab("Plant Height (cm)")+
