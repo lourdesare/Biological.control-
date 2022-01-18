@@ -1545,15 +1545,15 @@ For determining the treatments with the best performance at day 3, 5 and 7, mult
 
 The Shapiro-Wilk normality test was performed for ANOVA, the p values at 3, 5 and 7 days were less than alpha=0.05, which means that the null hypothesis that the data are normally distributed is rejected (Figure 29). Since the data does not follow a normal distribution, the most appropriate is to perform non-parametric tests, which does not assume normality. This is consistent with the authors' decision to analyze the data with Duncan's test, and also strengthens our decision to perform another non-parametric test, Kruskal-Wallis, which is considered more robust. Even if data is not normal, ANOVA test should be still performed.
 
-In an overall perspective, only few differences were found between Duncan, Tukey and Kruskal-Wallis groupings for days 3, 5 and 7. On day 3, data grouping showed differences between each test, however all tests agreed that treatment BZR 336 g at its higher concentration 10^6 CFU/mL had the best performance with FCD of 1.36 cm. 
+For days 3, 5 and 7 there were significant differences between treatments. In an overall perspective, only few differences were found between Duncan, Tukey and Kruskal-Wallis groupings (Figures 26, 27, and 28). 
 
-On day 5 the data clustered very similarly across tests, showing only very few differences. All tests agreed that the treatment with the high concentration (10^6 CFU/mL) of BZR 336 g and medium concentrations (10^5 CFU/mL) of both strains (BZR 336 g and BZR 517) had the best performance with FCD of 1.62 and 1.72 cm, respectively. Also Duncan and Tukey agreed that the 
+On day 3, data grouping showed significant differences between the treatments and the control, while the differences between treatments were not clear enough to make conjectures. Data clustered differently across tests, showing differences. Control showed a fungal colony diameter (FCD) of 4.24 cm.
 
-and by day 7, the clusters were the same across trials.
+On day 5, there were significant differences between the treatments and the control, also there were significant differences between treatments. Data clustered very similarly across tests, showing only very few differences. All tests agreed that the treatments with the high concentration (10^6 CFU/mL) of BZR 336 g and medium concentrations (10^5 CFU/mL) of both strains (BZR 336 g and BZR 517) had the best performance with FCD of 1.62 and 1.72 cm, respectively. Control showed a fungal FCD of 7.86 cm. 
 
-At day 3, the control showed a fungal colony diameter (FCD) of 4.24 cm, and the treatment with the best performance, according with the tests groupings was BZR 336 g at its higher concentration 10^6 CFU/mL with FCD of 1.36 cm.    
+On day 7, there were significant differences between the treatments and the control, and also between treatments. Data clustered equally across tests, showing no differences. All tests agreed that treatments with high (10^6 CFU/mL) and medium (10^5 CFU/mL) concentration of both strains (BZR 517 and BZR 336 g) had the best performance with FCD of 1.64, 1.72, 1.82 and 1.82 cm, respectively. Control showed a fungal FCD of 9 cm.
 
-Little differences were observed between Duncan, Tukey and Kruskal-Wallis analyzes groupings for *R. solani* colony growth at 3 and 5 days. However, there were no differences between both analyzes at 7 days (Figures 20 and 21). The treatments with the best performance were both *B. velezensis* strains: BZR 517 and BZR 336g, in their medium and high concentrations: 10^5 CFU/mL and 10^6 CFU/mL, generating the lower colony growth after 7 days.
+Only treatment BZR 517 at its higher concentration (10^6 CFU/mL) showed a decrease in FCD on day 7 in comparison with day 5. The rest of the treatments showed a progressive increment of FCD over time.
 
 ```{r,results='hide',message=FALSE}
 #### 1.2 Statistical Analysis
