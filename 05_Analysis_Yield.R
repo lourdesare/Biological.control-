@@ -232,7 +232,7 @@ letterk <- c(letterk,out1$groups$groups)
 
 #Kruskal Yield Graph 
 #Create data frame 
-dat_text <- data.frame(
+dat_textk <- data.frame(
   label = letterk,
   Year   = c(rep(2015,6),rep(2016,6)),
   Treatment = rep(levels(as.factor(YieldOfPotato$Treatment)),4),
@@ -242,12 +242,12 @@ kruskalyieldgraph <- ggplot(YieldOfPotato, aes(x=`Cultivar`, y=Yield.Potato, fil
   geom_boxplot()+
   facet_grid(.~Year)+
   theme_light()+
-  geom_text(data = dat_text,
+  geom_text(data = dat_textk,
             mapping = aes(x = Cultivar,
                           y = c(29.7, 23.8,21.8, 28,27,22,20.5,17.9,13.1,21,21.6,16.8),
                           label = letter1),
             position = position_dodge(0.9))+
-  labs(caption = "Figure No. 16 Results of Kruskal test Yield of potato") +
+  labs(caption = "Figure. Results of Kruskal test Yield of potato") +
   theme(plot.caption.position = "plot",
         plot.caption = element_text(hjust = 0))
 kruskalyieldgraph

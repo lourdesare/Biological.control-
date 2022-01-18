@@ -125,7 +125,7 @@ for (i in 2015:2016) {
 LettersPH12 <- data.frame(Year = Y, `Fractions` = factor(W), 
                          Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
 
-#Stems Kruskal Graph
+#Biomass Kruskal Graph
 
 ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatment))+ylab("Biomass (%)")+
   geom_boxplot()+

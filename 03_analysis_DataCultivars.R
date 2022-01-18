@@ -48,7 +48,7 @@ ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Plant.Height, fill=
                           y = mea + 5,
                           label = letra),
             position = position_dodge(0.9))+
-  labs(caption = "Figure No 1. Results of Duncan Test in the variable of Plant Height on potato (cm)") +
+  labs(caption = "Figure 1. Results of Duncan Test in the variable of Plant Height on potato (cm)") +
   theme(plot.caption.position = "plot",
         plot.caption = element_text(hjust = 0))
 
