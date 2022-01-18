@@ -1,3 +1,4 @@
+```{r include = FALSE}
 ##### 1. ANTAGONISTIC ACTIVITY
 
 #### Antagonistic activity was evaluated by measuring the diameter of the fungal 
@@ -40,9 +41,9 @@ ggplot(plot.means, aes(x = Days,
   geom_errorbar(aes(ymin=mean-se,
                     ymax=mean+se),
                 width = .1)+
-  labs(caption = "Figure No. 19. The influence of B. velezensis strains on the growth of R. solani in vitro (colony growth)",
+  labs(caption = "Figure No. 19. Progression of colonial growth of R. solani under the antagonistic effect of two B. velezensis strains in vitro",
        x = "Days",
-       y = "Colony diameter",
+       y = "Colony diameter (cm)",
        color = "Treatment") +theme_light()+ guides(col=guide_legend("Treatments")) +
   theme(plot.caption.position = "plot",
         plot.caption = element_text(hjust = 0))
@@ -183,7 +184,7 @@ DunBox <- ggplot(AntagonisticActivity, aes(x=`Trat`, y=Colony.Diameter, fill=Tra
                           label=label),
             position = position_dodge(0.9))+
   facet_grid(.~Days)+
-  labs(caption = "Figure No. 20. Duncan Test for Antagonistic activity") +
+  labs(caption = "Figure No. 20. Duncan Test for Antagonistic activity of two strains of B. velezensis against R. solani in vitro") +
   scale_x_discrete(("Treatments"),limitedLabels("Treatments"))+
   scale_fill_discrete(("Treatments"))+
   theme(plot.caption.position = "plot",
@@ -223,7 +224,7 @@ TukBox <- ggplot(AntagonisticActivity, aes(x=`Trat`, y=Colony.Diameter, fill=Tra
                           label=label),
             position = position_dodge(0.9))+
   facet_grid(.~Days)+
-  labs(caption = "Figure No. 21. Tukey Test for Antagonistic activity") +
+  labs(caption = "Figure No. 21. Tukey Test for Antagonistic activity of two strains of B. velezensis against R. solani in vitro") +
   scale_x_discrete(("Treatments"),limitedLabels("Treatments"))+
   scale_fill_discrete(("Treatments"))+
   theme(plot.caption.position = "plot",
@@ -263,7 +264,7 @@ KWBox <- ggplot(AntagonisticActivity, aes(x=`Trat`, y=Colony.Diameter, fill=Trat
                           label=label),
             position = position_dodge(0.9))+
   facet_grid(.~Days)+
-  labs(caption = "Figure No. 22. Kruskal-Wallis Test for Antagonistic activity") +
+  labs(caption = "Figure No. 22. Kruskal-Wallis Test for Antagonistic activity of two strains of B. velezensis against R. solani in vitro") +
   scale_x_discrete(("Treatments"),limitedLabels("Treatments"))+
   scale_fill_discrete(("Treatments"))+
   theme(plot.caption.position = "plot",
