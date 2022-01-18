@@ -114,12 +114,14 @@ for (i in 2015:2016) {
                                     Data.Cultivars.Final$`Weeks after planting`==j &
                                     Data.Cultivars.Final$Cultivar==k, ]
       d1k$Treatment <- factor(d1k$Treatment)
-      DT <- with(d1k,kruskal(Plant.Height,Treatment))
+      kw <- with(d1k,kruskal(Plant.Height,Treatment))
+      gr <- kw$groups
+      lt <- gr$groups[order(row.names(gr))]
       Y <- c(Y, i,i,i)
       W <- c(W, j,j,j)
       C <- c(C, k,k,k)
-      Tr <- c(Tr, row.names(DT$groups))
-      L <- c(L, DT$groups$groups)
+      Tr <- c(Tr, levels(d1k$Treatment))
+      L <- c(L, lt)
       M <- c(M, mean(d1k$Plant.Height[d1k$Treatment == levels(d1k$Treatment)[1]]),
              mean(d1k$Plant.Height[d1k$Treatment == levels(d1k$Treatment)[2]]),
              mean(d1k$Plant.Height[d1k$Treatment == levels(d1k$Treatment)[3]]))
