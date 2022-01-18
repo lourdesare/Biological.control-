@@ -1,6 +1,6 @@
 ---
 title: "Biological control of important fungal diseases of potato and raspberry by two *Bacillus velezensis* strains"
-author: "Lourdes Arellano M, Antonia Fernandes, Juliana Cajiao and Rosario Heribia"
+author: "Lourdes Arellano, Antonia Fernandes, Juliana Cajiao and Rosario Heribia"
 date: "20/01/2022"
 output:
   html_document:
