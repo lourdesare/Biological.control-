@@ -1,7 +1,7 @@
 ---
 title: "Biological control of important fungal diseases of potato and raspberry by two *Bacillus velezensis* strains"
 author: "Lourdes Arellano M, Antonia Fernandes, Juliana Cajiao and Rosario Heribia"
-date: "21/12/2021"
+date: "20/01/2022"
 output:
   html_document:
     code_folding: hide
@@ -24,11 +24,11 @@ knitr::opts_chunk$set(
 ```
 
 ## Introduction 
-Fungal phytopathogens affect agricultural crops lead to a improtant decrease in their quality and production. They act as a threat to crops through various mechanisms of pathogenesis that compromise the immune system of the plants. The use of fungicides against fungal plant diseases improves crop yield, quality, and shelf-life (Brauer et al., 2019).  Nevertheless, the irrational uses of this products triggers to health problems, and can also cause severe damage to the environment. Accumulation of pesticides in the environment disrupts the ecological balance and raises pathogen resistance to pesticides. Thus, the application of fungicides in agriculture should be under strict regulation to ensure that commercialized foods are safe for consumption and pose negligible risks of acute toxicity due to carry-over (Brauer et al., 2019).   
+Fungal phytopathogens affect agricultural crops lead to a improtant decrease in their quality and production. They act as a threat to crops through various mechanisms of pathogenesis that compromise the immune system of the plants. The use of fungicides against fungal plant diseases improves crop yield, quality, and shelf-life (Brauer *et al*., 2019).  Nevertheless, the irrational uses of this products triggers to health problems, and can also cause severe damage to the environment. Accumulation of pesticides in the environment disrupts the ecological balance and raises pathogen resistance to pesticides. Thus, the application of fungicides in agriculture should be under strict regulation to ensure that commercialized foods are safe for consumption and pose negligible risks of acute toxicity due to carry-over (Brauer *et al*., 2019).   
 
 In the case of potato and raspberry plants, they are affected by important diseases as stem canker and black scurf, causes by the fungi *Rhizoctonia solani* and *Didymella applanata*. Recently, two strains of the bacteria *Bacillus velezensis*, specifically BZR 336g and BZR 517, have been tested as potential biological control of these diseases (Asaturova et al., 2020).
 
-*Bacillus velezensis*, an antagonistic bacteria produces several antimicrobial compounds as secondary metabolites against phytopathogens. *B. velezensis* produces spores, which can be used for developing an effective biopesticide. Previously, many studies have demonstrated that several secondary metabolites produced by antagonistic bacteria, play key roles in the control of various phytopathogens. Furthermore, *Bacillus* spp., have been found to produce cyclic lipopeptides (CLPs), which play a key role in antimicrobial activity (Soo Kim et al., 2021).  
+*Bacillus velezensis*, an antagonistic bacteria produces several antimicrobial compounds as secondary metabolites against phytopathogens. *B. velezensis* produces spores, which can be used for developing an effective biopesticide. Previously, many studies have demonstrated that several secondary metabolites produced by antagonistic bacteria, play key roles in the control of various phytopathogens. Furthermore, *Bacillus* spp., have been found to produce cyclic lipopeptides (CLPs), which play a key role in antimicrobial activity (Soo Kim *et al*., 2021).  
 
 Different methodologies can be applied for the evaluation of the effectiveness of pesticides with different factors and levels; and for this, a variance test must be carried out. An example is Duncan's test, which is used to compare all pairs of means. It was first developed by Duncan in 1951 but later was modified by himself, generating what is now called Duncan's New Multiple Range Method.
 
@@ -40,7 +40,7 @@ Another variance test that can be applied is the Tukey test. This method was pro
 
 By the other hand, the Shapiro-Wilks test poses the null hypothesis that a sample comes from a normal distribution. The Shapiro-Wilks test poses the null hypothesis that a sample comes from a normal distribution. This test attempts to reject the null hypothesis according to the level of significance. Therefore, if the significance is greater than 0.05, the null hypothesis is overcome, and if it is less than this value, the alternate hypothesis is accepted and it could then be stated that the data do not follow a normal distribution (UNAL, 2021).
 
-It is important to highlight that the study of beneficial microorganisms to create new biological formulations for plant protection is typically conducted under the same ecological and geographical conditions in which the microorganisms were isolated. Thus, effect of this bacteria has been demonstrated as a biological control in crops such as tomato and in specific conditions. However, its potential use as a pesticide in potatoes and raspberries is unknown. The main objective of this work was to demonstrate the potential effect of *B. velezensis* strains against *R. solani*, as a biological control in raspeberry and potatoa and its potential effect on potato crop growth. The strains were isolated in southern Russia on suppressing *Rhizoctonia* disease on potato and spur blight on red raspberry in Western Siberia, which is a geographically distant region with much more severe climate conditions (Asaturova et al., 2020).
+It is important to highlight that the study of beneficial microorganisms to create new biological formulations for plant protection is typically conducted under the same ecological and geographical conditions in which the microorganisms were isolated. Thus, effect of this bacteria has been demonstrated as a biological control in crops such as tomato and in specific conditions. However, its potential use as a pesticide in potatoes and raspberries is unknown. The main objective of this work was to demonstrate the potential effect of *B. velezensis* strains against *R. solani*, as a biological control in raspeberry and potatoa and its potential effect on potato crop growth. The strains were isolated in southern Russia on suppressing *Rhizoctonia* disease on potato and spur blight on red raspberry in Western Siberia, which is a geographically distant region with much more severe climate conditions (Asaturova *et al*., 2020).
 
 For this, different experiments and scenarios were carried out. Thus, the potential effect was measured through the antifungal activity of *B. velezensis* against *R. solani* *in vitro*, by applying different treatments in different proportions (quantity) of colony units. The evaluation of the effect of *B. velezensis* strains on the incidence and severity of the disease was evaluated through morphometric parameters caused by *R. solani* in two potato cultivars differentiated by resistance to the disease, during the growing seasons 2015 and 2016 in Western Siberia. Finally, to test the potential increase in potato crop, the biomass distribution of the daughter tubers of two potato cultivars and the total yield were measured during the 2015 and 2016 growing seasons in Western Siberia.
 
@@ -71,27 +71,18 @@ First, dowload the raw data of the paper that is in the link:
 
 **Article:**  <https://peerj.com/articles/11578/#>
 
-```{r, eval=FALSE} 
+```{r} 
 if(!dir.exists("data")) dir.create("data")
-download.file("https://dfzljdn9uc3pi.cloudfront.net/2021/11578/1/peerj-55829-Raw_data.xls",
-              "data/rawdata.xls")
+# download.file("https://dfzljdn9uc3pi.cloudfront.net/2021/11578/1/peerj-55829-Raw_data.xls",
+#               "data/rawdata.xls")
 ```
 
 **2. Open and Arrange Data:** For this step, it was used the package "Readxl" to charge the excel file. Each sheet of excel was opened indicating its name and the range required. In some sheets it was use the function "fill" to fill the cells that were empty. Also some names of variables were changed with "rename" and "pivot longer" was used to increase the number of rows or to decrease the number of columns.The potence format was changed. Finally, some new sheets were created why others where joined or deleted in order to have the data arranged. 
 
-```{r include = FALSE}
-library(readxl)
-readxl::excel_sheets("data/peerj-55829-Raw_data.xls")
-dir("data")
-#dir("C:\Users\lsare\Desktop\Plant Health\Estadistica\Biologicalcontrol\data\")
-library(readxl)
-#AntagonisticActivity <- read_excel("data/peerj-55829-Raw_data.xls")
-```
-
 
 ```{r}
+library(readxl)
 #Open sheets with ranges 
-library
 AntagonisticActivity <-
   read_excel("data/peerj-55829-Raw_data.xls",
              sheet = "Antagonistic activity",
@@ -122,7 +113,7 @@ names(AntagonisticActivity)[names(AntagonisticActivity) == 'CFU/ml'] <- "Concent
 #Pivot longer 
 AntagonisticActivity <- pivot_longer(AntagonisticActivity,cols= c("3d", "5d", "7d"), names_to="Days", values_to="Colony.Diameter")
 
-#change potence
+#Change potence
 AntagonisticActivity$Concentration
 a <- as.numeric(substr(AntagonisticActivity$Concentration, 1, 2))
 b <- as.numeric(substr(AntagonisticActivity$Concentration, 3, 3))
@@ -179,7 +170,7 @@ for (i in 1:5) {
 }
 
 
-#dataframe with variables that I need 
+#New Dataframe with variables that I need 
 namesdatacultivar <- c("Cultivar","Treatment","Year","Weeks after planting", "Rep","Plant.Height","Disease.Incidence","Disease.Severity","Stems")           
 Data.Cultivars.Final <- Data.Cultivars [which(names(Data.Cultivars) %in% namesdatacultivar)]
 
@@ -205,15 +196,15 @@ names(BiomassDistribution)[names(BiomassDistribution) == '...9'] <- "5"
 #Pivot longer 
 BiomassDistribution <- pivot_longer(BiomassDistribution,cols= c("1", "2", "3","4","5"), names_to="Rep", values_to="Percentage.Biomass")
 
-#create a sheet for medium fraction
+#Create a sheet for medium fraction
 medium.fraction <- BiomassDistribution[BiomassDistribution$Fractions=="medium",]
 
-#join sheets of yield and medium fraction
+#Join sheets of yield and medium fraction
 names(YieldOfPotato)[names(YieldOfPotato) == 'Bacillus strain'] <- "Treatment"
 YieldOfPotato <- full_join(YieldOfPotato,medium.fraction)
 YieldOfPotato <- YieldOfPotato[,-which(names(YieldOfPotato)=="Fractions")]
 
-#remove sheets
+#Remove unnecessary sheets
 ls()
 rm("Data.Cultivars","DiseaseIncidenceAndSeverity","medium.fraction","MorphometricCharactOfPotato")
 
@@ -223,7 +214,7 @@ rm("Data.Cultivars","DiseaseIncidenceAndSeverity","medium.fraction","Morphometri
 **3. Do analysis:**
 Finally with the arrangement of the sheets of excel, there were obtained 4 main data sets. The first one was Antagonistic Activity, then Data Cultivars that include the variables of Percentage of Disease Incidence, Percentage of Disease Severity, Plant height and number of stems per plant.Then, the data set of Biomass Distribution and finally the data set of Yield of Potato. 
 
-With these data sets were performed Tukey HSD Test, Duncan test and Normality Test of Residuals with shapiro Test. All results were expressed in graphs using the packages of "ggplot" and "ggpubr". The results were analyzed and compared with the results of the article. It is important to say that in the article, the authors have only performed Duncan Test.
+With these data sets were performed Tukey HSD Test, Duncan test, Kruskal and Normality Test of Residuals with shapiro Test. All results were expressed in graphs using the packages of "ggplot" and "ggpubr". The results were analyzed and compared with the results of the article. It is important to say that in the article, the authors have only performed Duncan Test.
 
 **Description of data sets:**
 
@@ -314,15 +305,7 @@ Variables: (5 rep/treatment)
 
 1. Biomass distribution 
 
-**3) Antifungal activity of B. velezensis against *R solani* in vitro.** 
-
-Strains:
-
-1. *Bacillus velezensis* strain BZR 336 g
-
-2. *Bacillus velezensis* strain BZR 517
-
-3. Control 
+**3) Antifungal activity of *B. velezensis* against *R solani* in vitro.** 
 
 
 Treatments:
@@ -335,7 +318,7 @@ Treatments:
   
 4. Control.
 
-###### CFU: Colony-Forming Unit
+* CFU: Colony-Forming Unit
 
 
 Days:
@@ -349,6 +332,7 @@ Days:
 Variables: 
 
 * Colony Diameter (cm)
+* Strains 
 
 
 &nbsp;
@@ -472,7 +456,10 @@ ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Plant.Height, fill=
   labs(caption = "Figure No 2. Results of Tukey Test in the variable of Plant Height on potato (cm)") +
   theme(plot.caption.position = "plot",
         plot.caption = element_text(hjust = 0))
+```
 
+
+```{r,fig.cap="Figure No 3. Normality of Residuals Plant Height"}
 #Residuals Plant Height 
 anova.ph<-aov(Plant.Height~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #anova 
 anova.ph.sqrt <- aov(sqrt(Plant.Height)~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #square root 
@@ -483,7 +470,6 @@ plot(anova.ph, main = "ANOVA", which = 2, ask = F,sub.caption = "")
 plot(anova.ph.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption = "")
 ```
 
-<font size="1.5"> Figure No 3. Normality of Residuals Plant Height.</font> 
 ```{r}
 #AIC and BIC Plant Height
 AIC(anova.ph, anova.ph.sqrt)
@@ -589,6 +575,10 @@ ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Incidence, 
   labs(caption = "Figure No 5. Results of Tukey Test in the variable of Disease Incidence (%)") +
   theme(plot.caption.position = "plot",
         plot.caption = element_text(hjust = 0))
+```
+
+
+```{r,fig.cap="Figure No. 6 Normality of Residuals Disease Incidence"}
 #Residuals Disease Incidence
 anova.di<-aov(Disease.Incidence~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #anova 
 anova.di.sqrt <- aov(sqrt(Disease.Incidence)~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #square root 
@@ -599,7 +589,7 @@ plot(anova.di, main = "ANOVA", which = 2, ask = F,sub.caption = "")
 plot(anova.di.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption = "")
 ```
 
-<font size="1"> Figure No. 6 Normality of Residuals Disease Incidence</font> 
+
 
 ```{r}
 #AIC and BIC Disease Incidence 
@@ -703,6 +693,10 @@ ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Severity, f
   labs(caption = "Figure No 8. Results of Tukey Test in the variable of Disease Severity (%)") +
   theme(plot.caption.position = "plot",
         plot.caption = element_text(hjust = 0))
+```
+
+
+```{r,fig.cap="Figure No. 9 Normality of Residuals Disease Incidence"}
 #Residuals Disease Severity
 anova.ds<-aov(Disease.Severity~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #anova 
 anova.ds.sqrt <- aov(sqrt(Disease.Severity)~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #square root 
@@ -714,7 +708,6 @@ plot(anova.ds.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption =
 
 ```
 
-<font size="1"> Figure No. 9 Normality of Residuals Disease Incidence</font> 
 
 ```{r}
 #AIC and BIC Disease Severity 
@@ -817,7 +810,10 @@ ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Stems, fill=Treatme
   labs(caption = "Figure No 11. Results of Tukey Test in the variable Number of Stems") +
   theme(plot.caption.position = "plot",
         plot.caption = element_text(hjust = 0))
+```
 
+
+```{r,fig.cap="Figure No. 12 Normality of Residuals Stems"}
 #Residuals Stems
 anova.st<-aov(Stems~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #anova 
 anova.st.sqrt <- aov(sqrt(Stems)~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Final) #square root 
@@ -829,7 +825,6 @@ plot(anova.st.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption =
 
 ```
 
-<font size="1"> Figure No. 12 Normality of Residuals Stems</font>
 
 ```{r}
 #AIC and BIC Stems
@@ -933,7 +928,10 @@ ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatm
   labs(caption = "Figure No. 14 Result of Tukey Test in the variable Percentage of Biomass of potato") +
   theme(plot.caption.position = "plot",
         plot.caption = element_text(hjust = 0))
+```
 
+
+```{r,fig.cap="Figure No. 15 Normality of Residuals Percentage of Biomass"}
 #Residuals Biomass
 anova.biomass<-aov(Percentage.Biomass~Treatment+`Fractions`+Year, data=BiomassDistribution) #anova 
 anova.biomass.sqrt <- aov(sqrt(Percentage.Biomass)~Treatment+`Fractions`+Year, data=BiomassDistribution) #square root 
@@ -943,15 +941,12 @@ par(mfrow = c(1, 2), oma = c(0, 0, 1.1, 0))
 plot(anova.biomass, main = "ANOVA", which = 2, ask = F,sub.caption = "")
 plot(anova.biomass.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption = "")
 ```
-<font size="1"> Figure No. 15 Normality of Residuals Percentage of Biomass</font>
 
 ```{r}
 #AIC and BIC Biomass
 AIC(anova.biomass, anova.biomass.sqrt)
 BIC(anova.biomass, anova.biomass.sqrt)
 ```
-
-<font size="1"> Figure No. 15 Normality of Residuals Percentage of Biomass</font>
 
 **2.2 Yield of Potato**
 
@@ -969,7 +964,7 @@ d1 <- YieldOfPotato[Con,]
 model<-aov(Yield.Potato~Treatment,data=d1)
 out <- duncan.test(model,"Treatment", 
                    main="Yield of potato")
-plot(out,variation="IQR")
+#plot(out,variation="IQR")
 out$groups$groups
 
 letter1 <- character()
@@ -984,7 +979,7 @@ d2 <- YieldOfPotato[Con1,]
 model<-aov(Yield.Potato~Treatment,data=d2)
 out <- duncan.test(model,"Treatment", 
                    main="Yield of potato")
-plot(out,variation="IQR")
+#plot(out,variation="IQR")
 out
 letter1 <- c(letter1,out$groups$groups)
 
@@ -996,7 +991,7 @@ d1234 <- YieldOfPotato[Con1234,]
 model<-aov(Yield.Potato~Treatment,data=d1234)
 out <- duncan.test(model,"Treatment", 
                    main="Yield of potato")
-plot(out,variation="IQR")
+#plot(out,variation="IQR")
 out
 letter1 <- c(letter1,out$groups$groups)
 
@@ -1008,7 +1003,7 @@ d2345 <- YieldOfPotato[Con12345,]
 model<-aov(Yield.Potato~Treatment,data=d2345)
 out <- duncan.test(model,"Treatment", 
                    main="Yield of potato")
-plot(out,variation="IQR")
+#plot(out,variation="IQR")
 out
 letter1 <- c(letter1,out$groups$groups)
 
@@ -1138,7 +1133,10 @@ anova.yieldy6<-aov(Yield.Potato~Treatment,data=d2345) #anova
 anova.yieldy6.sqrt <- aov(sqrt(Yield.Potato)~Treatment,data=d2345) #square root
 shapiro.test(anova.yieldy6$residuals) #0.6108
 #shapiro.test(anova.yieldy6.sqrt$residuals) #0.6299
+```
 
+
+```{r,fig.cap="Figure No. 18 Normality of Residuals Yield of Potato"}
 #Graph 
 par(mfrow = c(2, 2), oma = c(0, 0, 1.1, 0))
 p1 <- plot(anova.yieldsk, main = "ANOVA 2015 SK", which = 2, ask = F,sub.caption = "") 
@@ -1146,8 +1144,6 @@ p2 <- plot(anova.yieldy, main = "ANOVA 2015 Y", which = 2, ask = F,sub.caption =
 p3 <- plot(anova.yieldsk6, main = "ANOVA 2016 SK", which = 2, ask = F,sub.caption = "") 
 p4 <- plot(anova.yieldy6, main = "ANOVA 2016 y", which = 2, ask = F,sub.caption = "")
 ```
-
-<font size="1"> Figure No. 18 Normality of Residuals Yield of Potato</font>
 
 **3) *In vitro* antifungal activity of *Bacillus strains* against the phytopathogenic fungus *R. solani*, isolated from infected potato tubers**
 
@@ -1453,16 +1449,16 @@ anova.7d <- aov(Colony.Diameter~Trat,data=AA) #anova
 anova.7d.sqrt <- aov(sqrt(Colony.Diameter)~Trat,data=AA) #square root 
 shapiro.test(anova.7d$residuals) #3.084 e-06
 shapiro.test(anova.7d.sqrt$residuals) #2.288 e-05
+```
 
+
+```{r,fig.cap="Figure No. 22 Normality of Residuals for Antagonistic activity"}
 #Graph 
 par(mfrow = c(2, 2), oma = c(0, 0, 1.1, 0))
 p1 <- plot(anova.3d, main = "ANOVA at 3 days", which = 2, ask = F,sub.caption = "") 
 p2 <- plot(anova.5d, main = "ANOVA at 5 days", which = 2, ask = F,sub.caption = "") 
 p3 <- plot(anova.7d, main = "ANOVA at 7 days", which = 2, ask = F,sub.caption = "") 
 ```
-
-
-<font size="1"> Figure No. 23 Normality of Residuals for Antagonistic activity</font>
 
 ## Conclusions 
 
@@ -1473,5 +1469,3 @@ From the observation that several data sets do not follow a normal distribution,
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
-
