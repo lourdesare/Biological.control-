@@ -94,3 +94,48 @@ plot(anova.biomass, main = "ANOVA Percentage of Biomass", which = 2, ask = F,sub
 #AIC and BIC 
 AIC(anova.biomass, anova.biomass.sqrt)
 BIC(anova.biomass, anova.biomass.sqrt)
+
+
+#Biomass Kruskal  
+
+Y <- W <- Tr <- L <- C <- M <- numeric()
+
+for (i in 2015:2016) { 
+  for (k in levels(as.factor(BiomassDistribution$Cultivar))) {
+    for(j in levels(BiomassDistribution$`Fractions`)) {
+      d1k <- BiomassDistribution[BiomassDistribution$Year==i & 
+                                   BiomassDistribution$`Fractions`==j &
+                                   BiomassDistribution$Cultivar==k, ]
+      d1k$Treatment <- factor(d1k$Treatment)
+      kw <- with(d1k,kruskal(Percentage.Biomass,Treatment))
+      gr <- kw$groups
+      lt <- gr$groups[order(row.names(gr))]
+      Y <- c(Y, i,i,i)
+      W <- c(W, j,j,j)
+      C <- c(C, k,k,k)
+      Tr <- c(Tr, levels(d1k$Treatment))
+      L <- c(L, lt)
+      M <- c(M, mean(d1k$Percentage.Biomass[d1k$Treatment == levels(d1k$Treatment)[1]]),
+             mean(d1k$Percentage.Biomass[d1k$Treatment == levels(d1k$Treatment)[2]]),
+             mean(d1k$Percentage.Biomass[d1k$Treatment == levels(d1k$Treatment)[3]]))
+    }
+  }
+}
+
+LettersPH12 <- data.frame(Year = Y, `Fractions` = factor(W), 
+                         Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
+
+#Stems Kruskal Graph
+
+ggplot(BiomassDistribution, aes(x=`Fractions`, y=Percentage.Biomass, fill=Treatment))+ylab("Biomass (%)")+
+  geom_boxplot()+
+  facet_grid(Cultivar~Year)+
+  theme_light()+
+  geom_text(data = LettersPH12,
+            mapping = aes(x = Fractions,
+                          y = mea + 5,
+                          label = letra),
+            position = position_dodge(0.9))+
+  labs(caption = "Results Kruskal Figure No.  Percentage of Biomass of potato") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))

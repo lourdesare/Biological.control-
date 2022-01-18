@@ -271,7 +271,7 @@ LettersDIk <- data.frame(Year = Y, `Weeks after planting` = factor(W),
 
 #Disease Incidence Kruskal Graph
 
-ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Incidence, fill=Treatment))+ylab("Plant Height (cm)")+
+ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Incidence, fill=Treatment))+ylab("Disease Incidence(%)")+
   geom_boxplot()+
   facet_grid(Cultivar~Year)+
   theme_light()+
@@ -418,7 +418,7 @@ LettersDSk <- data.frame(Year = Y, `Weeks after planting` = factor(W),
 
 #Disease Severity Kruskal Graph
 
-ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Severity, fill=Treatment))+ylab("Plant Height (cm)")+
+ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Severity, fill=Treatment))+ylab("Disease Severity(%)")+
   geom_boxplot()+
   facet_grid(Cultivar~Year)+
   theme_light()+
@@ -564,7 +564,7 @@ LettersSTk <- data.frame(Year = Y, `Weeks after planting` = factor(W),
 
 #Stems Kruskal Graph
 
-ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Stems, fill=Treatment))+ylab("Plant Height (cm)")+
+ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Stems, fill=Treatment))+ylab("Stems (cm)")+
   geom_boxplot()+
   facet_grid(Cultivar~Year)+
   theme_light()+
