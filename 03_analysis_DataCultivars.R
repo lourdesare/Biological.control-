@@ -240,6 +240,49 @@ par(mfrow = c(1, 2), oma = c(0, 0, 1.1, 0))
 plot(anova.di, main = "ANOVA", which = 2, ask = F,sub.caption = "Disease Insidence")
 plot(anova.di.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption = "")
 
+#Disease Incidence Kruskal  
+
+Y <- W <- Tr <- L <- C <- M <- numeric()
+
+for (i in 2015:2016) { 
+  for (k in levels(as.factor(Data.Cultivars.Final$Cultivar))) {
+    for(j in levels(Data.Cultivars.Final$`Weeks after planting`)) {
+      d1k <- Data.Cultivars.Final[Data.Cultivars.Final$Year==i & 
+                                    Data.Cultivars.Final$`Weeks after planting`==j &
+                                    Data.Cultivars.Final$Cultivar==k, ]
+      d1k$Treatment <- factor(d1k$Treatment)
+      kw <- with(d1k,kruskal(Disease.Incidence,Treatment))
+      gr <- kw$groups
+      lt <- gr$groups[order(row.names(gr))]
+      Y <- c(Y, i,i,i)
+      W <- c(W, j,j,j)
+      C <- c(C, k,k,k)
+      Tr <- c(Tr, levels(d1k$Treatment))
+      L <- c(L, lt)
+      M <- c(M, mean(d1k$Disease.Incidence[d1k$Treatment == levels(d1k$Treatment)[1]]),
+             mean(d1k$Disease.Incidence[d1k$Treatment == levels(d1k$Treatment)[2]]),
+             mean(d1k$Disease.Incidence[d1k$Treatment == levels(d1k$Treatment)[3]]))
+    }
+  }
+}
+
+LettersDIk <- data.frame(Year = Y, `Weeks after planting` = factor(W), 
+                         Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
+
+#Disease Incidence Kruskal Graph
+
+ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Incidence, fill=Treatment))+ylab("Plant Height (cm)")+
+  geom_boxplot()+
+  facet_grid(Cultivar~Year)+
+  theme_light()+
+  geom_text(data = LettersDIk,
+            mapping = aes(x = Weeks.after.planting,
+                          y = mea + 5,
+                          label = letra),
+            position = position_dodge(0.9))+
+  labs(caption = "Figure No X. Results of Kruskal Test in the variable of Disease Incidence on potato (cm)") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
 
 
 
@@ -344,6 +387,52 @@ par(mfrow = c(1, 2), oma = c(0, 0, 1.1, 0))
 plot(anova.ds, main = "ANOVA", which = 2, ask = F,sub.caption = "Disease Severity")
 plot(anova.ds.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption = "")
 
+#Disease Severity Kruskal  
+
+Y <- W <- Tr <- L <- C <- M <- numeric()
+
+for (i in 2015:2016) { 
+  for (k in levels(as.factor(Data.Cultivars.Final$Cultivar))) {
+    for(j in levels(Data.Cultivars.Final$`Weeks after planting`)) {
+      d1k <- Data.Cultivars.Final[Data.Cultivars.Final$Year==i & 
+                                    Data.Cultivars.Final$`Weeks after planting`==j &
+                                    Data.Cultivars.Final$Cultivar==k, ]
+      d1k$Treatment <- factor(d1k$Treatment)
+      kw <- with(d1k,kruskal(Disease.Severity,Treatment))
+      gr <- kw$groups
+      lt <- gr$groups[order(row.names(gr))]
+      Y <- c(Y, i,i,i)
+      W <- c(W, j,j,j)
+      C <- c(C, k,k,k)
+      Tr <- c(Tr, levels(d1k$Treatment))
+      L <- c(L, lt)
+      M <- c(M, mean(d1k$Disease.Severity[d1k$Treatment == levels(d1k$Treatment)[1]]),
+             mean(d1k$Disease.Severity[d1k$Treatment == levels(d1k$Treatment)[2]]),
+             mean(d1k$Disease.Severity[d1k$Treatment == levels(d1k$Treatment)[3]]))
+    }
+  }
+}
+
+LettersDSk <- data.frame(Year = Y, `Weeks after planting` = factor(W), 
+                         Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
+
+#Disease Severity Kruskal Graph
+
+ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Disease.Severity, fill=Treatment))+ylab("Plant Height (cm)")+
+  geom_boxplot()+
+  facet_grid(Cultivar~Year)+
+  theme_light()+
+  geom_text(data = LettersDSk,
+            mapping = aes(x = Weeks.after.planting,
+                          y = mea + 5,
+                          label = letra),
+            position = position_dodge(0.9))+
+  labs(caption = "Figure No X. Results of Kruskal Test in the variable of Disease Severity on potato (cm)") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
+
+
+
 
 #Stems
 #Anova Stems
@@ -444,4 +533,46 @@ par(mfrow = c(1, 2), oma = c(0, 0, 1.1, 0))
 plot(anova.ds, main = "ANOVA", which = 2, ask = F,sub.caption = "")
 plot(anova.ds.sqrt, main = "Square Root ANOVA", which = 2, ask = F,sub.caption = "")
 
+#Stems Kruskal  
 
+Y <- W <- Tr <- L <- C <- M <- numeric()
+
+for (i in 2015:2016) { 
+  for (k in levels(as.factor(Data.Cultivars.Final$Cultivar))) {
+    for(j in levels(Data.Cultivars.Final$`Weeks after planting`)) {
+      d1k <- Data.Cultivars.Final[Data.Cultivars.Final$Year==i & 
+                                    Data.Cultivars.Final$`Weeks after planting`==j &
+                                    Data.Cultivars.Final$Cultivar==k, ]
+      d1k$Treatment <- factor(d1k$Treatment)
+      kw <- with(d1k,kruskal(Stems,Treatment))
+      gr <- kw$groups
+      lt <- gr$groups[order(row.names(gr))]
+      Y <- c(Y, i,i,i)
+      W <- c(W, j,j,j)
+      C <- c(C, k,k,k)
+      Tr <- c(Tr, levels(d1k$Treatment))
+      L <- c(L, lt)
+      M <- c(M, mean(d1k$Stems[d1k$Treatment == levels(d1k$Treatment)[1]]),
+             mean(d1k$Stems[d1k$Treatment == levels(d1k$Treatment)[2]]),
+             mean(d1k$Stems[d1k$Treatment == levels(d1k$Treatment)[3]]))
+    }
+  }
+}
+
+LettersSTk <- data.frame(Year = Y, `Weeks after planting` = factor(W), 
+                         Cultivar = C, Treatment = factor(Tr), letra = L, mea = M)
+
+#Stems Kruskal Graph
+
+ggplot(Data.Cultivars.Final, aes(x=`Weeks after planting`, y=Stems, fill=Treatment))+ylab("Plant Height (cm)")+
+  geom_boxplot()+
+  facet_grid(Cultivar~Year)+
+  theme_light()+
+  geom_text(data = LettersSTk,
+            mapping = aes(x = Weeks.after.planting,
+                          y = mea + 1,
+                          label = letra),
+            position = position_dodge(0.9))+
+  labs(caption = "Figure No X. Results of Kruskal Test in the variable of Stems on potato (cm)") +
+  theme(plot.caption.position = "plot",
+        plot.caption = element_text(hjust = 0))
