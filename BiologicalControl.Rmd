@@ -348,9 +348,9 @@ Variables:
 &nbsp;
 **1.1 Plant Height**
 
-The Duncan and Tukey tests had few differences.Only in year 2016, week 6 in cultivar Svitanok kievski it can be seen a difference in the group of BZR 517 (Figures 1 and 2). The Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was lower than 0.05, that means that the data significantly deviate from a normal distribution (Figure 3).
+We can see only few differences between the results of Ducan, Tukey and Kruskal test, in the difference between treatments (Figures 1, 2 and 3). Also, the Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was lower than 0.05, that means that the data significantly deviate from a normal distribution (Figure 4) and, in this case the best test to be used would be the Tukey test because of the normal distribuction of the results.
 
-Taking into account the plant height, at week 10, we can see that the BZR 336g treatment generated greater plant height in every cultivar and year in the Ducan test, less in the cultivar Svitanok Kievski in 2016, when there was no significant difference between treatments. In the Tukey test, the difference between treatments was significant only in the Yuna variety.
+Taking into account the plant height, we can see that the values increase over the weeks, however the difference between the treatments is not so great and in most cases the first treatment (BZR 336g) generates the highest plant height and the second (BZR 517) is an intermediate value, when compared to the control. Moreover this difference is most noticeable in week 10 when only the cultivar Svitanok kievski in 2016 had no significant difference between treatments. 
 
 
 ```{r,results='hide', warning=FALSE}
