@@ -1198,9 +1198,9 @@ BIC(anova.biomass, anova.biomass.sqrt)
 
 **2.2 Yield of Potato**
 
-The Duncan and Tukey tests did not have differences (Figures 16 and 17). The Shapiro-Wilk normality test was performed for Anova with a p-vañue higher than 0.05 both years and cultivars, that means that the data has a normal distribution (Figure 18).
+We can't see differences between the results of Ducan, Tukey and Kruskal test, in the differences between treatments (Figures 21, 22 and 23). The Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was higher than 0.05, what means that the data follow a normal distribution (Figure 24) and, in this case, the best test to be used is the Tukey test, to compare the differences between the treatments.
 
-Taking into account the yield of potato, we can observe that in both tests and in both years, in cultivar Svitanok kievski, the BZR 336g treatment generated the highest yield. However, for the cultivar Yuna, the difference between the two treatments was not significant at any time.
+Taking into account the Tukey test for the yield of potato, first, we can see that the both cultivars produced more in 2015 than in 2016. In the case of the cultivar Svitanok kievski, the treatment BZR 336g proved to be the most efficient, and the treatment BZR 517 an intermediary when compared to the control. In the case of the Yuna cultivar, there was no statistical difference between the two treatments, however both were more efficient when compared to the control.
 
 
 ```{r,results='hide'}
