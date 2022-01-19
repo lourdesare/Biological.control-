@@ -80,7 +80,7 @@ if(!dir.exists("data")) dir.create("data")
 **2. Open and Arrange Data:** For this step, it was used the package "Readxl" to charge the excel file. Each sheet of excel was opened indicating its name and the range required. In some sheets it was use the function "fill" to fill the cells that were empty. Also some names of variables were changed with "rename" and "pivot longer" was used to increase the number of rows or to decrease the number of columns.The potence format was changed. Finally, some new sheets were created why others where joined or deleted in order to have the data arranged. 
 
 
-```{r,results='hide',message=FALSE}
+```{r,results='hide',message=FALSE, warning=FALSE}
 library(readxl)
 #Open sheets with ranges 
 AntagonisticActivity <-
@@ -353,7 +353,7 @@ The Duncan and Tukey tests had few differences.Only in year 2016, week 6 in cult
 Taking into account the plant height, at week 10, we can see that the BZR 336g treatment generated greater plant height in every cultivar and year in the Ducan test, less in the cultivar Svitanok Kievski in 2016, when there was no significant difference between treatments. In the Tukey test, the difference between treatments was significant only in the Yuna variety.
 
 
-```{r,results='hide'}
+```{r,results='hide', warning=FALSE}
 #Duncan Analysis Data.Cultivars.Final
 library(agricolae)
 library(ggplot2)
