@@ -348,7 +348,7 @@ Variables:
 &nbsp;
 **1.1 Plant Height**
 
-We can see only few differences between the results of Ducan, Tukey and Kruskal test, in the differences between treatments (Figures 1, 2 and 3). Also, the Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was almost higher than 0.05, that means that the data is really similar to a normal distribution (Figure 4) and, in this case, the best test to be used would be the Tukey test because of the normal distribution of the results.
+We can see only few differences between the results of Duncan, Tukey and Kruskal test, in the differences between treatments (Figures 1, 2 and 3). Also, the Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was almost higher than 0.05, that means that the data is really similar to a normal distribution (Figure 4) and, in this case, the best test to be used would be the Tukey test because of the normal distribution of the results.
 
 Taking into account the Tukey test for the plant height, we can see that the values increase over the weeks, however the difference between the treatments is not so great and in most cases the first treatment (BZR 336g) generates the highest plant height and the second (BZR 517) is an intermediate value, when compared to the control. Moreover, this difference is most noticeable in 10 weeks after planting when only the cultivar Svitanok kievski in 2016 had no significant difference between treatments. 
 
@@ -525,7 +525,7 @@ BIC(anova.ph, anova.ph.sqrt)
 
 **1.2 Disease Incidence** 
 
-We can see only few differences between the results of Ducan, Tukey and Kruskal test, in the differences between treatments (Figures 5, 6 and 7). Also, The Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was almost higher than 0.05 (in the Anova, with the normal values), what means that the data is really similar to a normal distribution (Figure 8) and, in this case the best test to be used would be the Tukey test because of the normal distribution of the results.
+We can see only few differences between the results of Duncan, Tukey and Kruskal test, in the differences between treatments (Figures 5, 6 and 7). Also, The Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was almost higher than 0.05 (in the Anova, with the normal values), what means that the data is really similar to a normal distribution (Figure 8) and, in this case the best test to be used would be the Tukey test because of the normal distribution of the results.
 
 Taking into account the Tukey test for disease incidence, we can see a big difference between the control and the treatments principally 10 weeks after planting. In most of the cases, the first treatment (BZR 336g) generates the lower disease incidence and the second (BZR 517) is an intermediate value, when compared to the control. The only difference is in the cultivar Svitanok kievski, in 2015, when 10 weeks after plating it had no significant difference between the two treatments.  
 
@@ -694,7 +694,7 @@ BIC(anova.di, anova.di.sqrt)
 ```
 **1.3 Disease Severity**
 
-The Duncan and Tukey tests did not have differences (Figures 9 and 10) and they had only few differences to the Kruskal test (Figure 11). The Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was lower than 0.05, what means that the data don't deviate from a normal distribution (Figure 12) and, in this case, the best test to be use is a nonparametric test, like the Ducan or Kruskal, to compare the differences between the treatments.
+The Duncan and Tukey tests did not have differences (Figures 9 and 10) and they had only few differences to the Kruskal test (Figure 11). The Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was lower than 0.05, what means that the data don't deviate from a normal distribution (Figure 12) and, in this case, the best test to be use is a nonparametric test, like the Duncan or Kruskal, to compare the differences between the treatments.
 
 Taking into account the Kruskal test for disease severity, we can see a big difference between the control and the treatments principally 10 weeks after planting. In all cases, at this time, the first treatment (BZR 336g) generates the lower disease severity and the second (BZR 517) is an intermediate value, when compared to the control. 
 
@@ -864,7 +864,7 @@ BIC(anova.ds, anova.ds.sqrt)
 
 **1.4 Number of stems**
 
-We can see only few differences between the results of Ducan, Tukey and Kruskal test, in the differences between treatments (Figures 13, 14 and 15). The Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was lower than 0.05, that means that the data don't deviate from a normal distribution (Figure 16) and, in this case, the best test to be used is a nonparametric test, like the Ducan or Kruskal, to compare the differences between the treatments.
+We can see only few differences between the results of Duncan, Tukey and Kruskal test, in the differences between treatments (Figures 13, 14 and 15). The Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was lower than 0.05, that means that the data don't deviate from a normal distribution (Figure 16) and, in this case, the best test to be used is a nonparametric test, like the Duncan or Kruskal, to compare the differences between the treatments.
 
 Taking into account the Kruskal test for number of stems, we can see that the differences are bigger between the treatments than between the weeks. In almost all the cases, the first treatment (BZR 336g) generates the biggest stems and the second (BZR 517) is an intermediate value, when compared to the control. We can also see that the cultivar Yuna has normally lower values of stems than the cultivar Svitanok kievski. We can also see that only the cultivar Yuna in 6 and 10 weeks after planting had no significant difference between treatments.
 
@@ -875,7 +875,7 @@ model<-aov(Stems~Treatment+`Weeks after planting`+Year, data=Data.Cultivars.Fina
 summary(model)
 Data.Cultivars.Final$`Weeks after planting` <- factor(Data.Cultivars.Final$`Weeks after planting`)
 
-#Ducant Test Stems
+#Duncant Test Stems
 Y <- W <- Tr <- L <- C <- M <- numeric()
 
 for (i in 2015:2016) { 
@@ -1034,7 +1034,7 @@ BIC(anova.st, anova.st.sqrt)
 
 **2.1 Biomass distribution**
 
-We can't see differences between the results of Ducan, Tukey and Kruskal test, in the differences between treatments (Figures 17, 18 and 19). The Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was higher than 0.05, what means that the data follow a normal distribution (Figure 20) and, in this case, the best test to be used is the Tukey test, to compare the differences between the treatments.
+We can't see differences between the results of Duncan, Tukey and Kruskal test, in the differences between treatments (Figures 17, 18 and 19). The Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was higher than 0.05, what means that the data follow a normal distribution (Figure 20) and, in this case, the best test to be used is the Tukey test, to compare the differences between the treatments.
 
 Taking into account the Tukey test for the biomass distribution, we can see that we have more biomass in the medium fraction and also that the efficiency of the treatments changes depending on the fraction. In this way we can see that, for the large fraction, the treatment BZR 336g results in the higher biomass production, however when we analyze the small fractions, the higher production of biomass takes place in the control. For the medium fractions, the treatment BZR 517 proved to be the most effective, however, there was no significant difference between the control for the cultivar Yuna.
 
@@ -1198,7 +1198,7 @@ BIC(anova.biomass, anova.biomass.sqrt)
 
 **2.2 Yield of Potato**
 
-We can't see differences between the results of Ducan, Tukey and Kruskal test, in the differences between treatments (Figures 21, 22 and 23). The Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was higher than 0.05, what means that the data follow a normal distribution (Figure 24) and, in this case, the best test to be used is the Tukey test, to compare the differences between the treatments.
+We can't see differences between the results of Duncan, Tukey and Kruskal test, in the differences between treatments (Figures 21, 22 and 23). The Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was higher than 0.05, what means that the data follow a normal distribution (Figure 24) and, in this case, the best test to be used is the Tukey test, to compare the differences between the treatments.
 
 Taking into account the Tukey test for the yield of potato, first, we can see that the both cultivars produced more in 2015 than in 2016. In the case of the cultivar Svitanok kievski, the treatment BZR 336g proved to be the most efficient, and the treatment BZR 517 an intermediary when compared to the control. In the case of the Yuna cultivar, there was no statistical difference between the two treatments, however both were more efficient when compared to the control.
 
