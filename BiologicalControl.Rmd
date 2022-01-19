@@ -348,9 +348,9 @@ Variables:
 &nbsp;
 **1.1 Plant Height**
 
-We can see only few differences between the results of Ducan, Tukey and Kruskal test, in the difference between treatments (Figures 1, 2 and 3). Also, the Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was lower than 0.05, that means that the data significantly deviate from a normal distribution (Figure 4) and, in this case the best test to be used would be the Tukey test because of the normal distribuction of the results.
+We can see only few differences between the results of Ducan, Tukey and Kruskal test, in the differences between treatments (Figures 1, 2 and 3). Also, the Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was almost higher than 0.05, that means that the data is really similar to a normal distribution (Figure 4) and, in this case, the best test to be used would be the Tukey test because of the normal distribution of the results.
 
-Taking into account the plant height, we can see that the values increase over the weeks, however the difference between the treatments is not so great and in most cases the first treatment (BZR 336g) generates the highest plant height and the second (BZR 517) is an intermediate value, when compared to the control. Moreover this difference is most noticeable in week 10 when only the cultivar Svitanok kievski in 2016 had no significant difference between treatments. 
+Taking into account the Tukey test for the plant height, we can see that the values increase over the weeks, however the difference between the treatments is not so great and in most cases the first treatment (BZR 336g) generates the highest plant height and the second (BZR 517) is an intermediate value, when compared to the control. Moreover, this difference is most noticeable in 10 weeks after planting when only the cultivar Svitanok kievski in 2016 had no significant difference between treatments. 
 
 
 ```{r,results='hide', warning=FALSE}
@@ -525,9 +525,9 @@ BIC(anova.ph, anova.ph.sqrt)
 
 **1.2 Disease Incidence** 
 
-The Duncan and Tukey tests had few differences.Only in year 2015 in cultivar Svitanok kievski it can be seen a difference between the groups (Figures 4 and 5). The Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was lower than 0.05, that means that the data significantly deviate from a normal distribution (Figure 6). 
+We can see only few differences between the results of Ducan, Tukey and Kruskal test, in the differences between treatments (Figures 5, 6 and 7). Also, The Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was almost higher than 0.05 (in the Anova, with the normal values), what means that the data is really similar to a normal distribution (Figure 8) and, in this case the best test to be used would be the Tukey test because of the normal distribution of the results.
 
-Taking into account the incidence of the disease, at week 10, we can observe that the BZR 336 treatment was the one that caused the lowest incidence in both years and in both cultivars when using the Duncan test. In the Tukey test, this difference was not significant between treatments on cultivar Svitanok kievski in 2015.
+Taking into account the Tukey test for disease incidence, we can see a big difference between the control and the treatments principally 10 weeks after planting. In most of the cases, the first treatment (BZR 336g) generates the lower disease incidence and the second (BZR 517) is an intermediate value, when compared to the control. The only difference is in the cultivar Svitanok kievski, in 2015, when 10 weeks after plating it had no significant difference between the two treatments.  
 
 
 ```{r,results='hide'}
@@ -694,9 +694,9 @@ BIC(anova.di, anova.di.sqrt)
 ```
 **1.3 Disease Severity**
 
-The Duncan and Tukey tests did not have differences (Figures 7 and 8). The Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was lower than 0.05, that means that the data significantly deviate from a normal distribution (Figure 9).
+The Duncan and Tukey tests did not have differences (Figures 9 and 10) and they had only few differences to the Kruskal test (Figure 11). The Shapiro-Wilk normality test was performed for Anova and Square Root Anova because in Anova p was lower than 0.05, that means that the data don't deviate from a normal distribution (Figure 12) and, in this case the best test to be use is a nonparametric test, like the Ducan or Kruskal, to compare the differences between the treatments.
 
-Taking into account the disease severity, at week 10, we can observe that the BZR 336 treatment was the one that caused the lowest severity in both years and in both cultivars in both tests. However, this difference was not significant between the two treatments on cultivar Svitanok kievski in 2015, in both tests.
+Taking into account the Kruskal test for disease severity, we can see a big difference between the control and the treatments principally 10 weeks after planting. In all cases at this time, the first treatment (BZR 336g) generates the lower disease severity and the second (BZR 517) is an intermediate value, when compared to the control. 
 
 ```{r,results='hide'}
 #Disease Severity
