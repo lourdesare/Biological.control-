@@ -1817,11 +1817,21 @@ p3 <- plot(anova.7d, main = "ANOVA at 7 days", which = 2, ask = F,sub.caption = 
 
 ## Conclusions 
 
-It can be said that this article in question has very little data to be worked on and therefore the differences between the Tukey and Duncan tests were not significant, which also justifies the authors' choice of use the Duncan test. About the treatments, in general we can said that the treatment with BZR 336g was what generated the best results in the control of the disease and also in practically all morphological aspects. Only when we talk about the biomass, the BZR 517 treatment showed the best results. In this way, we can say that the article did the best that was possible with the informations that they have.
+It can be considered that our data sample is relatively small (1 plant per plot, with 5 repetitions). For potato crop evaluations, some studies recommend smaller plots with a greater number of repetitions in the same total area result in greater precision (Ribeiro et al, 2005). Also Ribeiro et al (2005) estimated an optimum plot size of (4) mounds per treatment for potato yield crop, and a great number or repetitions. Muzhinji et al (2018) recommend to sample 10 plants per plot/treatment with 4 repetitions for evaluating *R. solani* in potato crop. 
 
-From the observation that several data sets do not follow a normal distribution, it can be inferred that the authors preferred to perform the mean comparison analysis using the Duncan test, since this can be applied in the same conditions of the Tukey's test, but with a significance less cautionary. Due to the lack of robustness of Duncan's test there are some cautions to follow, as many times it cannot be accepted as a proof of differences.
+From the observation that some data sets do not follow a normal distribution, it can be inferred that the authors performed non parametric Duncan test, since this can be applied in the same conditions of the Tukey's test, but with a significance less cautionary. Also in the argument that a more liberal procedure is appropriate because in real world practice the global null hypothesis Ho = "All means are equal" is often false. Due to the lack of robustness of Duncan's test there are some cautions to follow, as many times it cannot be accepted as a proof of differences.
 
-Moreover, the Duncan Test performed compared to the authors’ varied because some factors. First, in some variables like plant height, biomass distribution, and yield there were some problems in the article tables with the letters of the groups. For example, in the variable plant height in the year 2015, the letters are changed. The lowest values are with letter “a” and the higher with “b” but in the other data the letter are in the other way around. Another factor that affected was that in the variables disease incidence and disease severity, the author grouped the highest values with “c”, unlike us that “c” was the lowest values. Also in colony diameter variable, the author's analysis differ to us becuase they use p values different of 0.05.
+We performed Tukey (parametric) and Kruskal-Wallis (non parametric) in addition to Duncan test, to provide more robust analyzes. Tukey, is more conservative and therefore "less objectionable". When ANOVA assumptions are not met, it is recommended to perform Kruskal-Wallis test, which is an alternative to ANOVA when there are more than two groups to compare. Also Kruskal-Wallis test tends to be more robust and therefore more accepted in scientific publications.
+
+The studied strains (BZR 336 g and BZR 517) were effective reducing the incidence and severity of *R. solani* on potato plants under yield conditions. *B. velezensis* strains improved plant height, number of stems per plant and increased the yield. Also the use of these strains improve the % of medium and large tubers. *B. velezensis* strains had an inhibitory effect in the *R. solani* colony growth under laboratory conditions. For yield trials, the strain BZR 336 g showed the best performance, while high concentrations of both strains performed the best inhibitory effect in laboratory.
+
+It will be interesting to compare the B. velezensis effect with the performance of the current R. solani disease management.
+
+## References 
+
+Muzhinji, N., Woodhall, j. W., Truter, M., and Van der Waals, J. E. (2017). Relative Contribution of Seed Tuber- and Soilborne Inoculum to Potato Disease Development and Changes in the Population Genetic Structure of Rhizoctonia solani AG 3-PT under Field Conditions in South Africa. https://doi.org/10.1094/PDIS-03-17-0329-RE
+
+Ribeiro de Oliveira, S. J., Storck, L. Sidinei, J. L., A., Dal'Col, L. A., Feijó, S. and Perin, D. H. (2005). Plot size and experimental unit relationship in exploratory experiments. https://doi.org/10.1590/S0103-90162005000600012
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
